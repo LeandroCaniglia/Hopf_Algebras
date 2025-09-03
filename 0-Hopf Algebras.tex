@@ -1,0 +1,35 @@
+\documentclass{book}
+
+\title{Hopf Algebras}
+\author{Leandro Caniglia}
+\date{February 2024}
+
+\input preamble
+
+\begin{document}
+
+\frontmatter
+\thispagestyle{empty} % Removes page number from the title page
+\maketitle
+
+\thispagestyle{empty} % Removes page number from the table of contents page
+\tableofcontents
+
+\mainmatter
+
+\setlength{\parindent}{0pt}
+
+\include{1-preliminaries}
+\include{2-zariski}
+\include{3-representable}
+\include{4-hopf-algebras}
+
+\appendix
+\include{5-group-rings}
+\include{6-monads}
+
+\bibliographystyle{natbib/plainnat}  % Choose a bibliography style
+\bibliography{bibliography}     % Specify your .bib file without the extension
+
+\end{document}
+

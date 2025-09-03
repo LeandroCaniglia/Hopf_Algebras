@@ -1,0 +1,1715 @@
+\newcommand{\iu}{{\mkern1mu i\mkern1mu}}
+
+\chapter{The Spectrum of a Ring}
+
+\section{Prime Ideals}
+
+From now on the term \textsl{ring} refers to a commutative ring with unit different from zero.
+
+\begin{defn}
+    Given a partially ordered set $(X,\le)$, a subset $F$ is \textsl{filtered} if given $a,b\in F$, there exists $c\in F$ such that $a\le c$ and $b\le c$. This notion also applies to families $(a_i)_{i\in I}$ of elements in $X$.
+\end{defn}
+
+\begin{rem}
+    Let $A$ be a ring. If $\mathcal F$ is a filtered collection of ideals of $A$, its union $\bigcup\mathcal F$ is also an ideal. Moreover, if the elements of $\mathcal F$ are proper, i.e., not equal to $A$, the union is proper too.
+\end{rem}
+
+\begin{defn}
+    The \textsl{spectrum} of ring $A$ is the set $\Spec(A)$ of its prime ideals.
+\end{defn}
+
+\begin{rem}\label{rem:proper-is-in-maximal}
+    Recall that using Zorn's Lemma it is easy to see that every proper ideal is included in a maximal ideal. Since maximal ideals are prime, the spectrum of a ring is never empty.
+\end{rem}
+
+\begin{lem}
+    Every morphism of rings $\phi\colon A\to b$ induces a map 
+    \begin{align*}
+        \phi^{-1}\colon\Spec(B) &\to\Spec(A)\\
+            P&\mapsto\phi^{-1}(P)
+    \end{align*}
+\end{lem}
+
+\begin{proof}
+    Given $P\in\Spec(B)$ the induced morphism $A/\phi^{-1}(P)\to B/P$ is a monomorphism.
+\end{proof}
+
+\begin{rem}
+    If $I$ is an ideal $\Spec(A/I)=\set{P/I \mid P\in\Spec(A),\; I\subseteq P}$.
+\end{rem}
+
+\begin{defn}
+    If $S$ is a multiplicative (i.e., closed under multiplication) subset of $A\setminus\set0$, then the \textsl{localization} of $A$ at $S$ is the ring
+    $$
+        S^{-1}A = \set{a/s\mid s\in S}.
+    $$
+    If $S=A\setminus P$, where $P\in\Spec(A)$, then $S$ is multiplicative and the localization is denoted $A_P$.
+\end{defn}
+
+\begin{rem}
+    Recall that that $\Spec(A_P)=\set{QA_P\mid Q\in\Spec(A),\, Q\subseteq P}$ since any element in $A\setminus P$ is becomes a unit.
+\end{rem}
+
+\begin{defn}
+    An element $a$ of a ring $A$ is \textsl{nilpotent} if $a^n=0$ for some $n\in\N$.
+\end{defn}
+
+\begin{ntn}
+    If $f\in A$ is not nilpotent, then $A_f$ denotes the localization $S^{-1}A$ of $A$ at $S^{-1}$, where
+    $$
+        S = \set{f^i\mid i\ge0}.
+    $$
+    In particular,
+    $$
+        \Spec(A_f) = \set{PA_f\mid P\in\Spec(A),\, f\notin P}.
+    $$
+\end{ntn}
+
+\begin{thm} {\rm[Division in $\Z[\iu]$]}
+    Given\/ $\alpha, \beta \in \Z[\iu]$ with\/ $\beta \neq 0$, there exist\/ $\mu, \rho \in \Z[\iu]$ such that\/ $\alpha = \beta\mu + \rho$ and\/ $N^2(\rho) < N^2(\beta)$. In fact, we can choose\/ $\rho$ so that\/ $N^2(\rho) \leq \frac{1}{2} N^2(\beta)$.
+\end{thm}
+
+\begin{proof}
+    Write $\alpha=a_1+a_2\iu$, $\beta=b_1+b_2\iu$, $\alpha\bar\beta = m+n\iu$ and $N^2=b_1^2+b_2^2$.
+    Division in $\Z$ leads to $m = N^2q_1 + r_1$ and $n = N^2q_2 + r_2$ with $0\le|r_1|, |r_2|\le N^2/2$. Then,
+    $$
+        \alpha\bar\beta = N^2(q_1 + q_2\iu) + r_1+r_2\iu
+            = \mu N^2 + r_1+r_2\iu,
+    $$
+    where $\mu=q_1+q_2\iu$. Multiplying by $\beta/N^2=1/\bar\beta$ we get
+    $$
+        \alpha = \beta\mu + \frac{r_1+r_2\iu}{\bar\beta}.
+    $$
+    In particular, $\rho=(r_1+r_2\iu)/\bar\beta=\alpha-\beta\mu\in\Z[\iu]$. Moreover,
+    \begin{align*}
+        N^2(\rho)=\frac{r_1^2+r_2^2}{N^2} \le \frac12\frac{N^4}{N^2}=\frac12N^2.
+    \end{align*}
+\end{proof}
+
+\begin{cor}\label{cor:cor:gauss-irreducible-is-prime}
+    Every irreducible element in $\Z[\iu]$ is prime.
+\end{cor}
+
+\begin{proof}
+    Take an irreducible element $\omega$ in $\Z[\iu]$. Suppose that $\omega\mid\alpha\beta$ and $\omega\nmid\alpha$. Write
+    $$
+        \alpha = \omega\mu+\rho,
+    $$
+    with $0<N^2(\rho)<N^2(\omega)$. The equation $\alpha\beta=\omega\mu\beta+\rho\beta$ shows that $\omega\mid\rho\beta$, then induction on $N^2(\alpha\beta)$ implies that $\omega\mid\beta$.
+\end{proof}
+
+\begin{cor}\label{cor:gauss-integers-pid}
+    $\Z[\iu]$ is a PID.
+\end{cor}
+
+\begin{proof}
+    Let $I\subseteq\Z[\iu]$ be an ideal. Without loss of generality we may assume that $I\ne\set0$. Pick $\zeta\in I\setminus\set0$ with minimum $N^2(\zeta)$. If $\alpha\in I$, we can write $\alpha=\zeta\mu+\rho$ with $N^2(\rho)<N^2(\zeta)$. Since $\rho=\alpha-\zeta\mu\in I$, the only possibility is $\rho=0$, i.e., $\alpha\in\gen\zeta$.
+\end{proof}
+
+\begin{rem}
+    Recall that if $F$ is a finite field, the multiplicative group~$F^*$ is cyclic (\citet[\S1~Preliminaries]{LC}).
+\end{rem}
+
+\needspace{3\baselineskip}
+\begin{thm}
+    Let\/ $\Z[\iu]$ be the ring of Gaussian integers. If\/ $p\in\Z$ is an odd prime then the following are equivalent
+    \begin{enumerate}[\rm a)]
+        \item $p\equiv1\pmod 4$
+        \item $x^2+1$ is reducible in $\Z/p\Z[x]$
+        \item $p$ is not prime in\/ $\Z[\iu]$
+        \item $p=a^2+b^2$ for some $a,b\in\Z$.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item $\Rightarrow$ b) Write $p=1+4n$. According to the previous remark, we can pick a generator $u$ of $(\Z/p\Z)^*$. Then $\ord(u)=p-1$ and so
+        $$
+            (u^{2n})^2=u^{4n} = u^{p-1}=1,
+        $$
+        which implies that $u^{2n}=-1\pmod p$. Thus, $(u^n)^2+1 = 0\pmod p$ and $u^n$~is a root of $x^2+1$ in~$\Z/p\Z$.
+
+        \item $\Rightarrow$ c) Pick a root $v$ of $x^2 + 1$ in $\Z/p\Z$. Then $(v+i)(v-\iu) = v^2 + 1 = pn$ for some integer $n$. Hence, $p$ divides $(v+i)(v-\iu)$ without dividing either factor, as otherwise, $p$ would divide~$\pm 1$.
+
+        \item $\Rightarrow$ d) By Corollary~\ref{cor:cor:gauss-irreducible-is-prime} we know that $p$ is reducible in $\Z[\iu]$, i.e., $p=(a+b\iu)(c+d\iu)$ where the factors aren't units, i.e., $N^2(a+b\iu)\ne1$ and $N^2(c+d\iu)\ne1$. Thus, $p^2=N^2(a+b\iu)N^2(c+d\iu)=(a^2+b^2)(c^2+d^2)$ and the result follows because factorization in~$\Z$ is unique.
+
+        \item $\Rightarrow$ a) If $p=a^2+b^2$ we must have, say, $a$ even and $b$ odd. Put $b=2k+1$. Then $p\equiv(2k+1)^2\equiv1\pmod4$.
+
+    \end{enumerate}
+\end{proof}
+
+\begin{thm}
+    Suppose that\/ $p > 2$ and\/ $p = (a+b\iu)(a-b\iu)$. Then\/ $\gen{a+b\iu}$ and\/ $\gen{a-b\iu}$ are distinct maximal ideals of\/ $\Z[\iu]$. Conversely, if $a+b\iu$ is prime in $\Z[\iu]$ and $b\ne0$, then $a-b\iu$ is also prime and $a^2+b^2$ is prime in~$\Z$.
+\end{thm}
+
+\begin{proof}
+    Put $\F_p =\Z/p\Z$ and consider the canonical projection $\Z\to \F_p$. This induces the following commutative square
+    $$
+        \begin{tikzcd}[row sep=huge]
+            {\Z[\iu]}
+                    \arrow[r,"\varphi"]
+                    \arrow[d]
+                &{\F_p[\iu]}\arrow[d]\\
+            {\Z[\iu]/\gen{a+bi}}
+                    \arrow[r,"\bar\varphi"]
+                &{Fp[\iu]/\gen{\bar a+\bar b\iu}}
+        \end{tikzcd}
+    $$
+    We claim that $\bar\varphi$ is an isomorphism. Since it is clearly an epimorphism, it suffices to show that it is mono. Let $\zeta=x+y\iu\in\Z[\iu]$ be such that
+    $$
+        \bar x+\bar y\iu=(\bar r+\bar s\iu)(\bar a+b\iu).
+    $$
+    Then, for some $\gamma\in\Z[\iu]$, we have
+    \begin{align*}
+        \zeta &= (r+s\iu)(a+b\iu)+p\gamma\\
+            &= (r+s\iu)(a+i)+(a-b\iu)(a+b\iu)\gamma\\
+            &\in\gen{a+b\iu},
+    \end{align*}
+    as desired.
+
+    Given that $p=a^2+b^2$, we must have $p\perp a,b$; otherwise $p^2$ would divide $p$. In particular, $b\in \F_p^*$ and $\gen{\bar a + \bar b\iu}=\gen{\bar c+i}$, for $\bar c=\bar a\bar b^{-1}$. In consequence,
+    $$
+        \Z[\iu]/\gen{a+b\iu}\cong \F_p[\iu]/\gen{\bar c+i}.
+    $$
+    Now, the inclusion $\F_p\to \F_p[\iu]/\gen{\bar c+i}$ is an epimorphism because, in $\F_p[\iu]$,
+    $$
+        \bar r+\bar s\iu = \bar r-\bar s\bar c + \bar s(\bar c+i).
+    $$
+    In sum, $\Z[\iu]/\gen{a+b\iu}\cong \F_p$, which is a field. Thus, $\gen{a+b\iu}$ is maximal and, for this very same reason, so it is $\gen{a-b\iu}$. Both maximal ideals are different, as otherwise, $a+b\iu=\zeta(a-b\iu)$ with $N^2(\zeta)=1$, which implies $\zeta=\pm1$, impossible.
+
+    Now assume that $a+b\iu$ is prime with $b\ne0$. Since conjugation is an automorphism, $a-b\iu$ is also prime. Write $p=a^2+b^2$. Suppose that $p\mid rs$. Then $a+b\iu\mid rs$. In consequence, $a+b\iu$ divides one of them, say $r$. Since $r\in\Z$, it follows that $a-b\iu\mid r$. Therefore, $p=(a+b\iu)(a-b\iu)\mid r$ because these two primes are not associated.
+\end{proof}
+
+
+\begin{rem}\label{rem:Spec Z[i]}
+    According to the theorem, there are two types of primes in $\Z[\iu]$, the ones that belong to $\Z$ and the ones that don't. The second set consists in primes whose squared norm is prime in $\Z$. Note that $1+i$ and $1-i$ are prime too.
+
+    The map $\iota^\sharp\colon\Spec(\Z[\iu])\to\Spec(\Z)$ induced by the inclusion $\iota\colon\Z\to\Z[\iu]$ admits a graphical representation, known as the \textsl{spectral diagram}:
+    $$
+    \begin{tikzpicture}[
+        dot/.style = {circle,
+            draw,
+            fill,
+            inner sep=1.5pt,
+            color=darkgray},
+            dot-g/.style = {circle,
+            inner sep=3pt,
+            shading=dotshading}
+        ]
+        \pgfdeclareradialshading{dotshading}{\pgfpoint{0}{0}}
+        {
+            color(0bp)=(black);
+            color(30bp)=(white);
+            color(100bp)=(white)
+        }        % curve above
+        %---nodes---
+        \node (Spec-Gauss) [label=center:${\Spec(\Z[\iu])}$]{};
+        \node (zero) [right = 2 cm of Spec-Gauss.center,
+            anchor=center,
+            dot-g,
+            label=left:$0$]{};
+        \node (two) [above right = 1 cm and 1 cm of zero.center,
+            anchor=center,
+            dot,
+            "$1+i\vphantom{\big|}$"]{};
+        \node (three) [below right = 1cm and 1 cm of two.center,
+            anchor=center,
+            dot,
+            label=above:$3$\vphantom{\big|}]{};
+        \node (five)[above right = 1 cm and 1 cm of three.center,
+            anchor=center,
+            dot,
+            "$2+i$"] {};
+        \node (seven) [below right = 1 cm and 1 cm of five.center,
+            anchor=center,
+            dot,
+            label=above:$7\vphantom|$] {};
+        \node (eleven) [right = 1 cm of seven.center,
+            anchor=center,
+            dot,
+            label=above:$11\vphantom|$] {};
+        \node (thirdteen) [above right = 1 cm and 1 cm of eleven.center,
+            anchor=center,
+            dot,
+            "$3+2\iu$"] {};
+        \node (empty) [right = 0.5 cm and 1 cm of thirdteen.center,
+            anchor=center]{};
+        %---curve---
+        \draw [] (zero)
+        to [out=45, in=180] (two)
+        to [out=0, in=135] (three)
+        to [out=45, in=180] (five)
+        to [out=0, in=135] (seven)
+        to [out=45, in=135] (eleven)
+        to [out=45, in=180] (thirdteen);
+        \draw [postaction={decorate},
+            color=gray,
+            dashed] (thirdteen)
+        to [out=0, in=180] (empty);
+        % curve below
+        %--- nodes---
+        \node (two-b)[below right = 1 cm and 1 cm of zero.center,
+            anchor=center,
+            dot,
+            label=below:$1-\iu\vphantom{\big|}$]{};
+        \node (five-b)[below right = 1 cm and 1 cm of three.center,
+            anchor=center,
+            dot,
+            label=below:$2-\iu$] {};
+        \node (thirdteen-b) [below right = 1 cm and 1 cm of eleven.center,
+            anchor=center,
+            dot,
+            label=below:$3-2\iu$] {};
+        \node (empty-b) [right = 1 cm of thirdteen-b.center,
+            anchor=center]{};
+        %---curve---
+        \draw [postaction={decorate}] (zero)
+        to [out=-45, in=180] (two-b)
+        to [out=0, in=225] (three)
+        to [out=-45, in=180] (five-b)
+        to [out=0, in=225] (seven)
+        to [out=-45, in=225] (eleven)
+        to [out=-45, in=180] (thirdteen-b);
+        \draw [postaction={decorate},
+            color=gray,
+            dashed] (thirdteen-b)
+        to [out=0, in=180] (empty-b);
+        % integer line
+        %---nodes---
+        \node (Spec-Z) [below = 2.5 cm of Spec-Gauss.center,
+            anchor=center,
+            label=center:${\Spec(\Z)}$]{};
+        \node (zero-z) [right = 2 cm of Spec-Z.center,
+            anchor=center,
+            dot-g,
+            "$0$"]{};
+        \node (two-z) [right = 1 cm of zero-z.center,
+            anchor=center,
+            dot,
+            "$2$"]{};
+        \node (three-z) [right = 1 cm of two-z.center,
+            anchor=center,
+            dot,
+            "$3$"]{};
+        \node (five-z) [right = 1 cm of three-z.center,
+            anchor=center,
+            dot,
+            "$5$"]{};
+        \node (seven-z) [right = 1 cm of five-z.center,
+            anchor=center,
+            dot,
+            "$7$"]{};
+        \node (eleven-z) [right = 1 cm of seven-z.center,
+            anchor=center,
+            dot,
+            "$11$"]{};
+        \node (thirdteen-z) [right = 1 cm of eleven-z.center,
+            anchor=center,
+            dot,
+            "$13$"]{};
+        \node (empty-z) [right = 1 cm of thirdteen-z.center,
+            anchor=center]{};
+        %---line---
+        \draw [ultra thin] (zero-z)
+            to (two-z)
+            to (three-z)
+            to (five-z)
+            to (seven-z)
+            to (eleven-z)
+            to (thirdteen-z);
+        \draw [color=gray,dashed] (thirdteen-z)
+            to (empty-z);
+        % vertical arrow
+        \node (dom) [below=0.0 cm of Spec-Gauss,
+            ""]{};
+        \node (codom) [above=0.0 cm of Spec-Z,
+            ""]{};
+        \draw [->] (dom) -- (codom) node[midway, right]{$\iota^\sharp$};
+    \end{tikzpicture}
+    $$
+\end{rem}
+
+\begin{defn}
+    Given a group $G$ and a ring $A$, the \textsl{ring group} $AG$, also denoted by $A[G]$, is the ring structure on the set
+    $$
+        AG = \Big\{\sum_{x\in G}a_x\cdot x\mid a_x=0\aew[G]\Big\}
+    $$
+    with the operations
+    \begin{enumerate}[-]
+        \item \textit{addition:} $\sum_{x\in G}a_x \cdot x
+            + \sum_{x\in G} b_x\cdot x
+            = \sum_{x\in G}(a_x+b_x)\cdot x$.
+        \item \textit{multiplication:} $\big(\sum_{x\in G}a_x\cdot x\big)
+            \cdot\big(\sum_{x\in G}b_x\cdot x\big)
+            =\sum_{x,y\in G}(a_xb_y) \cdot(xy)$.
+        \item \textit{zero:} $\sum_{x\in G}0\cdot x$.
+        \item \textit{unit:} $1\cdot1_G$.
+    \end{enumerate}
+\end{defn}
+    
+
+\begin{ntn}
+    The cyclic group of\/ $n$ elements\/ $\Z/n\Z$, when noted multiplicatively will be denoted by\/~$C_n$. In particular, $C_2=\gen\tau=\set{1,\tau}$ with\/ $\tau\ne1$ and\/ $\tau^2=1$.
+
+    Under this convention, $\Z C_2=\set{a+b\tau\mid a,b\in\Z}$ is the ring generated by~$1$ and~$\tau$. Note that\/ $\Z C_2=\Z[x]/\gen{x^2-1}$.
+\end{ntn}
+
+\begin{prop}
+    Let $p>2$ be a prime in $\Z$. Then
+    $$
+        p = (\tfrac{p+1}2 + \tfrac{p-1}2\tau)
+            (\tfrac{p+1}2 - \tfrac{p-1}2\tau),
+    $$
+    where both factors are distinct primes in $\Z C_2$.
+\end{prop}
+
+\begin{proof} Put $q=(p+1)/2$. 
+    The equation is clear because
+    $$
+        q^2 - (q-1)^2\tau^2 = (q+(q-1))(q-(q-1))=2q-1=p.
+    $$
+    Let $I=\gen{q+(q-1)\tau}$ and $J=\gen{q-(q-1)\tau}$. Put $\F_p=\Z/p\Z$ and consider the epimorphism
+    \begin{align*}
+        \varphi\colon\Z C_2&\to \F_p C_2\\
+        a+b\tau&\mapsto\bar a +\bar b\tau
+    \end{align*}
+    An element $a+b\tau\in\ker\varphi$ if, and only if, $a+b\tau=p(c+d\tau)$ for some $c+d\tau$, i.e., $a+b\tau\in\gen p$. Then we have,
+    $$
+        \begin{tikzcd}
+            \Z C_2
+                    \arrow[r,"\varphi"]
+                    \arrow[d]
+                &\F_p C_2
+                    \arrow[d]\\
+            \Z C_2/I
+                    \arrow[r,"\bar\varphi"]
+                &\F_p C_2/\gen{\bar1-\tau}
+        \end{tikzcd}
+    $$
+    because $2\in \F_p^*$ and so $\varphi(I)\subseteq\gen{\bar1-\tau}$. To verify that $\varphi$ is an isomorphism suppose that $\bar a +\bar b\tau=(\bar1-\tau)(\bar c + \bar d\tau)$. Then
+    $$
+        \bar a + \bar b\tau = \bar c - \bar d - (\bar c - \bar d)\tau
+            =(\bar c - \bar d)(\bar 1 - \tau).
+    $$
+    Thus,
+    $a + b\tau \in\gen{1-\tau}+\gen p\subseteq I$ by the equation proved above.
+
+    To conclude that $I$ is maximal it suffices to show that $\F_p C_2/\gen{\bar1-\tau}$ is a field. Take $\alpha=\bar a+\bar b\tau\notin\gen{\bar1-\tau}$, we have
+    $$
+        \alpha(\bar a-\bar b\tau) = \bar a^2-\bar b^2=(\bar a+\bar b)(\bar a-\bar b),
+    $$
+    which belongs in $\gen{\bar1-\tau}$ if, and only if, it vanishes in $\F_p$. But this happens if, and only if, say $p\mid a+b$. In that case
+    $$
+        \alpha = \bar a - (\bar a + \bar b - \bar a)\tau = \bar a(\bar1-\tau)\in\gen{\bar1-\tau},
+    $$
+    which is a contradiction. It follows that $(\bar a-\bar b\tau)(\bar a^2-\bar b^2)^{-1}$ is the inverse of~$\alpha$. Hence $\F_p C_2/\gen{\bar1+\tau}$ is a field.
+    
+    The argument for $J$ is similar. Thus, it only remains to be seen that $I\ne J$. Suppose, toward a contradiction, that $I=J$. Then
+    \begin{align*}
+        q+(q-1)\tau
+            &= (q-(q-1)\tau)(a+b\tau)\\
+            &= qa-(q-1)b + (qb-(q-1)a)\tau,
+    \end{align*}
+    i.e.,
+    \begin{align*}
+        q &= qa - (q-1)b\\
+        q-1 &= qb - (q-1)a. 
+    \end{align*}
+    or
+    \begin{align*}
+        p+1 &= (p+1)a - (p-1)b = p(a-b)+a+b\\
+        p-1 &= (p+1)b - (p-1)a = p(b-a)+a+b. 
+    \end{align*}
+    Subtracting we get $2=2p(a-b)$, which is impossible. 
+\end{proof}
+
+\begin{rem}
+    The map
+    \begin{align*}
+        \Z C_2 &\to\Z C_2\\
+        a+b\tau &\mapsto (a+b\tau)^* = a-b\tau 
+    \end{align*}
+    is an isomorphism. Indeed, since $\Z C_2\cong\Z[x]/\gen{x^2-1}$ the conclusion follows from the commutative diagram
+    $$
+        \begin{tikzcd}
+            {\Z[x]}
+                    \arrow[r]
+                    \arrow[d]
+                &{\Z[x]}
+                    \arrow[d]
+                &a+bx
+                    \arrow[r,mapsto]
+                    \arrow[d,mapsto]
+                &a-bx
+                    \arrow[d,mapsto]\\
+            {\Z[x]/\gen{x^2-1}}
+                    \arrow[r]
+                    \arrow[d]
+                &{\Z[x]/\gen{x^2-1}}
+                    \arrow[d]
+                &a+b\bar x
+                    \arrow[r,mapsto]
+                    \arrow[d,mapsto]
+                &a-b\bar x
+                    \arrow[d,mapsto]\\
+            \Z C_2
+                    \arrow[r]
+                &\Z C_2
+                &a+b\tau
+                    \arrow[r,mapsto]
+                &a-b\tau
+        \end{tikzcd}
+    $$
+    As consequence, the map $N\colon\Z C_2\to\Z C_2$, $N(a+b\tau)=(a+b\tau)(a+b\tau)^*=a^2-b^2$, is multiplicative, i.e., $N((a+\tau b)(c+d\tau))=N(a+b\tau)N(c+d\tau)$.
+
+    Now suppose that $\alpha$ is prime in $\Z C_2$. We claim that $N(\alpha)$ is prime in~$\Z$. To verify this, suppose that $N(\alpha)=rs$ in $\Z$ with $r\perp s$. Then $\alpha\mid N(\alpha)=rs$ and we may assume that $\alpha\mid r$. Then $N(\alpha)\mid r^2$, i.e., $rs\mid r^2$, which implies that $s\mid r$ and so $s$ must be a unit.
+
+    According to the previous proposition, it only remains to analyze the case $p=2$. In this case
+    $$
+        \Z C_2/\gen2=\mathbb F_2 C_2 = \set{1,\tau, 1+\tau},
+    $$
+    which isn't a domain because $(1+\tau)^2=0$. However,
+    $$
+        \Z C_2/\gen{2,1+\tau} = \set{1,-1} \cong \mathbb F_2
+    $$
+    is a field, i.e., $\gen{2,1+\tau}$ is maximal.
+
+    Given that $(1+\tau)(1-\tau)=0$, we see that $\Z C_2$ is not a domain, i.e., $\gen0$ is not prime. However, both $1+\tau$ and $1-\tau$ are prime. The reason is that
+    $$
+        \Z C_2/\gen{1\pm\tau}\cong(\Z[x]/\gen{x^2-1})/(\gen{1\pm x}/\gen{x^2-1})
+            = \Z[x]/\gen{1\pm x} = \Z.
+    $$
+
+    Note also that there are two minimal primes, namely $\gen{1+\tau}$ and $\gen{1-\tau}$. To see this observe that
+    $$
+         1+\tau = (1+\tau)\Big(\frac{p+1}2-\frac{p-1}2\tau\Big)
+    $$
+    and
+    $$
+         1-\tau = (1-\tau)\Big(\frac{p+1}2+\frac{p-1}2\tau\Big).
+    $$
+    
+    Here we summarize all this information in a spectral diagram:
+    $$
+        \begin{tikzpicture}[
+            every node/.style={font=\footnotesize},
+            Spec-ZC2/.style={font=\normalsize},
+            dot/.style = {circle,
+            draw,
+            fill,
+            inner sep=1.5pt,
+            color=darkgray},
+            dot-g/.style = {circle,
+            inner sep=3pt,
+            shading=dotshading}
+        ]
+        \pgfdeclareradialshading{dotshading}{\pgfpoint{0}{0}}
+        {
+            color(0bp)=(black);
+            color(30bp)=(white);
+            color(100bp)=(white)
+        }
+        % curve above
+        %---nodes---
+        \node (Spec-ZC2) [
+            align=center,
+            ]{$\textstyle\Spec(\Z C_2)$};
+        \node (one+tau)[above right = 1 cm and 2 cm of Spec-ZC2.center,
+            anchor=center,
+            dot-g,
+            "$1+\tau$"] {};
+        \node (two-1+tau) [below right = 1 cm and 1 cm of one+tau.center,
+            anchor=center,
+            dot,
+            label=right:$\gen{2,1+\tau}$]{};
+        \node (two-tau) [above right = 1 cm and 1 cm of two-1+tau.center,
+            anchor=center,
+            dot,
+            "$2-\tau$"]{};
+        \node (three-two) [right = 1 cm of two-tau.center,
+            anchor=center,
+            dot,
+            "$3-2\tau$"]{};
+        \node (space1) [right = 1 cm of three-two.center,
+            anchor=center]{};
+        \node (p-minus) [right = 1 cm of space1.center,
+            anchor=center,
+            dot,
+            "$\frac{p+1}2-\frac{p-1}2\tau$"]{};
+        \node (space2) [right = 1 cm of p-minus.center,
+            anchor=center]{};
+        %---curve---
+        \draw[color=orange] (one+tau)
+        to [out=0, in=135] (two-1+tau)
+        to [out=45, in=180] (two-tau)
+        to (three-two);
+        \draw[color=orange] (three-two)
+        to (space1);
+        \draw [color=orange,dashed] (space1)
+        to (p-minus)
+        to (space2);
+        % curve below
+        %--- nodes---
+        \node (one-tau)[below right = 1 cm and 2 cm of Spec-ZC2.center,
+            anchor=center,
+            dot-g,
+            label=below:$1-\tau$] {};
+        \node (two+tau) [below right = 1 cm and 1 cm of two-1+tau.center,
+            anchor=center,
+            dot,
+            label=below:$2+\tau$]{};
+        \node (three+two) [right = 1 cm of two+tau.center,
+            anchor=center,
+            dot,
+            label=below:$3+2\tau$]{};
+        \node (space1-b) [right = 1 cm of three+two.center,
+            anchor=center]{};
+        \node (p-plus) [right = 1 cm of space1-b.center,
+            anchor=center,
+            dot,
+            label=below:$\frac{p+1}2+\frac{p-1}2\tau$]{};
+        \node (space2-b) [right = 1 cm of p-plus.center,
+            anchor=center]{};
+        %---curve---
+        \draw[color=green] (one-tau)
+        to [out=0, in=225] (two-1+tau)
+        to [out=-45, in=180] (two+tau)
+        to (three+two)
+        to (space1-b);
+        \draw [color=green,dashed] (space1-b)
+        to (p-plus)
+        to (space2-b);
+
+        % integer line
+        %---nodes---
+        \node (Spec-Z) [below = 2.5 cm of Spec-Gauss.center,
+            anchor=center,
+            label=center:${\Spec(\Z)}$]{};
+        \node (zero-z) [right = 2 cm of Spec-Z.center,
+            anchor=center,
+            dot-g,
+            "$0$"]{};
+        \node (two-z) [right = 1 cm of zero-z.center,
+            anchor=center,
+            dot,
+            "$2$"]{};
+        \node (three-z) [right = 1 cm of two-z.center,
+            anchor=center,
+            dot,
+            "$3$"]{};
+        \node (five-z) [right = 1 cm of three-z.center,
+            anchor=center,
+            dot,
+            "$5$"]{};
+        \node (space1-z) [right = 1 cm of five-z.center,
+            anchor=center]{};
+        \node (p-z) [right = 1 cm of space1-z.center,
+            anchor=center,
+            dot,
+            "$p$"]{};
+        \node (space2-z) [right = 1 cm of p-z.center,
+            anchor=center]{};
+        %---line---
+        \draw (zero-z)
+            to (two-z)
+            to (three-z)
+            to (five-z)
+            to (space1-z);
+        \draw [dashed] (space1-z)
+            to (p-z)
+            to (space2-z);
+        
+        % vertical arrow
+        \node (dom) [below=0.0 cm of Spec-Gauss,
+            ""]{};
+        \node (codom) [above=0.0 cm of Spec-Z,
+            ""]{};
+        \draw [->] (dom) -- (codom) node[midway, right]{$\iota^\sharp$};
+            
+        \end{tikzpicture}
+    $$
+\end{rem}
+
+\begin{xmpl}\label{spectral-diagram-ZC3}
+    Consider the case of $\Z C_3\cong\Z[x]/\gen{x^3-1}$. Since
+    $$
+        x^3-1=(x-1)(x^2+x+1),
+    $$
+    this ring is not a domain. Prime ideals are those that contain $x-1$ or $x^2+x+1$. There are two cases. If the ideal intersects $\Z$ at $\set0$, then it is principal and we are restricted to irreducible factors of $x^3-1$, i.e., $x-1$ and $x^2+x+1$. If the ideal intersects $\Z$ at some prime $p$, it has the form $\gen{p, f(x)}$, where $f(x)$ is a factor of $x^3-1$ in~$\F_p[x]$.
+    
+    Let's first assume that $p\ne2$. This reduces our search to $\gen{x-1}$ and values of $p$ such that $x^2+x+1$ is irreducible in $\F_p[x]$. Since $x^2+x+1 = (2x+1)^2+3$, these are the primes that have no solution for the equation $x^2=-3$. Examples include: $5, 11, 17, 23, 29$. 
+    
+    On the other hand, $3, 7, 13, 19$ are examples of primes where $x^2+x+1$ is reducible. 
+    \renewcommand{\arraystretch}{1.5}
+    $$
+        \begin{array}{l|c}
+        %\hline
+            & x^2+x+1 \\
+        \hline
+        \F_3[x] & (x-1)^2 \\
+        \F_7[x] & (x-2)(x-4) \\
+        \F_{13}[x] & (x-3)(x-9) \\
+        \F_{19}[x] & (x-7)(x-11) \\
+        \;\cdots & \cdots
+        %\hline
+        \end{array}
+    $$
+    It is worth noticing that if $a$ is a root of $x^2+x+1$, then $a$ is also a root of $x^3-1$. In particular, $a^3=1$. Therefore, $a^2$ is also a root because
+    $$
+        (a^2)^2 + a^2 + 1 = a + a^2 + 1 = 0.
+    $$
+    Therefore, the table above can be written, for every prime $p$ as $(x-a)(x-a^2)$, where both $a$ and $a^2$ can be taken modulo~$p$. For instance, $11=7^2$ in $\F_{19}$.
+    
+    Finally, observe that $x^2+x+1$ is irreducible in~$\F_2[x]$.
+
+    As a summary of the preceding discussion, we have the following spectral diagram:
+    $$
+        \begin{tikzpicture}[
+            every node/.style={font=\footnotesize},
+            Spec-ZC2/.style={font=\normalsize},
+            dot/.style = {circle,
+            draw,
+            fill,
+            inner sep=1.4pt,
+            color=darkgray},
+            dot-g/.style = {circle,
+            inner sep=3pt,
+            shading=dotshading}
+        ]
+        \pgfdeclareradialshading{dotshading}{\pgfpoint{0}{0}}
+        {
+            color(0bp)=(black);
+            color(30bp)=(white);
+            color(100bp)=(white)
+        }
+        % curve above
+        %---nodes---
+        \node (Spec-ZC3) [
+            align=center,
+            ]{$\textstyle\Spec(\Z C_3)$};
+        \node (rho) [above right = 1 cm and 1.1 cm of Spec-ZC3.center,
+            anchor=center,
+            dot-g,
+            label=above:$\rho$] {};
+        \node [above = 1 cm of rho.center]
+            {\textcolor
+                {orange}
+                {$
+                    \underline{
+                        \textcolor
+                            {black}
+                            {\rho=\tau^2+\tau+1}
+                    }
+                $}};
+        \node (t-1)[below right = 1 cm and 1.1 cm of Spec-ZC3.center,
+            anchor=center,
+            dot-g,
+            label=above:$\tau-1$] {};
+        \node (two-rho) [right = 1.4 cm of rho.center,
+            anchor=center,
+            dot,
+            label=above:$\gen{2,\rho}$]{};
+        \node (two-t-1) [right = 1.4 cm of t-1.center,
+            anchor=center,
+            dot,
+            label=below:$\gen{2,\tau-1}$]{};
+        \node (three-t-1) [above right = 1 cm and 1.4 cm of two-t-1.center,
+            anchor=center,
+            dot,
+            label=left:$\gen{3,\tau-1}$]{};
+        \node (five-rho) [above right = 1 cm and 1.4 cm of three-t-1.center,
+            anchor=center,
+            dot,
+            "$\gen{5,\rho}$"]{};
+        \node (five-t-1) [below right = 1 cm and 1.4 cm of three-t-1.center,
+            anchor=center,
+            dot,
+            label=below:$\gen{5,\tau-1}$]{};
+        \node (seven-t-2) [above right = 1 cm and 1.4 cm of five-rho.center,
+            anchor=center,
+            dot,
+            "$\gen{7,\tau-2}$"]{};
+        \node (seven-t-4) [below = 2 cm of seven-t-2.center,
+            anchor=center,
+            dot,
+            label=below:$\gen{7,\tau-2^2}$]{};
+        \node (seven-t-1) [right = 1.4 cm of five-t-1.center,
+            anchor=center,
+            dot,
+            label=below:$\gen{7,\tau-1}$]{};
+        \node (eleven-rho) [below
+        right = 1 cm and 1.4 cm of seven-t-2.center,
+            anchor=center,
+            dot,
+            label=above:$\gen{11,\rho}$]{};
+        \node (empty0) [above right = 1 cm and 1.4 cm of eleven-rho.center,
+            anchor=center]{};
+        \node (empty1) [below right = 1 cm and 1.4 cm of empty0.center,
+            anchor=center]{};
+        \node (eleven-t-1) [right = 1.4 cm of seven-t-1.center,
+            anchor=center,
+            dot,
+            label=below:$\gen{11,\tau-1}$]{};
+        \node (thirdteen-t-3) [above right = 1 cm and 1.4 cm of eleven-rho.center,
+            anchor=center,
+            dot,
+            "$\gen{13,\tau-3}$"]{};
+        \node (thirdteen-t-9) [below = 2 cm of thirdteen-t-3.center,
+            anchor=center,
+            dot,
+            label=below:$\gen{13,\tau-3^2}$]{};
+        \node (thirdteen-t-1) [right = 1.4 cm of eleven-t-1.center,
+            anchor=center,
+            dot,
+            label=below:$\gen{13,\tau-1}$]{};
+        \node (empty2) [right = 1.4 cm of thirdteen-t-9.center,
+            anchor=center]{};
+        \node (empty3) [right = 1.4 cm of thirdteen-t-1.center,
+            anchor=center]{};
+        
+        
+        %---curve---
+        \draw[color=orange] (rho)
+            to (two-rho)
+            to [out=0, in=90] (three-t-1)
+            to [out=90, in=180] (five-rho)
+            to [out=0, in=180] (seven-t-2)
+            to [out=0, in=180] (eleven-rho)
+            to [out=0, in=180] (thirdteen-t-3);
+        \draw [color=orange,dashed] (thirdteen-t-3)
+            to [out=0, in=180] (empty1);
+        \draw[color=red] (five-rho)
+            to [out=0, in=180] (seven-t-4)
+            to [out=0, in=180] (eleven-rho)
+            to [out=0, in=180] (thirdteen-t-9);
+        \draw [color=red,dashed] (thirdteen-t-9)
+            to [out=0, in=180] (empty1);
+        \draw [color=green] (t-1)
+            to (two-t-1)
+            to [out=0, in=-90] (three-t-1)
+            to [out=-90, in=180] (five-t-1)
+            to (seven-t-1)
+            to (eleven-t-1)
+            to (thirdteen-t-1);
+        \draw [color=green,dashed] (thirdteen-t-1)
+            to (empty3);
+
+%            to [out=-45, in=180] (seven-t-4);
+            
+
+        % integer line
+        %---nodes---
+        \node (Spec-Z) [below = 3 cm of Spec-Gauss.center,
+            anchor=center,
+            label=center:${\Spec(\Z)}$]{};
+        \node (zero-z) [right = 1.1 cm of Spec-Z.center,
+            anchor=center,
+            dot-g,
+            "$0$"]{};
+        \node (two-z) [right = 1.4 cm of zero-z.center,
+            anchor=center,
+            dot,
+            "$2$"]{};
+        \node (three-z) [right = 1.4 cm of two-z.center,
+            anchor=center,
+            dot,
+            "$3$"]{};
+        \node (five-z) [right = 1.4 cm of three-z.center,
+            anchor=center,
+            dot,
+            "$5$"]{};
+        \node (seven-z) [right = 1.4 cm of five-z.center,
+            anchor=center,
+            dot,
+            "$7$"]{};
+        \node (eleven-z) [right = 1.4 cm of seven-z.center,
+            anchor=center,
+            dot,
+            "$11$"]{};
+        \node (thirdteen-z) [right = 1.4 cm of eleven-z.center,
+            anchor=center,
+            dot,
+            "$13$"]{};
+        \node (empty3) [right = 1.4 cm of thirdteen-z.center,
+            anchor=center]{};
+        
+        %---line---
+        \draw (zero-z)
+            to (two-z)
+            to (three-z)
+            to (five-z)
+            to (seven-z)
+            to (eleven-z)
+            to (thirdteen-z);
+        \draw [dashed] (thirdteen-z)
+            to (empty3);
+        % vertical arrow
+        \node (dom) [below=0.0 cm of Spec-Gauss,
+            ""]{};
+        \node (codom) [above=0.0 cm of Spec-Z,
+            ""]{};
+        \draw [->] (dom) -- (codom) node[midway, left]{$\iota^\sharp$};
+        \end{tikzpicture}
+    $$
+\end{xmpl}
+
+\section{Nilpotency}
+
+Let $A$ be a ring. Recall that an element $f\in A$ is \textsl{nilpotent} if there exists $n>0$ such that $f^n=0$. The set
+$$
+    \Nil(A) = \set{f\in A\mid a\text{ is nilpotent}}
+$$
+is an ideal is called the \textsl{nilradical} of~$A$.
+
+\begin{ntn}
+    If\/ $D$ is an \textsl{integral domain}, the \textsl{field of fractions} of\/ $D$ is denoted by\/~$\Frac(D)$. Note that\/ $\Frac(D)$ equals the local ring\/ $D_{(\gen0)}$ of\/ $D$ at the prime ideal\/~$\gen0$.
+\end{ntn}
+
+\begin{rem}\label{rem:defn-of-ell}
+    The elements of $A$ can be seen as functions with domain in $\Spec(A)$ under the following convention
+    \begin{align*}
+        \ell(f)\colon\Spec(A)
+            &\to\coprod_{\mathfrak p\in\Spec(A)}\Frac(A/\mathfrak p)\\
+            \wp &\mapsto\ell_\wp(f)
+    \end{align*}
+    where $\ell_\wp(f)$ is the image of $f$ under the composition
+    $$
+        A\to A/\wp\to\Frac(A/\wp).
+    $$
+    Since the union is the colimit, we can write
+    \begin{align*}
+        \ell(f)\colon\Spec(A)
+            &\to\op{colim}_{\mathfrak p\in\Spec(A)}\Frac(A/\mathfrak p)\\
+            \wp &\mapsto\ell_{\wp}(f)
+    \end{align*}
+    Despite the fact that there is one $0$ in every $\Frac(A/\mathfrak p)$, we will denote them all by~$0$.
+\end{rem}
+
+\begin{xmpl}
+    In the particular case where $A=\Z$ for $f=12$, the function $\ell(12)$ is given by
+    $$
+        \begin{array}{c|c}
+            p&\ell_p(12)\\
+            \hline
+             2& 0\\
+             3& 0\\
+             5& 2\\
+             7& 5\\
+             11&1\\
+             q>12&12
+        \end{array}
+    $$
+\end{xmpl}
+
+\begin{thm}\label{thm:nilpotency-characterizations}
+    Let\/ $A$ be a ring and let $f$ denote an element in $A$. The following statements are equivalent:
+    \begin{enumerate}[\rm a)]
+        \item $\ell(f)$ is the zero function.
+        \item $f$ belongs to every prime ideal of\/ $A$.
+        \item $f\in\Nil(A)$.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof} ${}$
+    \begin{enumerate}[\rm a)]
+        \item $\Leftrightarrow$ b) Trivial.
+        
+        \item $\Rightarrow$ c) by Zorn's Lemma. To see this consider the collection $\mathcal I$ of proper ideals $I\varsubsetneq A$ such that $f^n\notin I$ for all $n\ge0$. If $\mathcal F$ is a filtered subfamily of~$\mathcal I$, its union $\bigcup\mathcal F$ is in $\mathcal I$, otherwise $f^n$ would belong to some $I\in\mathcal F\subseteq\mathcal I$. Let $M$ be maximal in $\mathcal I$. We claim that $M$ is prime. Indeed. Let $x,y\in A$ be such that $\bar x\bar y=0$ in $A/M$. Suppose for a contradiction that $\bar x,\bar y\ne0$. Since $M\varsubsetneq\gen x + M$, we must have $f^n\in\gen x+M$ for some $n\ge1$. Thus, we can write $\bar f^n=\bar a\bar x$, and similarly, $\bar f^m=\bar b\bar x$. Then $\bar f^{n+m}=\bar a\bar b\bar x\bar y=0$. Contradiction.
+    
+        \item $\Rightarrow$ b) Trivial.
+    \end{enumerate}
+\end{proof}
+
+\begin{ntn}\label{ntn:all-residue-fields}
+    The colimit (or coproduct) of all $\Frac(A/\mathfrak p)$ for $\mathfrak p\in\Spec A$ will be denoted by $\mathcal Q(A)$, i.e.,
+    $$
+        \mathcal Q(A) = \coprod_{\mathfrak p}\Frac(A/\mathfrak p),
+    $$
+    where $\mathfrak p$ runs over $\Spec A$.
+
+    Sometimes we will write\/ $f$ for\/ $\ell(f)$. Moreover, if\/ $g\in A$ and\/ $S\subseteq\Spec(A)$, the restriction\/ $\ell(g)|_S$ will also be denoted by~$g_S$.
+    
+    Note that if\/ $g_S$ is never null, i.e., $g\notin\wp$ whenever\/ $\wp\in S$, we can define the \textsl{rational function\/}
+    $$
+        f_S/g_S\colon S\to\mathcal Q(A).
+    $$
+\end{ntn}
+
+\section{Exercises}
+
+\begin{exr}
+    Compute\/ $\Spec(\Z/\gen{60})$.
+\end{exr}
+
+\begin{solution}
+    These are the prime ideals of $\Z$ which include $60$, i.e., the idelas generated by the prime factors of $60$
+    $$
+        \Spec(\Z/\gen{60})=\set{\gen{\bar 2}, \gen{\bar 3},\gen{\bar 5}}.
+    $$
+\end{solution}
+
+\begin{exr}
+    Compute\/ $\Spec(\Z\times\Z)$. 
+\end{exr}
+
+\begin{solution}
+    Take $\mathfrak p\in\Spec(\Z\times\Z)$. Write $e_1=(1,0)$ and $e_2=(0,1)$. For $i=1,2$ the ideal $\mathfrak p_i=e_i\mathfrak p = \mathfrak p\cap\Z e_i$ corresponds to a prime in $\Spec(\Z)$. It follows that $\mathfrak p=\mathfrak p_1\times\mathfrak p_2$. However, if say $\mathfrak p_1\ne0$, we must have $\mathfrak p_2=0$, otherwise given $b\in\mathfrak p_2$, $b\ne0$, we would have $(0,1)(1,b)=(0,b)\in\mathfrak p_1\times\mathfrak p_2$, with $(0,1), (1,b)\notin\mathfrak p_1\times\mathfrak p_2$. In conclusion,
+    $$
+        \Spec(\Z\times\Z) = (\Spec(\Z)\times 0)\cup(0\times\Spec(\Z)).
+    $$
+\end{solution}
+
+\begin{exr}
+    Let\/ $A$ be a ring, and let\/ $\mathfrak p \in \Spec A$. Show that
+    $$
+        \Spec A_{\mathfrak p} = \set{\mathfrak q \in \Spec A
+            \mid \mathfrak q \subseteq \mathfrak p}.
+    $$
+\end{exr}
+
+\begin{solution}
+    Take $\mathfrak q\in\Spec A_{\mathfrak p}$. Clearly $\mathfrak q\cap A\in\Spec A$. Additionally, $\mathfrak q\cap A\subseteq\mathfrak p$, otherwise $\mathfrak q$ would contain at least a unit of $A_{\mathfrak p}$.
+
+    Conversely, if $\mathfrak q\subseteq\mathfrak p$, then $\mathfrak qA_{\mathfrak p}$ is a proper ideal. It is prime because, for $s\notin\mathfrak p$, we have
+    $$
+        s^{-1}ab\in\mathfrak qA_{\mathfrak p}
+            \iff ab\in\mathfrak q
+            \iff a\in\mathfrak q\text{ or }b\in\mathfrak q.
+    $$
+\end{solution}
+
+\begin{exr}
+    Compute $\Spec(\Q[\sqrt2])$.
+\end{exr}
+
+\begin{solution}
+    Note that $\Q[\sqrt2]$ is actually a field. This is because
+    $$
+        (a + b\sqrt2)(a-b\sqrt2) = a^2-2b^2,
+    $$
+    which is an element of $\Q^*$, except for the case $a=b=0$.
+\end{solution}
+
+\begin{exr}
+    Suppose that\/ $\varphi: A \to B$ is a ring morphism with\/ $B$ an integral domain. Show that\/ $\ker(\varphi) \in \Spec(A)$.
+\end{exr}
+
+\begin{solution}
+    Trivial: $A/\ker(\varphi)\to B$ is a monomorphism.
+\end{solution}
+
+\begin{exr}
+    Prove that\/ $\gen0 \in \Spec(A)$ if, and only if, $A$ is an integral domain.
+\end{exr}
+
+\begin{solution}
+    This is a direct consequence of the definitions.
+\end{solution}
+
+\begin{exr}
+    Compute $\Spec\Q[t]$, with $t$ indeterminate.
+\end{exr}
+
+\begin{solution}
+    First recall that $\Q[t]$ is a PID.
+    
+    Given $f\in\Q[t]$, let $\zeta(f)\in\Z[t]$ be the associate of $f$ in $\Q[t]$ with positive principal coefficient, and no common divisor among its coefficients. Note that $\zeta(fg)=\zeta(f)\zeta(g)$. Otherwise, there would be some $p$ prime with $\zeta(f)\zeta(g)=0$ in $\Z/p\Z[t]$, which is not the case because $\Z/p\Z[t]$ is an integral domain.
+    
+    If $f\in\Q[t]\setminus\set0$ irreducible, then $\zeta(f)$ is irreducible in $\Z[t]$. Conversely, if $f\in\Z[t]$ is irreducible and $f=gh$ in $\Q[t]$, we would have $\pm f=\zeta(f)=\zeta(g)\zeta(h)$ in $\Z[t]$, implying that $g$ or $h$ are in $\Q$.
+\end{solution}
+
+\begin{exr}
+    Compute\/ $\Spec\Z V$, where\/ $V$ denotes the Klein\/ $4$-group.
+\end{exr}
+
+\begin{solution}
+    Recall that the $Klein$ group is $C_2\times C_2$, where $C_2$ is the (multiplicative) group of $2$ elements, i.e., $V=\set{(1,1), (1,\tau), (\tau,1), (\tau,\tau)}$, with $\tau^2=1$. Consequently,
+    $$
+        \Z V = \set{a_{11}(1,1) + a_{12}(1,\tau)
+            + a_{21}(\tau,1) + a_{22}(\tau,\tau)
+            \mid a_{ij}\in\Z}.
+    $$
+    Another way to describe is ring is $\Z[x,y]/\gen{x^2-1,y^2-1}$, i.e.,
+    $$
+        \Z V = \set{a_{00} + a_{10}x + a_{01}y + a_{11}xy
+            \mid a_{ij}\in\Z},
+    $$
+    with multiplication
+    \begin{align*}
+        (a_{00} + a_{10}x + a_{01}y + a_{11}xy)&
+            (b_{00} + b_{10}x + b_{01}y + b_{11}xy)\\
+            &= a_{00}b_{00}+a_{10}b_{10}+a_{01}b_{01}+a_{11}b_{11}\\
+            &\quad+ (a_{10}b_{00}+a_{01}b_{11}+a_{11}b_{01}+a_{00}b_{10})x\\
+            &\quad+ (a_{01}b_{00}+a_{11}b_{10}+a_{10}b_{11}+a_{00}b_{01})y\\
+            &\quad+ (a_{00}b_{11}+a_{10}b_{01}+a_{01}b_{10}+a_{11}b_{00})xy.
+    \end{align*}
+    Note that $\Z V$ is not an integral domain because, for example, $(x-1)(x+1)=0$.
+    
+    Let $\mathfrak p$ be a prime ideal of $\Z V$. Take $a + bx + cy + dxy$ in $\mathfrak p$. After multiplying by $a + bx - (c + dx)y$, we deduce that $(a+bx)^2-(c+dx)^2\in\mathfrak p$, i.e.,
+    $$
+        a+bx+c+dx\quad \text{ or }\quad a+bx-c-dx
+    $$
+    is in $\mathfrak p$. Therefore, $\mathfrak p$ must include some $x$-form $a+bx$. Multiplying by $a-bx$ we get $a^2-b^2\in\mathfrak p$. Thus, $a^2=b^2$ or $a^2-b^2=p$ for some prime number~$p$.
+
+    Suppose first that $\mathfrak p\cap\Z=0$. Then $a^2=b^2$ and we may further assume that $a=b=0$ or $a\perp b$. As we may replace $x$ with $y$ in the first case, we may assume that $a$ and $b$ are units, i.e., $x+1$ or $x-1$ belong to~$\mathfrak p$ or $a=0$ and $b$ is a unit, implying that $x\in\mathfrak p$. However, $x$ is a unit in $\Z V$ because $x^2=1$. Therefore, $x\notin\mathfrak p$ and so $x\pm1$ or $y\pm1$ or both belong to $\mathfrak p$. If $ax+by\in\mathfrak p$, after multiplying by $ax-by$ we see that $a^2=b^2$ and we may assume $a\perp b$, we deduce that $a$ and $b$ are units and so $x+y$ or $x-y$ belong to $\mathfrak p$. Note that $a+bxy\in\mathfrak p$ implies $ax+by\in\mathfrak p$. In conclusion, if $\mathfrak p\cap\Z=0$, then $\mathfrak p$ includes one of the following: $x\pm1$, $y\pm1$, $xy\pm 1$.
+
+    Now suppose that $\mathfrak p\cap\Z=p\Z$ for some prime integer $p$. Then $\mathfrak p$ can be seen as a prime ideal of $\F_p[x,y]/\gen{x^2-1,y^2-1}$, i.e., of $\F_pV$. Thus, starting from a complete form with coefficients in $\F_p$, we first deduce the membership of a non-zero $x$- or $y$-form, say $a+bx$ which must comply the $a^2=b^2$ relation mod~$p$, rendering $a=\pm b$ in $\F_p$. Since both $a$ an $b$ are units in $\F_p$, $x\pm1$ or $y\pm1$ (or both) must be in the prime ideal. If both are, then the ideal would be maximal.
+\end{solution}
+
+\begin{exr}
+    Construct the spectral diagram of the inclusion\/ $\Z \hookrightarrow\Z_{\gen3}$.
+\end{exr}
+
+\begin{solution}
+    Since $\Spec(\Z_{\gen3})=\set0$, the induced morphism $\iota^\sharp$ is trivially defined as $\iota^\sharp\gen0=\gen0$. So the spectral diagram is
+    $$
+    \begin{tikzpicture}[
+        dot/.style = {circle,
+            draw,
+            fill,
+            inner sep=1.5pt,
+            color=darkgray},
+        ]
+        % curve above
+        %---nodes---
+        \node (Spec-Z3) [label=center:${\Spec \Z_{\gen3}}$]{};
+        \node (zero) [right = 2 cm of Spec-Z3.center,
+            anchor=center,
+            dot,
+            label=above:$0$]{};
+        % integer line
+        %---nodes---
+        \node (Spec-Z) [below = 1.5 cm of Spec-Z3.center,
+            anchor=center,
+            label=center:${\Spec \Z}$]{};
+        \node (zero-z) [right = 2 cm of Spec-Z.center,
+            anchor=center,
+            dot,
+            "$0$"]{};
+        \node (two-z) [right = 1 cm of zero-z.center,
+            anchor=center,
+            dot,
+            "$2$"]{};
+        \node (three-z) [right = 1 cm of two-z.center,
+            anchor=center,
+            dot,
+            "$3$"]{};
+        \node (five-z) [right = 1 cm of three-z.center,
+            anchor=center,
+            dot,
+            "$5$"]{};
+        \node (seven-z) [right = 1 cm of five-z.center,
+            anchor=center,
+            dot,
+            "$7$"]{};
+        \node (eleven-z) [right = 1 cm of seven-z.center,
+            anchor=center,
+            dot,
+            "$11$"]{};
+        \node (thirdteen-z) [right = 1 cm of eleven-z.center,
+            anchor=center,
+            dot,
+            "$13$"]{};
+        \node (empty-z) [right = 1 cm of thirdteen-z.center,
+            anchor=center]{};
+        %---line---
+        \draw [ultra thin] (zero-z)
+            to (two-z)
+            to (three-z)
+            to (five-z)
+            to (seven-z)
+            to (eleven-z)
+            to (thirdteen-z);
+        \draw [color=gray,dashed] (thirdteen-z)
+            to (empty-z);
+        % vertical arrow
+        \node (dom) [below=0.0 cm of Spec-Z3,
+            ""]{};
+        \node (codom) [above=0.0 cm of Spec-Z,
+            ""]{};
+        \draw [->] (dom) -- (codom) node[midway, right]{$\iota^\sharp$};
+    \end{tikzpicture}
+    $$
+\end{solution}
+
+\begin{exr}
+    Construct the spectral diagram associated to the canonical surjection $\Z \to\Z/\gen{10}$.
+\end{exr}
+
+\begin{solution}
+    We know that $\Spec\Z/\gen{10}=\set{\gen{\bar
+    2},\gen{\bar5}}$. Therefore, the spectral diagram is
+    $$
+    \begin{tikzpicture}[
+        dot/.style = {circle,
+            draw,
+            fill,
+            inner sep=1.5pt,
+            color=darkgray},
+        ]
+        % curve above
+        %---nodes---
+        \node (Spec-Z10) [label=center:${\Spec \Z/{\gen{10}}}$]{};
+        \node (two) [right = 3 cm of Spec-Z10.center,
+            anchor=center,
+            dot,
+            label=above:$\bar 2$]{};
+        \node (five) [right = 5 cm of Spec-Z10.center,
+            anchor=center,
+            dot,
+            label=above:$\bar 5$]{};
+        % integer line
+        %---nodes---
+        \node (Spec-Z) [below = 1.5 cm of Spec-Z10.center,
+            anchor=center,
+            label=center:${\Spec \Z}$]{};
+        \node (zero-z) [right = 2 cm of Spec-Z.center,
+            anchor=center,
+            dot,
+            "$0$"]{};
+        \node (two-z) [right = 1 cm of zero-z.center,
+            anchor=center,
+            dot,
+            "$2$"]{};
+        \node (three-z) [right = 1 cm of two-z.center,
+            anchor=center,
+            dot,
+            "$3$"]{};
+        \node (five-z) [right = 1 cm of three-z.center,
+            anchor=center,
+            dot,
+            "$5$"]{};
+        \node (seven-z) [right = 1 cm of five-z.center,
+            anchor=center,
+            dot,
+            "$7$"]{};
+        \node (eleven-z) [right = 1 cm of seven-z.center,
+            anchor=center,
+            dot,
+            "$11$"]{};
+        \node (thirdteen-z) [right = 1 cm of eleven-z.center,
+            anchor=center,
+            dot,
+            "$13$"]{};
+        \node (empty-z) [right = 1 cm of thirdteen-z.center,
+            anchor=center]{};
+        %---line---
+        \draw [ultra thin] (zero-z)
+            to (two-z)
+            to (three-z)
+            to (five-z)
+            to (seven-z)
+            to (eleven-z)
+            to (thirdteen-z);
+        \draw [color=gray,dashed] (thirdteen-z)
+            to (empty-z);
+        % vertical arrow
+        \node (dom) [below=0.0 cm of Spec-Z10,
+            ""]{};
+        \node (codom) [above=0.0 cm of Spec-Z,
+            ""]{};
+        \draw [->] (dom) -- (codom) node[midway, right]{$\iota^\sharp$};
+    \end{tikzpicture}
+    $$
+\end{solution}
+
+\begin{exr}
+    Construct the spectral diagram associated to the inclusion\/ $\R \hookrightarrow\R[t]$.
+\end{exr}
+
+\begin{solution}
+    Prime polynomials in $\R[t]$ have degree $1$, or degree $2$ and negative discriminant.
+    $$
+    \begin{tikzpicture}[
+        dot/.style = {circle,
+            draw,
+            fill,
+            inner sep=1.5pt,
+            color=darkgray},
+        dot-g/.style = {circle,
+        inner sep=3pt,
+        shading=dotshading},
+        ]
+        \pgfdeclareradialshading{dotshading}{\pgfpoint{0}{0}}
+        {
+            color(0bp)=(black);
+            color(30bp)=(white);
+            color(100bp)=(white)
+        }
+        %]
+        % curve above
+        %---nodes---
+        \node (Spec-Rt) [label=center:{$\Spec \R[t]$}]{};
+        \node (one) [below right = 0.5 cm and 3 cm of Spec-Rt.center,
+            anchor=center,
+            dot-g,
+            label=right:$\set{\gen{t-a}\mid a\in\R}$]{};
+        \node (two) [above right = 0.5 cm and 3 cm of Spec-Rt.center,
+            anchor=center,
+            dot-g,
+            label=right:$\set{\gen{t^2+bt+c}\mid b^2<4c}$]{};
+        % integer line
+        %---nodes---
+        \node (Spec-R) [below = 2 cm of Spec-Rt.center,
+            anchor=center,
+            label=center:$\Spec\R$]{};
+        \node (zero-z) [right = 3 cm of Spec-R.center,
+            anchor=center,
+            dot-g,
+            label=right:$0$]{};
+        % vertical arrow
+        \node (dom) [below=0.0 cm of Spec-Rt]{};
+        \node (codom) [above=0.0 cm of Spec-R]{};
+        \draw [->] (dom) -- (codom) node[midway, right]{$\iota^\sharp$};
+    \end{tikzpicture}
+    $$
+\end{solution}
+
+\begin{exr}
+    Construct the spectral diagram associated to the evaluation morphism\/ $\op{ev}_{\sqrt{2}}:\Q[t]\to\R$
+\end{exr}
+
+\begin{solution}
+    Since $\Spec\R=\set0$, the map $\op{ev}_{\sqrt2}^\sharp\colon\Spec\R\to\Spec\Q[t]$ satisfies
+    \begin{align*}
+        \op{ev}_{\sqrt2}^\sharp\gen0
+            &= \set{f\in\Spec\Q[t]: f(\sqrt2)=0}\\
+            &= \set{f\in\Spec\Q[t]: t^2-2\mid f}\\
+            &= \gen{t^2-2}.
+    \end{align*}
+    Therefore,
+    $$
+    \begin{tikzpicture}[
+        dot/.style = {circle,
+            draw,
+            fill,
+            inner sep=1.5pt,
+            color=darkgray},
+        dot-g/.style = {circle,
+        inner sep=2pt,
+        shading=dotshading},
+        ]
+        \pgfdeclareradialshading{dotshading}{\pgfpoint{0}{0}}
+        {
+            color(0bp)=(black);
+            color(30bp)=(white);
+            color(100bp)=(white)
+        }
+        ]
+        % curve above
+        %---nodes---
+        \node (Spec-R) [label=center:{$\Spec\R$}]{};
+        \node (zero) [right = 3 cm of Spec-R.center,
+            anchor=center,
+            dot,
+            label=above:$0$]{};
+        % integer line
+        %---nodes---
+        \node (Spec-Qt) [below = 2 cm of Spec-R.center,
+            anchor=center,
+            label=center:{$\Spec\Q[t]$}]{};
+        \node (zero-z) [right = 2 cm of Spec-Qt.center,
+            anchor=center,
+            dot,
+            label=below:$0$]{};
+        \node (two) [right = 1 cm of zero-z.center,
+            anchor=center,
+            dot,
+            label=above:$\gen{t^2-2}$]{};
+            \node (poly) [right = 1 cm of two.center,
+            anchor=center,
+            dot-g,
+            label=right:{$\set{\gen f\mid f\text{ prime}}$}
+            ]{};
+        %---curve---
+        \draw (zero-z)
+            to (two);
+        \draw (zero-z)
+            to [out=-45,in=225] (poly);
+        % vertical arrow
+        \node (dom) [below=0.0 cm of Spec-R]{};
+        \node (codom) [above=0.0 cm of Spec-Qt]{};
+        \draw [->] (dom) -- (codom) node[midway, right]{$\op{ev}_{\sqrt2}^\sharp$};
+    \end{tikzpicture}
+    $$
+\end{solution}
+
+
+\begin{exr}
+    If\/ $\phi\colon A\to B$ is an epimorphism, $\phi^\sharp\colon\Spec B\to\Spec A$ is injective.
+\end{exr}
+
+\begin{solution}
+    This is a direct consequence of the fact that for any surjective map $f\colon X\to Y$, $f(f^{-1}(T))=T$ for all $T\subseteq Y$.
+\end{solution}
+
+\begin{exr}
+    Assume that\/ $\phi\colon A\to B$ is a monomorphism. Is\/ $\phi^\sharp$ necessarily an injection?
+\end{exr}
+
+\begin{solution}
+    No, it isn't. For instance, $\iota\colon\R\to\R[t]$ is a monomorphism and $\iota^\sharp$ is not an injection because $\iota^\sharp\gen 0=0$ and $\iota^\sharp\gen{t-1}=\gen0$.
+\end{solution}
+
+\begin{exr}
+    Consider the group ring\/ $\Z C_3$ with\/ $C_3=\langle\sigma\rangle$.
+    \begin{enumerate}[\rm a)]
+        \item Show that the ideal\/ $\gen{19,3-2 \sigma}$ is principal.
+        \item Prove that\/ $\gen p$ factors in\/ $\Z C_3$ if\/ $(4p-1)/3$ is the square of an integer.
+        \item Does the converse of\/ {\rm b)}~hold?
+    \end{enumerate}
+\end{exr}
+
+\begin{solution}
+    \begin{enumerate}[\rm a)]
+        \item We have to find $(a_0,a_1,a_2)$, $(b_0,b_1,b_2)$ and $(c_0,c_1,c_2)$ such that
+        \begin{align*}
+            a_0b_0+a_1b_2+a_2b_1 &= 19\\
+            a_0b_1+a_1b_0+a_2b_2 &= 0\\
+            a_0b_2+a_1b_1+a_2b_0 &= 0\\\\
+            a_0c_0+a_1c_2+a_2c_1 &= 3\\
+            a_0c_1+a_1c_0+a_2c_2 &= -2\\
+            a_0c_2+a_1c_1+a_2c_0 &= 0
+        \end{align*}
+        One can find a solution using a computer and get
+        \begin{align*}
+            (a_0,a_1,a_2) &= (3,-2,0)\\
+            (b_0,b_1,b_2) &= (9,6,4)\\
+            (c_0,c_1,c_2) &= (1,0,0),
+        \end{align*}
+        meaning that $19=(3-2\sigma)(9+6\sigma+4\sigma^2)$, i.e.,
+        $$
+            \gen{19,3-2\sigma}=\gen{3-2\sigma}.
+        $$
+        Without using a computer, considering that $3-2x$ has degree $1$, a fairly logical guess is $19\in\gen{3-2\sigma}$. If this is the case, we would have
+        $$
+            (3-2\sigma)(a_0+a_1\sigma+a_2\sigma^2)=19,
+        $$
+        i.e.,
+        \begin{align*}
+            3a_0-2a_2 &= 19\\
+            3a_1-2a_0 &= 0\\
+            3a_2-2a_1 &= 0.
+        \end{align*}
+        Therefore, $a_1=2a$, $a_0=3a$, $a_2=2b$ and $a_1=3b$. Thus, $2a=3b$ or $a=3c$ and $b=2c$. In consequence, $a_0=9c$, $a_1=6c$ and $a_2=4c$. Hence,
+        $$
+            19 = 3a_0 - 2a_2 = 27c-8c = 19c
+        $$
+        and $c=1$, arriving at $9+6\sigma+4\sigma^2$, as the computer did.
+
+        \item Let's suppose that $p=(a_0-a_1\sigma)(b_0+b_1\sigma+b_2\sigma^2)$. We have
+        \begin{align*}
+            a_0b_0 - a_1b_2 &= p\\
+            a_0b_1 - a_1b_0 &= 0\\
+            a_0b_2 - a_1b_1 &= 0.
+        \end{align*}
+        Let's further assume that $a_0\perp a_1$. Then, $b_0=a_0b$, $b_1=a_1b$, $b_1=a_0c$ and $b_2=a_1c$. It follows that $c=a_1d$ and $b=a_0d$. Therefore,
+        $$
+            b_0=a_0^2d,\quad b_1=a_0a_1d,\quad b_2=a_1^2d.
+        $$
+        Hence,
+        $$
+            (a_0-a_1)(a_0^2+a_0a_1+a_1^2)d = (a_0^3-a_1^3)d = p,
+        $$
+        which leads us to consider $a_0=a_1+1$, $d=1$ and $a_0^2+a_0a_1+a_1^2=p$, i.e.,
+        $$
+            p = (a_1+1)^2+(a_1+1)a_1 + a_1^2 = 3a_1^2+3a_1+1
+        $$
+        or
+        $$
+            4p - 1 = 3(2a_1)^2 + 3(2\cdot 2a_1) + 3
+                = 3 (2a_1+1)^2.
+        $$
+        The reverse path is clear: if $4p-1=3n^2$, then $n$ is odd, say $n=2a+1$ and
+        $$
+            (a+1-a\sigma)((a+1)^2+a(a+1)\sigma+a^2\sigma^2)=p.
+        $$
+
+        \item Consider
+        $$
+            (1-\sigma-\sigma^2)\sigma(1 + \sigma)
+                = \sigma(1-\sigma-\sigma^2+\sigma-\sigma^2-1)=-2\sigma^3=-2,
+        $$
+        i.e., $\gen2$ factors in $\Z C_3$ and $2$ doesn't verify the equation $(4p-1)/3=n^2.$
+
+        For the odd case consider
+        \begin{align*}
+            (-3 + 2\sigma + 2\sigma^2)(1 + 2\sigma + 2\sigma^2)
+                &= (-3+2\cdot2+2\cdot2)\\
+                &\quad+ (-3\cdot2+2\cdot1+2\cdot2)\sigma\\
+                &\quad+ (-3\cdot2+2\cdot2+2\cdot1)\sigma^2\\
+                &= 5.
+        \end{align*}
+            %a1=-3, b1=2, c1=2, x1=1, y1=2, z1=2
+    \end{enumerate}
+\end{solution}
+
+\begin{exr}
+    In the ring $\Z/\gen{20}$ let\/ $S= \set{1,2,4,8,12,16}$. Construct the spectral diagram associated to the morphism\/ $f\colon\Z/\gen{20}\to S^{-1}(\Z/\gen{20})$ defined by\/ $n\mapsto n/1$.
+\end{exr}
+
+\begin{solution}
+    Recall that if $R$ is a ring and $S\subseteq R$ a multiplicative subset, $S^{-1}R$ is the set of fractions $a/s$, with $a\in R$, $s\in S$ under the equality relation
+    $$
+        a/s=b/t \iff (\exists\,u\in S)\ uta=usb.
+    $$
+    In our case, $S$ is multiplicative as shown in the following table
+    \small
+    $$
+    \begin{array}{c|rrrrrr}
+        \cdot & 1 & 2 & 4 & 8 & 12 & 16 \\
+        \hline
+        1  & 1 & 2 & 4  & 8  & 12 & 16 \\
+        2  &   & 4 & 8  & 16 & 4  & 12 \\
+        4  &   &   & 16 & 12 & 8  & 4 \\
+        8  &   &   &    & 4  & 16 & 8 \\
+        12 &   &   &    &    & 4  & 12 \\
+        16 &   &   &    &    &    & 16 \\
+    \end{array}
+    $$
+    \normalsize
+    Therefore,
+    $$
+        \Spec(S^{-1}\Z/\gen{20}) = \set{\gen0}.
+    $$
+    Indeed.
+    \begin{enumerate}[-]
+        \item \textit{$\gen0$ is prime.} If $sab=0\pmod{20}$, with $s\in S$, then $5\mid ab$ in $\Z$. Say that $5\mid a$. Then $a/1=0$ because $4a=0\pmod{20}$.
+
+        \item The set of units is
+        $$
+            US^{-1}\Z/\gen{20}=\set{1,2,3,4,6,7,8,9,11,12,13,14,16,17,18,19}.
+        $$
+        Note that $5$ and $10$ are zero because $4\cdot5=0\mod{20}$. In consequence, $16=11=6=1$ because $4(16-11)=4(11-6)=4(6-1)=0\pmod{20}$. Similarly $17=12=7=2$, $18=13=8=3$, $19=14=9=4$. Hence, 
+        $$
+            S^{-1}\Z/\gen{20} = \set{0,1,2,3,4}
+        $$
+        is the field $\F_5$.
+    \end{enumerate}
+    It follows that $f^\sharp(\set0)=\ker f$, where $\ker f=\gen5$. On the other hand,
+    $$
+        \Spec(\Z/\gen{20})=\set{\gen2,\gen5}.
+    $$
+    Thus, we have
+    $$
+    \begin{tikzpicture}[
+        dot/.style = {circle,
+            draw,
+            fill,
+            inner sep=1.5pt,
+            color=darkgray}
+        ]
+        %---nodes---
+        \node (Spec-F5) [label=center:{$\Spec(S^{-1}\Z/\gen{20})$}]{};
+        \node (zero) [right = 3 cm of Spec-F5.center,
+            anchor=center,
+            dot,
+            label=above:$0$]{};
+        %---nodes---
+        \node (Spec-Z20) [below = 2 cm of Spec-F5.center,
+            anchor=center,
+            label=center:{$\Spec\Z/\gen{20}$}]{};
+        \node (two) [right = 2 cm of Spec-Z20.center,
+            anchor=center,
+            dot,
+            label=below:$2$]{};
+        \node (two) [right = 1 cm of two.center,
+            anchor=center,
+            dot,
+            label=below:$5$]{};
+        % vertical arrow
+        \node (dom) [below=0.0 cm of Spec-F5]{};
+        \node (codom) [above=0.0 cm of Spec-Z20]{};
+        \draw [->] (dom) -- (codom) node[midway, right]{$f^\sharp$};
+    \end{tikzpicture}
+    $$
+\end{solution}
+
+\begin{exr}
+    Let\/ $\psi:\Spec(\Z C_5)\to\Spec(\Z)$ be the map associated to the inclusion\/ $\Z\hookrightarrow\Z C_5$. Compute\/ $\psi^{-1}(\gen{11})$.
+\end{exr}
+
+\begin{solution}
+    What we have to find is
+    $$
+        \psi^{-1}(\gen{11})=\set{\mathfrak p\in\Spec(\Z C_5)
+            \mid \mathfrak p\cap\Z=\gen{11}}.
+    $$
+    Since $11\in\mathfrak p$, this is the same as
+    $$
+        \set{\mathfrak p\in\Spec(\F_{11}[x]/\gen{x^5-1})
+            \mid \mathfrak p\cap\Z=\gen0}.
+    $$
+    In $\F_{11}$ we have
+    \small
+    $$
+    \begin{array}{r|rrr}
+        x & x^2 & x^4 & x^5 \\
+        \hline
+        \to\phantom-1  & 1  & 1  & 1  \\
+        2  & 4  & 5  & -1 \\
+        \to\phantom-3  & -2 & 4  & 1  \\
+        \to\phantom-4  & 5  & 3  & 1  \\
+        \to\phantom-5  & 3  & -2 & 1  \\
+        -5 & 3  & -2 & -1 \\
+        -4 & 5  & 3  & -1 \\
+        -3 & -2 & 4  & -1 \\
+        \to\phantom{}-2 & 4  & 5  & 1  \\
+        -1 & 1  & 1  & -1 \\
+    \end{array}
+    $$
+    \normalsize
+    Therefore, $x^5-1=(x-1)(x-3)(x-4)(x-5)(x+2)$. Thus, if $\sigma$ is the generator of $C_5$, we have
+    $$
+        \psi^{-1}(\gen{11})=\set{\gen{11,\sigma-1},
+        \gen{11,\sigma-3},
+        \gen{11,\sigma-4},
+        \gen{11,\sigma-5},
+        \gen{11,\sigma+2}}
+    $$
+\end{solution}
+
+\begin{exr}\label{exr:spec-prod-lemma}
+    Let\/ $\phi\colon\Z C_2\to\Z C_4$ denote the morphism defined as\/ $\sigma\mapsto\sigma^2$, where $C_2=\langle\tau\rangle$. Construct the map of spectra\/ $\Spec(\Z C_4)\to\Spec(\Z C_2)$.
+\end{exr}
+
+\begin{solution}
+    Firstly note that $\phi$ is actually a morphism because the evaluation $x\mapsto x^2$ is a endomorphism of $\Z[x]$ that sends $\gen{x^2-1}$ to $\gen{x^4-1}$. Note that $\phi(a+b\tau)=a + b\sigma^2$, where $C_4=\langle\sigma\rangle$.
+
+    Suppose that $\phi^{-1}(\mathfrak p)=\gen{\frac{p+1}2-\frac{p-1}2\tau}$ for $p$ prime, $p\ne2$. After multiplying by the conjugate we obtain $p\in\mathfrak p$ because
+    $$
+        \Big(\frac{p+1}2-\frac{p-1}2\sigma^2\Big)
+        \Big(\frac{p+1}2+\frac{p-1}2\sigma^2\Big) = p.
+    $$
+    Let's find $\Spec(\F_p[x]/\gen{x^4-1})$. Since $\F_p[x]$ is Euclidean, the Chinese Remainder Theorem implies that the map
+    \begin{align*}
+        \psi\colon\F_p[x]/\gen{x^4-1}&\to\F_p[x]/\gen{x^2-1}
+            \times\F_p[x]/\gen{x^2+1}\\
+        f\mod x^4-1&\mapsto(f\mod x^2-1,f\mod x^2+1)
+    \end{align*}
+    is an isomorphism. So, our task consists in finding the prime ideals of the product. Let's generalize and compute $\Spec(A\times B)$.
+
+    \smallskip
+    
+    \textbf{Lemma.} \textit{If\/ $A$ and\/ $B$ are rings then\/ $\Spec(A\times B)=\Spec(A)\sqcup\Spec(B)$.}
+        
+    \begin{proof}
+        Take an element $\mathfrak q$ of $\Spec(A\times B)$ and define
+        $$
+            \mathfrak q_A=\pi_A(\mathfrak q)\quad\text{and}\quad\mathfrak q_B=\pi_B(\mathfrak q),
+        $$
+        where $\pi_A$ and $\pi_B$ are the projections. Clearly $\mathfrak q_A$ is an ideal that satisfies $aa'\in\mathfrak q_A\implies a\in\mathfrak p_A$ or $a'\in\mathfrak q_A$. Thus, if $\mathfrak q_A$ is proper, it is prime in $A$. Similarly for $\mathfrak q_B$.
+
+        In particular, $\mathfrak q_A\times B$ (resp. $A\times\mathfrak q_B$) is prime when $\mathfrak q_A$ (resp. $\mathfrak q_B$) is proper. 
+        
+        $\to$ \textbf{Claim:} \textit{One, and only one, of\/ $\mathfrak q_A$ and\/ $\mathfrak q_B$ is proper.}
+        \small
+        \begin{description}
+        \newlength{\tolen}
+        \settowidth{\tolen}{$\to$}
+        \setlength{\itemindent}{-\tolen}
+        \item[$\to$] Indeed; suppose that $1\notin\mathfrak q_B$. Take $a\in\mathfrak q_A$. There exists $b\in B$ such that $(a,b)\in\mathfrak q$. Therefore, $(a,1)(1,b)=(a,b)\in\mathfrak q$. But $(a,1)\notin\mathfrak q$, or we would have $1\in\mathfrak q_B$, which is not. Hence, $(1,b)\in\mathfrak q$, implying that $1\in\mathfrak q_A$. It follows that, in case $\mathfrak q_A$ is proper, we would also have $\mathfrak q_A\times B\subseteq\mathfrak q$. Conversely, if $(a,b)\in\mathfrak q$, then $a\in\mathfrak q_A$ and so $(a,b)\in\mathfrak q_A\times B$. Suppose that $\mathfrak q_A=A$ and $\mathfrak q_B=B$. Then $(1,b)\in\mathfrak q$ for some $b\in B$ and $(a,1)\in\mathfrak q$ for some $a\in A$. It follows that $(1,1) = (1,0)(1,b) + (0,1)(a,1) \in\mathfrak q$,
+        which is impossible.
+        \normalsize
+        \end{description}
+        
+        We conclude that
+        $$
+            \Spec(A\times B) \subseteq \Spec(A)\sqcup\Spec(B).
+        $$
+        Since the other inclusion is obvious, equality is attained.
+    \end{proof}
+
+    We can now apply the lemma to our situation and get
+    $$
+        \Spec(\F_p[x]/\gen{x^4-1}=\Spec(\F_p[x]/\gen{x^2-1}\sqcup
+            \F_p[x]/\gen{x^2+1},
+    $$
+    for $p\in\mathfrak p$, $p\ne2$.
+
+    In the case where $2\in\mathfrak p$, we get $\F_2[x]/\gen{x^4-1}=\F_2[x]/\gen{(x+1)^4}$. Therefore we get $\mathfrak p=\gen{2,x+1}$.
+\end{solution}
+
+\begin{exr}
+    Compute the ideal of nilpotent elements in\/ $\Z/\gen{100}$.
+\end{exr}
+
+\begin{solution}
+    Take $a\in\Z$. Then
+    $$
+        \bar a^n=0\iff 100\mid a^n \iff 2^25^2\mid a^n\iff 2\cdot5\mid a
+            \iff a\in\gen{10}.
+    $$
+    Hence
+    $$
+        \Nil(\Z/\gen{100}) = \Z/\gen{10}.
+    $$
+\end{solution}
+
+\begin{exr}
+    Show that the set of nilpotent elements in\/ $\Nil(M_{2\times2}(\Z))$ does not form an ideal.
+\end{exr}
+
+\begin{solution}
+    Consider
+    $$
+        M=\begin{pmatrix}
+            0   &0\\
+            1   &0      
+        \end{pmatrix}
+    $$
+    and observe that it belongs in $\Nil(M_{2\times2}(\Z))$ but
+    $$
+        M\begin{pmatrix}
+            1   &1\\
+            0   &0
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            0   &0\\
+            1   &1
+        \end{pmatrix},
+    $$
+    which is not nilpotent. Hence, right multiplication is not closed. Transposing we see that left multiplication is not closed either.
+\end{solution}
+
+\begin{exr}
+    Give an example of a ring\/ $A$ with zero divisors that satisfies\/ $\Nil(A)=\gen0$.
+\end{exr}
+
+\begin{solution}
+    The ring $\Z/\gen6$ is an example of such a ring. 
+\end{solution}
+
+\begin{exr}
+    Let\/ $S =\set{3, 5, 7, \dots}\subseteq\Spec\Z$. Compute the collection of all rational functions on\/~$S$.
+\end{exr}
+
+\begin{solution}
+    Let $b\in\Z$ be such that $\ell(b)|_S$ is never null. This means that $p\nmid b$ if $p\in S$, i.e., if $p\ne2$, which means that $b=2^n$ for some $n$. Thus, the set of rational functions on $S$ is
+    $$
+       \mathcal Q_S = \set{a/2^n\mid a\in\Z\text{ and }n\in\N_0}.
+    $$
+\end{solution}
+
+\begin{exr}
+    Let\/ $S=\set0\subseteq\Spec\Z$. Compute the collection of all rational functions on\/~$S$.
+\end{exr}
+
+\begin{solution}
+    $$
+        \mathcal Q_S = \set{a/b\mid b\ne0}=\Q.
+    $$
+\end{solution}
+
+\begin{exr}
+    Let\/ $S=\set{2791}\subseteq\Spec\Z$. Compute the collection of all rational functions on\/~$S$.
+\end{exr}
+
+\begin{solution}
+    Given $b\in\Z$, $b_S=0\iff 2791\mid b$. Therefore,
+    $$
+        \mathcal Q_S = \set{a/b\mid a\in\Z\text{ and } 2791\nmid b}
+    $$
+\end{solution}
+

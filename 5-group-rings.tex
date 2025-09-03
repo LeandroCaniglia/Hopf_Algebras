@@ -1,0 +1,79 @@
+\chapter{Group Rings}
+
+\section{Monoids}
+
+An \textsl{operation} on a set $M$ is simply a map
+\begin{align*}
+    M\times M&\to M\\
+    (x,y)&\mapsto x\cdot y.
+\end{align*}
+
+The operation is \textsl{associative} if it satisfies
+$$
+    x\cdot(y\cdot z) = (x\cdot y)\cdot z
+$$
+for all $x,y,z\in M$.
+
+An element $e\in M$ is the \textsl{identity} for the operation if
+$$
+    e\cdot x = x\cdot e = x
+$$
+for all $x\in M$. Clearly, the identity, when it exists, is unique.
+
+If the identity exists, given $a\in M$, a \textsl{left inverse} of $a$ is an element $a'$ such that $a'\cdot a= e$. Similarly, a \textsl{right inverse} of $a$ is an element $a''$ such that $a\cdot a''=e$.
+
+An element with both left and right inverses is \textsl{invertible} and it's \textsl{inverse} is the common value of its left and right inverses, which are necessarily equal:
+$$
+    a' = a'\cdot e = a'\cdot (a\cdot a'') = (a'\cdot a)\cdot a''
+        = e\cdot a'' = a''.
+$$
+
+A set $M$ endowed with an operation `$\cdot$' is a \textsl{monoid} if the operation is associative and there exists an identity element.
+
+A monoid is \textsl{commutative} when $x\cdot y=y\cdot x$ for all $x,y\in M$.
+
+If a monoid is commutative, the operation usually adopts the additive notation `$+$'. In that case the identity element is denoted by~$0$. For the multiplicative notation the identity is usually denoted by~$1$. In this case, the operation symbol is sometimes omitted, i.e., $x\cdot y$ is written $xy$.
+
+\section{Monoid Rings}
+
+Given a commutative ring $\kappa$ with unit and a monoid $(M,\,\cdot\,)$ with multiplicative notation, the set
+$$
+    \kappa[M] = \Big\{(a_x)_{x\in M}\in\kappa^M\mid a_x=0~\aew\Big\},
+$$
+whose elements are written as formal (unordered) linear combinations
+$$
+    \kappa[M] = \Big\{
+        \sum_{x\in M}a_x\cdot x \mid a_x\in\kappa, a_x=0~\aew\Big\}
+$$
+admits two operations, a sum
+\begin{align*}
+    \Big(\sum_{x\in M}a_x\cdot x\Big)
+        + \Big(\sum_{x\in M}b_x\cdot x\Big)
+        &= \sum_{x\in M}(a_x+b_x)\cdot x
+    \intertext{and a multiplication}
+    \Big(\sum_{x\in M}a_x\cdot x\Big)
+         \Big(\sum_{x\in M}b_x\cdot x\Big)
+        &= \sum_{z\in M}c_z\cdot z,        
+\end{align*}
+where
+$$
+    c_z = \sum_{\substack{x,y\\xy=z}}a_xb_y,
+$$
+which is usually written as
+$$
+    \sum_{x,y}a_xb_y\cdot xy.
+$$
+Note that $\kappa[M]$ is a $\kappa$-algebra with:
+\begin{align*}
+    0 &= \sum_{x\in M}0\cdot x,\\
+    1 &= 1_\kappa\cdot 1_M \text{ and}\\
+    k&\,\Big(\sum_{x\in M}a_x\cdot x\Big) = \sum_{x\in M}ka_x\cdot x.
+\end{align*}
+This $\kappa$-algebra receives the name of \textsl{monoid ring} over~$\kappa$.
+
+Note that $\kappa[M]$ is commutative if, and only if, $M$ is commutative.
+
+\section{Group Rings}
+
+Let $\kappa$ be a commutative ring. If $G$ is a group, monoid ring $\kappa[G]$ receives the name of \textsl{group ring}.
+

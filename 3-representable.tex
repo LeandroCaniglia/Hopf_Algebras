@@ -1,0 +1,2790 @@
+\chapter{Representable Group Functors}\label{ch:representable}
+
+\section{Representable Group Functor}
+
+Let $\kappa$ be a commutative ring with unit. From now on we will (implicitly) assume that $\kappa$-algebras are two-sided $\kappa$-modules, not necessarily commutative.
+
+For a $\kappa$-module $A$, fix a $\kappa$-linear map
+$$
+    \Delta\colon A\to A\otimes_\kappa A.
+$$
+Given a $\kappa$-algebra $K$ let $\Hom_\kappa(A,K)$ denote the set of $\kappa$-linear maps. We have a representable functor $\yon_A=\Hom_\kappa(A,-)$. Then $\Delta$ induces a natural transformation $\Delta^*\colon\yon_{A\otimes_\kappa A}\to\yon_A$ that maps a morphism $f\colon A\otimes_\kappa A\to K$ of $\kappa$-modules to $\Delta^*_K(f)=f\circ\Delta$, which is in $\Hom_\kappa(A,K)$.
+
+Recall that, when $A$ is a $\kappa$-algebra, multiplication in the $\kappa$-algebra $A\otimes_\kappa A$ is given by
+$$
+    \mu_{A\otimes_\kappa A}=(\mu_A\otimes_\kappa\mu_A)
+        \circ(\id_A\otimes t\otimes_\kappa\id_A),
+$$
+i.e., $(a\otimes_\kappa b)(c\otimes_\kappa d) = ac\otimes_\kappa bd$.
+
+In the special case where $\Delta$ is a morphism of $\kappa$-algebras, the representable functor $\Hom_{\cat{CAlg}_\kappa}(A,-)$ will be denoted by $\yoneda_A$. In particular, the natural transformation $\Delta^*\colon\yoneda_{A\otimes_\kappa A}\to\yoneda_A$ is the restriction of the natural transformation $f\mapsto f\circ\Delta$ mentioned above.
+
+\begin{ntns}
+    In this chapter, given a\/ $\kappa$-algebra\/ $A$, the structure morphism\/ $\kappa\to A$, also known as the \textsl{unit} morphism, will be denoted\/ $\iota_A$ without further clarification. Moreover, for an element $x\in A$ we will usually write
+    $$
+        \Delta(x) = \sum_{i=1}^nx_{1i}\otimes_\kappa x_{2i}.
+    $$
+\end{ntns}
+
+
+\begin{prop}
+    For every\/ $\kappa$-algebra\/ $K$ there is a well-defined\/ $\kappa$-bilinear operation
+    \begin{align*}
+        *\colon\yon_A(K)\times\yon_A(K)&\to\yon_A(K)\\
+            (f,g)&\mapsto f*g
+    \end{align*}
+    that satisfies
+    $$
+        f*g(x)=\sum_{i=1}^n f(x_{1i})g(x_{2i})
+    $$
+    for\/ $x\in A$ with\/ $\Delta(x)=\sum_{i=1}^nx_{1i}\otimes_\kappa x_{2i}$.
+
+    Moreover, if\/ $\Delta$ is a morphism of\/ $\kappa$-algebras, the same operation defines by restriction the bilinear operation
+    \begin{align*}
+        *\colon\yoneda_A(K)\times\yoneda_A(K)&\to\yoneda_A(K)\\
+            (f,g)&\mapsto f*g.
+    \end{align*}
+\end{prop}
+
+\begin{proof}
+    Take a $\kappa$-algebra $K$. Given $f,g\in\yon_A(K)$, by the universal property of the tensor product, if $\mu_K\colon K\otimes_\kappa K\to K$ denotes the multiplication map, then the following diagram commutes
+    \small
+    $$
+        \begin{tikzcd}[row sep=large,column sep=huge]
+                &A\times A
+                        \arrow[rd,"f\cdot g"]
+                        \arrow[d,"\otimes_\kappa"']\\
+            A
+                    \arrow[r,dotted,"\Delta"]
+                    \arrow[rr,bend right=41,dotted,"f*g"]
+                &A\otimes_\kappa A
+                        \arrow[r,"\mu_K\circ f\otimes_\kappa g"',dashed]
+                    &K
+        \end{tikzcd}
+    $$
+    \normalsize
+    composing this morphism with $\Delta$ we get $f*g= \mu_K\circ f\otimes_\kappa g\circ\Delta$ and we can define
+    \begin{align*}
+        \yon_A(K)\times\yon_A(K)&\to\yon_A(K)\\
+            (f,g)&\mapsto f*g,
+    \end{align*}
+    i.e., $f*g(x)=\sum_{i=1}^n f(x_{1i})g(x_{2i})$ for $\Delta(x)=\sum_{i=1}^nx_{1i}\otimes_\kappa x_{2i}$.
+\end{proof}
+
+In what follows, we explore the conditions that we should impose on $A$ and $\Delta$ to ensure that the operation `$*$' imparts upon $\yon_A(K)$ the structure of an associative monoid with identity.
+
+\begin{defn}
+    The operation `$*$' induced in $\yon_A(K)$ for every $\kappa$-algebra $K$ is called \textsl{convolution}.
+\end{defn}
+
+\begin{lem}\label{lem:*-commutativity} {\rm[Cocommutativity]}
+    Let\/ $t\colon A\otimes_\kappa A\to A\otimes_\kappa A$ be the \textsl{twist map}\/ $x\otimes_\kappa y\mapsto y\otimes_\kappa x$. If\/ $\Delta=t\circ\Delta$, the convolution is commutative.
+\end{lem}
+
+\begin{proof}
+    Take a $\kappa$-algebra $K$ and $f,g\in\yon_A(K)$. Then,
+    \small
+    $$
+        f*g = \mu_K\circ f\otimes_\kappa g\circ\Delta = \mu_K\circ f\otimes_\kappa g\circ t\circ\Delta
+            = \mu_K\circ g\otimes_\kappa f\circ\Delta = g*f. \qedhere
+    $$
+    \normalsize
+\end{proof}
+
+\begin{lem}\label{lem:*-associativity} {\rm[Coassociativity]}
+    If the diagram
+    \small
+    $$
+        \begin{tikzcd}[column sep = large]
+            A
+                    \arrow[r,"\Delta"]
+                &A\otimes_\kappa A
+                    \arrow[r,"\Delta\otimes_\kappa\id_A",
+                        start anchor={[yshift=1ex]},
+                        end anchor={[yshift=1ex]}]
+                    \arrow[r,"\id_A\otimes_\kappa\Delta"',
+                        start anchor={[yshift=-1ex]},
+                        end anchor={[yshift=-1ex]}]
+                &A\otimes_\kappa A\otimes_\kappa A
+        \end{tikzcd}
+    $$
+    \normalsize
+    collapses to a single arrow, then the convolution is associative.
+\end{lem}
+
+\begin{proof}
+    Take $x\in A$ with $\Delta(x)=\sum_{i=1}^nx_{1i}\otimes_\kappa x_{2i}$. The hypothesis translates into
+    \small
+    \begin{equation}\label{eq:1}
+        \sum_{i=1}^n\sum_{j=1}^{n_i}
+            x_{1i}\otimes_\kappa(x_{2i})_{1j}\otimes_\kappa(x_{2i})_{2j}
+            = \sum_{i=1}^n\sum_{k=1}^{m_i}
+            (x_{1i})_{1k}\otimes_\kappa(x_{1i})_{2k}\otimes_\kappa x_{2i},
+    \end{equation}
+    \normalsize
+    where
+    \small
+    \begin{align}
+        \Delta(x_{1i}) &= \sum_{k=1}^{n_i}(x_{1i})_{1k}\otimes_\kappa(x_{1i})_{2k}
+            \label{eq:1i}\\
+        \Delta(x_{2i}) &= \sum_{j=1}^{m_i}(x_{2i})_{1j}\otimes_\kappa(x_{2i})_{2j}.
+            \label{eq:2i}
+    \end{align}
+    \normalsize
+    Take a $\kappa$-algebra $K$ and $f,g,h\in\yon_A(K)$. Let $\mu_K\colon K\otimes_\kappa K\otimes_\kappa K\to K$ be the $3$-multiplication. We have
+    \small
+    \begin{align*}
+        f*(g*h)(x) &= \sum_{i=1}^nf(x_{1i})(g*h(x_{2i}))\\
+        &= \sum_{i=1}^nf(x_{1i})\sum_{j=1}^{m_i}g((x_{2i})_{1j})h((x_{2i})_{2j})
+            &&\text{; \eqref{eq:2i}}\\
+        &= \mu_K\circ f\otimes_\kappa g\otimes_\kappa h\Big(
+            \sum_{i=1}^n\sum_{j=1}^{n_i}
+                x_{1i}
+                \otimes_\kappa(x_{2i})_{1j}
+                \otimes_\kappa(x_{2i})_{2j}
+            \Big)\\
+        &= \mu_K\circ f\otimes_\kappa g\otimes_\kappa h\Big(
+            \sum_{i=1}^n\sum_{k=1}^{m_i}
+                (x_{1i})_{1k}
+                \otimes_\kappa(x_{1i})_{2k}
+                \otimes_\kappa x_{2i}
+            \Big)
+                &&\text{; \eqref{eq:1}}\\
+        &= \sum_{i=1}^n\sum_{k=1}^{n_i}
+            f((x_{1i})_{1k})g((x_{1i})_{2k})h(x_{2i})\\
+        &= \sum_{i=1}^nf*g(x_{1i})h(x_{2i})
+            &&\text{; \eqref{eq:1i}}\\
+        &= (f*g)*h(x).
+    \end{align*}
+    \normalsize \qedhere
+\end{proof}
+
+\begin{rem}
+    If $\mu\colon A\otimes_\kappa A\to A$ denotes the multiplication, then 
+    $$
+        \id_A*\id_A = \mu\circ\Delta.
+    $$
+\end{rem}
+
+\begin{lem}\label{lem:*-identity} {\rm[Counit]}
+    Assume that\/ $\varepsilon\colon A\to\kappa$ is\/ $\kappa$-linear and that we have a commutative diagram
+    \small
+    \begin{equation}\label{dgm:*-identity}
+        \begin{tikzcd}[column sep=1.2cm]
+            A\otimes_\kappa A
+                    \arrow[r,"\varepsilon\otimes_\kappa\id_A"]
+                &\kappa\otimes_\kappa A
+                    \arrow[d,"\mu_1"]\\
+            A
+                    \arrow[u,"\Delta"]
+                    \arrow[d,"\Delta"']
+                &A
+                    \arrow[l,no head,equal]\\
+            A\otimes_\kappa A
+                    \arrow[r,"\id_A\otimes_\kappa\varepsilon"']
+                &A\otimes_\kappa\kappa
+                        \arrow[u,"\mu_2"']
+        \end{tikzcd}
+        %\quad \mu_1\circ(\varepsilon\otimes_\kappa\id_A)\circ\Delta = \mu_2\circ(\id_A\otimes_\kappa\varepsilon)\circ\Delta = \id_A,
+    \end{equation}
+    \normalsize
+    where $\mu_1$ and $\mu_2$ denote the left and right actions of\/ $\kappa$ on $A$. Then, for every\/ $f\in\Hom_\kappa(A,K)$ and every\/~$\kappa$-algebra\/~$K$, we have
+    $$
+        \iota_K\circ\varepsilon*f=f=f*\iota_K\circ\varepsilon,
+    $$
+    i.e., $\iota_K\circ\varepsilon$ is the identity for the convolution.
+\end{lem}
+
+\begin{proof}
+    Take $x\in A$ with $\Delta(x)=\sum_{i=1}^nx_{1i}\otimes_\kappa x_{2i}$. Given a $\kappa$-algebra $K$, we have
+    %\small
+    \begin{align*}
+        \to\quad\iota_K\circ\varepsilon * f(x)
+            &= \sum_{i=1}^n\iota_K\circ\varepsilon(x_{1i})f(x_{2i})\\
+            &=
+            \sum_{i=1}^nf(\varepsilon(x_{1i})x_{2i})\\
+            &= f\Big(\sum_{i=1}^n\varepsilon(x_{1i})x_{2i}\Big)\\
+            &= f\Big(
+                \sum_{i=1}^n
+                    \mu_1\circ(\varepsilon\otimes_\kappa\id_A)
+                        (x_{1i}\otimes_\kappa x_{2i})
+                \Big)\\
+            &= f(
+                \mu_1\circ(\varepsilon\otimes_\kappa\id_A)\circ\Delta(x)
+                )\\
+        \to\quad\hphantom{\iota_K\circ\varepsilon * f(x)} &= f(x)\\
+            &= f(
+                \mu_2\circ(\id_A\otimes_\kappa\varepsilon)\circ\Delta(x)
+                )\\
+            &= f\Big(
+                \sum_{i=1}^n\mu_2(x_{1i}\otimes_\kappa\iota_K\circ\varepsilon(x_{2i})
+                \Big)\\
+            &= f\Big(\sum_{i=1}^nx_{1i}\iota_K\circ\varepsilon(x_{2i})\Big)\\
+            &= \sum_{i=1}^nf(x_{1i})\iota_K\circ\varepsilon(x_{2i})\\
+        \to\quad\hphantom{\iota_K\circ\varepsilon * f(x)} &= f*\iota_K\circ\varepsilon(x).
+    \end{align*}
+    \normalsize
+\end{proof}
+
+\begin{rem}
+    In the case where $A$ is $\kappa$-algebra and $\mu\colon A\otimes_\kappa A\to A$ its multiplication, we have
+    $$
+        \mu_1=\mu\circ(\iota_A\otimes_\kappa\id_A)
+        \quad\text{and}\quad
+        \mu_2=\mu\circ(\id_A\otimes_\kappa\iota_A).
+    $$
+    A diagram equivalent to \eqref{dgm:*-identity} can be obtained using $\mu\colon A\otimes A\to A$ and the equation
+    \begin{equation}\label{eq:mu-iota-varepsilon}
+        \mu_1\circ(\varepsilon\otimes_\kappa\id_A)
+        =
+        \mu\circ(\iota_A\circ\varepsilon\otimes_\kappa\id_A).
+    \end{equation}
+\end{rem}
+
+\begin{rem}\label{rem:coalgebra}
+    Some of the notions seen so far are actually more general. Given a $\kappa$-module $C$ with $\kappa$-linear maps $\Delta\colon C\to C\otimes_\kappa C$ and $\varepsilon\colon C\to\kappa$, the hypotheses of Lemmas~\ref{lem:*-associativity} and \ref{lem:*-identity} can also be stated on $C$. In consequence, we may introduce the following
+\end{rem}
+
+\begin{defn}\label{defn:co-bi-algebra}
+    A $\kappa$-module $C$ that satisfies the hypotheses of Lemmas~\ref{lem:*-associativity} and \ref{lem:*-identity} is called \textsl{$\kappa$-coalgebra}. The $\kappa$-linear maps $\Delta$ and $\varepsilon$ are respectively the \textsl{comultiplication} and the \textsl{counit} of the $\kappa$-coalgebra. The $\kappa$-coalgebra~$C$ is \textsl{cocommutative} when the convolution operation is commutative, i.e., when $t\circ\Delta=\Delta$.
+\end{defn}
+
+\begin{rem}
+    If $A$ is a $\kappa$-algebra, we can express the properties of $\iota_A\colon\kappa\to A$ and $\mu\colon A\otimes_\kappa A\to A$ using two commutative diagrams
+    $$
+        \begin{tikzcd}
+            A\otimes_\kappa A\otimes_\kappa A
+                    \arrow[d,"\mu\otimes\id"']
+                    \arrow[r,"\vphantom{\big(}\id\otimes\mu"]
+                &A\otimes_\kappa A
+                    \arrow[d,"\mu"]
+                &A\otimes_\kappa\kappa
+                    \arrow[r,"\vphantom{\big(}\id\otimes\iota_A"]
+                    \arrow[d,"\mu_2"']
+                &A\otimes_\kappa A
+                    \arrow[dl,"\mu"']\\
+            A\otimes_\kappa A
+                    \arrow[r,"\mu"']
+                &A
+                &A
+                &\kappa\otimes_\kappa A
+                    \arrow[u,"\iota_A\otimes\id"']
+                    \arrow[l,"\mu_1"]
+        \end{tikzcd}
+    $$
+    After reversing the directions of $\mu$ and $\iota_A$ in these diagrams, and labeling them with $\Delta$ and $\varepsilon$, we obtain the diagrams of Lemma~\ref{lem:*-associativity} and Lemma~\ref{lem:*-identity}. This explains why the new notions prefix with~`co' the more traditional ones.
+\end{rem}
+
+\begin{rem}\label{rem:coalgebra-convolution}
+    If $C$ is is $\kappa$-coalgebra the convolution operation also makes sense in $\Hom_\kappa(C,K)$ whenever $K$ is a $\kappa$-algebra.
+\end{rem}
+
+\begin{xmpl}
+    Let $G$ be a finite group and $\kappa[G]$ the associated group ring. For $\gamma\in G$ define
+    $$
+        \Delta(\gamma) = \sum_{\chi\in G}\chi\otimes\chi^{-1}\gamma.
+    $$
+    Then
+    \begin{align*}
+        (\Delta\otimes\id)\circ\Delta(g)
+            &= \sum_{\chi\in G}
+                (\Delta\otimes\id)(\chi\otimes\chi^{-1}\gamma)\\
+            &= \sum_{\chi\in G}\sum_{\zeta\in G}
+                \zeta\otimes\zeta^{-1}\chi\otimes\chi^{-1}\gamma.
+    \end{align*}
+    On the other hand,
+    \begin{align*}
+        (\id\otimes\Delta)\circ\Delta(\gamma)
+            &= \sum_{\chi\in G}
+                (\id\otimes\Delta)(\chi\otimes\chi^{-1}\gamma)\\
+            &= \sum_{\chi\in G}\sum_{\zeta\in G}
+                \chi\otimes\zeta\otimes\zeta^{-1}\chi^{-1}\gamma\\
+            &= \sum_{\chi\in G}\sum_{\zeta\in G}
+                \chi\otimes\chi^{-1}(\chi\zeta)
+                    \otimes(\chi\zeta)^{-1}\gamma\\
+            &= \sum_{\chi\in G}\sum_{\zeta\in G}
+                \chi\otimes\chi^{-1}\zeta
+                    \otimes\zeta^{-1}\gamma\\
+            &= (\Delta\otimes\id)\circ\Delta(\gamma),
+    \end{align*}
+    which shows that $\Delta$ is coassociative.
+
+    Note however that $\varepsilon$ defined as $\varepsilon(\gamma)=1$ is not a couint. To see this observe that
+    \begin{align*}
+        (\mu_1\circ(\varepsilon\otimes\id)\circ\Delta)(\gamma)
+            &= \sum_{\chi\in G}
+                \mu_1\circ(\varepsilon\otimes\id)
+                    (\chi\otimes\chi^{-1}\gamma)\\
+            &= \sum_{\chi\in G}
+                \mu_1(\varepsilon(\chi)\otimes(\chi^{-1}\gamma))\\
+            &= \sum_{\chi\in G}\varepsilon(\chi)\chi^{-1}\gamma\\
+            &= \sum_{\chi\in G}\chi,
+    \end{align*}
+    i.e., $\mu_1\circ(\varepsilon\otimes\id)\circ\Delta\ne\id_{\kappa[G]}$.
+\end{xmpl}
+
+\begin{lem}\label{lem:tt1}
+    Suppose that\/ $C$ and\/ $D$ are\/ $\kappa$-modules equipped with\/ $\kappa$-linear maps\/ $\Delta_C\colon C\to C\otimes_\kappa C$ and\/ $\Delta_D\colon D\to D\otimes_\kappa D$. Let\/ $t\colon C\otimes_\kappa D\to D\otimes_\kappa C$ denote the twist. Then
+    \begin{enumerate}[\rm i)]
+    \item 
+    \small
+    \begin{align*}
+        (\Delta_C\otimes\Delta_D\otimes\id_C\otimes\id_D)
+            \circ(\id_C\otimes t\otimes\id_D)
+        &= (\id_C\otimes\id_C\otimes\id_D\otimes t\otimes\id_D)\\
+        &\qquad\circ(\id_C\otimes\id_C\otimes t\otimes\id_D\otimes\id_D)\\
+        &\qquad\circ(\Delta_C\otimes\id_C\otimes\Delta_D\otimes\id_D).
+    \end{align*}
+    \item 
+    \small
+    \begin{align*}
+    (\id_C\otimes\id_D\otimes\id_C\otimes t\otimes\id_D)
+            \circ(\id_C\otimes\id_D&\otimes\Delta_C\otimes\Delta_D)
+            \circ(\id_C\otimes t\otimes\id_D)\\
+        &= (\id_C\otimes t\otimes t\otimes\id_D)\\
+        &\qquad\circ(\id_C\otimes\id_C\otimes t\otimes\id_D\otimes\id_D)\\
+        &\qquad\circ(\id_C\otimes\Delta_C\otimes\id_D\otimes\Delta_D).
+    \end{align*}
+    \normalsize
+    \end{enumerate}
+\end{lem}
+
+\needspace{2\baselineskip}
+\begin{proof}${}$
+    \begin{enumerate}[\rm i)]
+        \item Since all terms in the equation end with $\otimes\,\id_D$, we may show it after dropping that ending.
+        
+        Take $c,c'\in C$ and $d\in D$ with
+        %\small
+        $$
+            \Delta_C(c) = \sum_{i=1}^nc_{1i}\otimes c_{2i}
+            \quad\text{and}\quad
+            \Delta_D(d) = \sum_{j=1}^md_{1j}\otimes d_{2j}
+        $$
+        \normalsize
+        Then, for the LHS, we have
+        %\small
+        $$
+            (\Delta_C\otimes\Delta_D\otimes\id_C)
+                \circ(\id_C\otimes t)(c\otimes c'\otimes d)
+                =\Big(\sum_{i=1}^n\sum_{j=1}^mc_{1i}\otimes c_{2i}
+                    \otimes d_{1j}\otimes d_{2j}\Big)\otimes c'.
+        $$
+        \normalsize
+        On the other hand,
+        %\small
+        \begin{align*}
+        \text{RHS of i)} &= \sum_{i=1}^n\sum_{j=1}^m
+                (\id_C\otimes\id_C\otimes\id_D\otimes t)\\[-0.15in]
+            &\quad\qquad\qquad\circ(\id_C\otimes\id_C\otimes t\otimes\id_D)
+                (c_{1i}\otimes c_{2i}\otimes c'\otimes d_{1j}\otimes d_{2j})\\
+            &=  \sum_{i=1}^n\sum_{j=1}^m
+                (\id_C\otimes\id_C\otimes\id_D\otimes t)
+                (c_{1i}\otimes c_{2i}\otimes d_{1j}\otimes c'\otimes d_{2j})\\
+            &= \sum_{i=1}^n\sum_{j=1}^m
+                c_{1i}\otimes c_{2i}\otimes d_{1j}\otimes d_{2j}\otimes c'.
+        \end{align*}
+        \normalsize
+
+    \item Since all terms in the equation begin with $\id_C\,\otimes$, it suffices to show it after dropping that beginning. Take $c\in C$ and $d,d'\in D$ with
+    %\small
+    $$
+        \Delta_C(c) = \sum_{i=1}^nc_{1i}\otimes c_{2i}
+        \quad\text{and}\quad
+        \Delta_D(d) = \sum_{j=1}^md_{1j}\otimes d_{2j}.
+    $$
+    \normalsize
+    Then, for the LHS, we have
+    %\small
+    \begin{align*}
+        (\id_D\otimes\id_C\otimes t\otimes\id_D)
+            \circ(\id_D\otimes\Delta_C\otimes\Delta_D)
+            &\circ(t\otimes\id_D)(c\otimes d'\otimes d)\\
+            &= d'\otimes\sum_{i=1}^n\sum_{j=1}^mc_{1i}\otimes d_{1j}
+                \otimes c_{2i}\otimes d_{2j}.
+    \end{align*}
+    \normalsize
+    And
+    %\small
+    \begin{align*}
+        \text{RHS of ii)} &= (t\otimes t\otimes\id_D)
+        \circ(\id_C\otimes t\otimes\id_D\otimes\id_D)\\
+        &\qquad\circ(\Delta_C\otimes\id_D\otimes\Delta_D)
+            (c\otimes d'\otimes d)\\
+        &= \sum_{i=1}^n\sum_{j=1}^m
+            (t\otimes t\otimes\id_D)\\[-0.15in]
+        &\quad\qquad\qquad\circ(\id_C\otimes t\otimes\id_D\otimes\id_D)
+            (c_{1i}\otimes c_{2i}\otimes d'\otimes d_{1j}\otimes d_{2j})\\
+        &= \sum_{i=1}^n\sum_{j=1}^m
+            (t\otimes t\otimes\id_D)
+            (c_{1i}\otimes d'\otimes c_{2i}\otimes d_{1j}\otimes d_{2j})\\
+        &= \sum_{i=1}^n\sum_{j=1}^m
+            d'\otimes c_{1i}\otimes d_{1j}\otimes c_{2i}\otimes d_{2j}.
+    \end{align*}
+    \normalsize
+    \end{enumerate}
+\end{proof}
+
+\begin{thm}\label{thm:tensor-coalgebra}
+    The tensor product\/ $C\otimes_\kappa D$ of two (cocommutative)\/ $\kappa$-coalgebras is a (cocommutative)\/ $\kappa$-coalgebra with
+    \begin{enumerate}[-]
+        \item \textit{comultiplication:} $\Delta
+            =(\id_C\otimes_\kappa t\otimes_\kappa\id_D)\circ(\Delta_C\otimes_\kappa\Delta_D)$,
+        i.e.,
+       %\small
+        $$
+            \begin{tikzcd}[row sep=large]
+                &[-1cm]&[-1.3cm]\\[-2.5cm]
+                C\otimes_\kappa D
+                        \arrow[rd,"\Delta_C\otimes_\kappa\Delta_D"']
+                        \arrow[rr,"\Delta"]
+                    &&C\otimes_\kappa D\otimes_\kappa C\otimes_\kappa D\\
+                    &C\otimes_\kappa C\otimes_\kappa D\otimes_\kappa D
+                        \arrow[ru,"\id_C\otimes_\kappa t\otimes_\kappa\id_D"']
+            \end{tikzcd}
+        $$
+        \normalsize
+        \item\textit{couint:} $\varepsilon
+            =\mu_\kappa\circ(\varepsilon_C\otimes_\kappa\varepsilon_D)$,
+        i.e.,
+        %\small
+        $$
+        \begin{tikzcd}
+            &[-0.8cm]&[-0.5cm]\\[-3.cm]
+            C\otimes_\kappa D
+                    \arrow[rr,"\varepsilon"]
+                    \arrow[rd,"\varepsilon_C\otimes\varepsilon_D"']
+                &&\kappa\\
+                &\kappa\otimes_\kappa\kappa
+                    \arrow[ru,"\mu_\kappa"']
+        \end{tikzcd}
+        $$
+        \normalsize
+    \end{enumerate}
+    %Moreover, if $C$ and $D$ are cocommutative, $C\otimes_\kappa D$ is also cocommutative.    
+\end{thm}
+
+\begin{proof}
+    We have to verify the equalities of Lemmas~\ref{lem:*-associativity} and \ref{lem:*-identity}. In what follows we will denote $\otimes_\kappa$ by $\otimes$ and $\id_{C\otimes D}$ by~$\id$.
+
+    \begin{enumerate}[-]
+    \item \textbf{\textit{Associativity:}}
+    \small
+    \begin{align*}
+        (&\Delta\otimes\id)\circ\Delta\\
+        &= (\Delta\otimes\id_C\otimes\id_D)
+            \circ
+            (\id_C\otimes t\otimes\id_D)\circ(\Delta_C\otimes\Delta_D)\\
+        &= (\id_C\otimes t\otimes\id_D\otimes\id_C\otimes\id_D)\\
+        &\qquad\circ(\Delta_C\otimes\Delta_D\otimes\id_C\otimes\id_D)
+            \circ(\id_C\otimes t\otimes\id_D)\\
+        &\qquad\circ(\Delta_C\otimes\Delta_D)\\
+        &= (\id_C\otimes t\otimes\id_D\otimes\id_C\otimes\id_D)\\
+        &\qquad\circ(\id_C\otimes\id_C\otimes\id_D\otimes t\otimes\id_D)\\
+        &\qquad\circ(\id_C\otimes\id_C\otimes t\otimes\id_D\otimes\id_D)\\
+        &\qquad\circ(\Delta_C\otimes\id_C\otimes\Delta_D\otimes\id_D)
+            \circ(\Delta_C\otimes\Delta_D)
+            &&\text{; Lem.~\ref{lem:tt1}~i)}\\
+        &= (\id_C\otimes t\otimes t\otimes\id_D)\\
+        &\qquad\circ(\id_C\otimes\id_C\otimes t\otimes\id_D\otimes\id_D)\\
+        &\qquad\circ((\Delta_C\otimes\id_C)\circ\Delta_C)
+            \otimes((\Delta_D\otimes\id_D)\circ\Delta_D).\\
+        (&\id\otimes\Delta)\circ\Delta\\
+        &= (\id_C\otimes\id_D\otimes\Delta)
+            \circ(\id_C\otimes t\otimes\id_D)
+            \circ(\Delta_C\otimes\Delta_D)\\
+        &= (\id_C\otimes\id_D\otimes\id_C\otimes t\otimes\id_D)\\
+        &\qquad\circ(\id_C\otimes\id_D\otimes\Delta_C\otimes\Delta_D)
+            \circ(\id_C\otimes t\otimes\id_D)\\
+        &\qquad\circ(\Delta_C\otimes\Delta_D)\\
+        &= (\id_C\otimes t\otimes t\otimes\id_D)\\
+        &\quad\circ(\id_C\otimes\id_C\otimes t\otimes\id_D\otimes\id_D)
+                &&\text{; Lem.~\ref{lem:tt1}~ii)}\\
+        &\quad\circ(\id_C\otimes\Delta_C\otimes\id_D\otimes\Delta_D)
+            \circ(\Delta_C)\otimes\Delta_D).\\
+        &= (\id_C\otimes t\otimes t\otimes\id_D)\\
+        &\quad\circ(\id_C\otimes\id_C\otimes t\otimes\id_D\otimes\id_D)\\
+        &\quad\circ((\id_C\otimes\Delta_C)\circ\Delta_C)
+            \circ((\id_D\otimes\Delta_D)\circ\Delta_D).
+    \end{align*}
+    The equation $(\Delta\otimes\id)\circ\Delta = (\id\otimes\Delta)\circ\Delta$ is now clear.
+
+    \item \textbf{\textit{Identity:}}
+    %\small
+    \begin{align*}
+        \mu\circ(\varepsilon\otimes\id)\circ\Delta
+            &= (\mu_C\otimes\mu_D)\circ(\id_C\otimes t\otimes\id_D)\\
+            &\qquad\circ(\varepsilon_C\otimes\varepsilon_D
+                    \otimes\id_C\otimes\id_D)
+                \circ(\id_C\otimes t\otimes\id_D)\\
+            &\qquad\circ(\Delta_C\otimes\Delta_D)\\
+            &= (\mu_C\otimes\mu_D)
+                \circ(\varepsilon_C\otimes\id_C
+                \otimes\varepsilon_D\otimes\id_D)
+                \circ(\Delta_C\otimes\Delta_D)\\
+            &= (\mu_C\circ(\varepsilon_C\otimes\id_C)\circ\Delta_C)
+                \otimes
+                (\mu_D\circ(\varepsilon_D\otimes\id_D)\circ\Delta_D).
+    \end{align*}
+    \begin{align*}        
+        \mu\circ(\id\otimes\varepsilon)\circ\Delta
+            &= (\mu_C\otimes\mu_D)\circ(\id_C\otimes t\otimes\id_D)\\
+            &\qquad\circ(\id_C\otimes\id_D\otimes
+                    \varepsilon_C\otimes\varepsilon_D)
+                \circ(\id_C\otimes t\otimes\id_D)\\
+            &\qquad\circ(\Delta_C\otimes\Delta_D)\\
+            &= (\mu_C\otimes\mu_D)
+                \circ(\id_C\otimes\varepsilon_C\otimes
+                    \id_D\otimes\varepsilon_D)
+                    \circ(\Delta_C\otimes\Delta_D)\\
+            &= (\mu_C\circ(\id_C\otimes\varepsilon_C)\circ\Delta_C)
+                \otimes
+                (\mu_D\circ(\id_D\otimes\varepsilon_D)\circ\Delta_D).
+    \end{align*}
+    \normalsize
+    \end{enumerate}
+    Let's furthermore suppose that $C$ and $D$ are cocommutative. Then, given $a\in C$ and $b\in D$, and denoting by $T$ the twist in $(C\otimes D)\otimes(C\otimes D)$, we have
+    \begin{align*}
+        T\circ\Delta(c\otimes d)
+            &= T\circ(\id_C\otimes t\otimes\id_D)
+                \circ(\Delta_C\otimes\Delta_D)(c\otimes d)\\
+            &= T\circ(\id_C\otimes t\otimes\id_D)
+                \circ(t\circ\Delta_C\otimes t\circ\Delta_D)(c\otimes d)\\
+            &= \sum_{i=1}^n\sum_{j=1}^m
+                T\circ(\id_C\otimes t\otimes\id_D)
+                (c_{2i}\otimes c_{1i}\otimes d_{2j}\otimes d_{1j})\\
+            &= \sum_{i=1}^n\sum_{j=1}^m
+                T(c_{2i}\otimes d_{2j}\otimes c_{1i}\otimes d_{1j})\\
+            &= \sum_{i=1}^n\sum_{j=1}^m
+                c_{1i}\otimes d_{1j}\otimes c_{2i}\otimes d_{2j}\\
+            &= \Delta(c\otimes d).
+    \end{align*}
+\end{proof}
+
+
+\begin{lem}\label{lem:*-inverse} {\rm[Inverse]}
+    Let $\sigma\colon A\to A$ be a morphism of $\kappa$-modules for which
+    the diagram
+    \small
+    $$
+        \begin{tikzcd}[row sep=large]
+            A
+                    \arrow[d,"\Delta"']
+                    \arrow[r,"\varepsilon"]
+                &\kappa
+                    \arrow[r,"\iota_A"]
+                &A\\
+            A\otimes_\kappa A
+                    \arrow[rr,"\id_A\otimes_\kappa\sigma",
+                        start anchor={[yshift=1ex]},
+                        end anchor={[yshift=1ex]}]
+                    \arrow[rr,"\sigma\otimes_\kappa\id_A"',
+                        start anchor={[yshift=-1ex]},
+                        end anchor={[yshift=-1ex]}]
+                &&A\otimes_\kappa A
+                    \arrow[u,"\mu"']
+        \end{tikzcd}
+    $$
+    \normalsize
+    commutes. Then, for every $\kappa$-algebra $K$ and every $f\in\Hom_{\cat{CAlg}_\kappa}(A,K)$, we have
+    $$
+        (f\circ\sigma)*f=\iota_K\circ\varepsilon=f*(f\circ\sigma).
+    $$
+\end{lem}
+
+\begin{proof}
+    Take $x\in A$. Using that $f\in\Hom_{\cat{CAlg}_\kappa}(A,K)$, we obtain
+    %\small
+    \begin{align*}
+        \to\quad (f\circ\sigma)*f(x)
+            &= \sum_{i=1}^nf\circ\sigma(x_{i1})f(x_{i2})\\
+            &= f\Big(\sum_{i=1}^n
+                \mu\circ(\sigma\otimes_\kappa \id_A)(x_{1i}\otimes_\kappa x_{2i})\Big)\\
+            &= f\circ\mu\circ(\sigma\otimes_\kappa\id_A)\circ\Delta(x)\\
+            &= f\circ\iota_A\circ\varepsilon(x)\\
+        \to\quad\hphantom{(f\circ\sigma)*f(x)}
+            &= \iota_K\circ\varepsilon(x)\\
+            &= f\circ\iota_A\circ\varepsilon(x)\\
+            &= f\circ\mu\circ(\id_A\otimes_\kappa\sigma)\circ\Delta(x)\\
+            &= \sum_{i=1}^nf(x_{1i})f(\sigma(x_{2i}))\\
+        \to\quad\hphantom{(f\circ\sigma)*f(x)}
+            &= f*(f\circ\sigma)(x).
+    \end{align*}
+    \normalsize
+\end{proof}
+
+\begin{defn}
+    If $A$ is a $\kappa$-coalgebra for which there is a $\kappa$-linear map $\sigma\colon A\to A$ that satisfies the hypothesis of Lemma~\ref{lem:*-inverse}, then $A$ is a \textsl{$\kappa$-bialgebra} and $\sigma$ its \textsl{coinverse}.
+\end{defn}
+
+\begin{thm}\label{thm:tensor-bialgebra}
+    If\/ $A$ and\/ $B$ are\/ $\kappa$-bialgebras then\/ $A\otimes_\kappa B$ is a\/ $\kappa$-bialgebra with coinverse\/ $\sigma=\sigma_A\otimes_\kappa\sigma_B$.
+\end{thm}
+
+\begin{proof}
+    With the notations of Theorem~\ref{thm:tensor-coalgebra}, it is clear from the definitions that $\Delta$ and $\varepsilon$ are morphisms of $\kappa$-algebras when $A$ and $B$ are $\kappa$-bialgebras. Moreover,
+    \begin{align*}
+        \mu\circ(\sigma\otimes\id)\circ\Delta
+            &= (\mu_A\otimes\mu_B)\circ(\id_A\otimes t\otimes\id_B)\\
+            &\qquad\circ(\sigma_A\otimes\sigma_B
+                    \otimes\id_A\otimes\id_B)
+                \circ(\id_A\otimes t\otimes\id_B)
+                \circ(\Delta_A\otimes\Delta_B)\\
+            &= (\mu_A\otimes\mu_B)
+                \circ(\sigma_A\otimes\id_A
+                \otimes\sigma_B\otimes\id_B)
+                \circ(\Delta_A\otimes\Delta_B)\\
+            &= (\mu_A\circ(\sigma_A\otimes\id_A)\circ\Delta_A)
+                \otimes
+                (\mu_B\circ(\sigma_B\otimes\id_B)\circ\Delta_B)\\
+            \mu\circ(\id\otimes\sigma)\circ\Delta
+            &= (\mu_A\otimes\mu_B)\circ(\id_A\otimes t\otimes\id_B)\\
+            &\qquad\circ(\id_A\otimes\id_B\otimes
+                    \sigma_A\otimes\sigma_B)
+                \circ(\id_A\otimes t\otimes\id_B)
+                \circ(\Delta_A\otimes\Delta_B)\\
+            &= (\mu_A\otimes\mu_B)
+                \circ(\id_A\otimes\sigma_A\otimes\id_B\otimes\sigma_B)
+                    \circ(\Delta_A\otimes\Delta_B)\\
+            &= (\mu_A\circ(\id_A\otimes\sigma_A)\circ\Delta_A)
+                \otimes
+                (\mu_B\circ(\id_B\otimes\sigma_B)\circ\Delta_B).
+    \end{align*}
+    Since
+    \begin{align*}
+        (\mu_A\circ(\sigma_A\otimes\id_A)\circ\Delta_A)
+                \otimes
+                (&\mu_B\circ(\sigma_B\otimes\id_B)\circ\Delta_B)\\
+                &= (\iota_A\circ\varepsilon_A)
+                \otimes(\iota_B\circ\varepsilon_B)
+                = \iota_{A\otimes B}\circ\varepsilon,
+    \end{align*}
+    we are done.
+\end{proof}
+
+\begin{lem}\label{lem:*-coinverse-ok}
+    Suppose that\/ $(A, \Delta, \varepsilon, \sigma)$ is a\/ $\kappa$-bialgebra. Then,
+    \begin{enumerate}[\rm a)]
+        \item $\sigma(1)=1$.
+        \item If\/ $\Delta$ and\/ $\varepsilon$ are morphisms of\/ $\kappa$-algebras, then\/ $\sigma$ is an \textsl{antihomomorphism}, i.e., $\sigma(ab)=\sigma(b)\sigma(a)$ for all\/ $a,b\in A$. In particular, if\/ $A$ is commutative, $\sigma$ is a morphism of\/ $\kappa$-algebras.
+    \end{enumerate}
+\end{lem}
+
+\needspace{2\baselineskip}
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item From the diagram of Lemma~\ref{lem:*-inverse} we get
+        \begin{align*}
+            1 = \iota_A\circ\varepsilon(1)
+                = \mu\circ(\id_A\otimes\sigma)\circ\Delta(1)
+                = \mu\circ(\id_A\otimes\sigma)(1\otimes 1)
+                = \sigma(1).
+        \end{align*}
+        \item Introduce
+        \begin{align*}
+            \omega\colon A\otimes_\kappa A&\to A
+            &\text{and}&&\nu\colon A\otimes_\kappa A&\to A\\
+            a\otimes b&\mapsto \sigma(b)\sigma(a)
+            &&&a\otimes b&\mapsto\sigma(ab).
+        \end{align*}
+        Given that $\omega=\mu\circ(\sigma\otimes\sigma)\circ t$ and $\nu=\sigma\circ\mu$, we deduce that both maps belong in $\Hom_\kappa(A\otimes_\kappa A,A)$.
+
+        To verify that $\sigma(ab)=\sigma(b)\sigma(a)$ we have to verify that $\omega=\nu$. To that end, we will show that $\omega$ is a right and $\nu$ the left inverses of $\mu$ with respect to the convolution.
+
+        Take $a,b\in A$. With the usual notations we can write
+        $$
+            \Delta_{A\otimes A}(a\otimes b) = \sum_{i=1}^n\sum_{j=1}^m
+                a_{1i}\otimes b_{1j}\otimes a_{2i}\otimes b_{2j}.
+        $$
+        Therefore,
+        \begin{align*}
+            \mu * \omega(a\otimes b) &= \sum_{i=1}^n\sum_{j=1}^m
+                \mu(a_{1i}\otimes b_{1j})\omega(a_{2i}\otimes b_{2j})\\
+            &= \sum_{i=1}^n\sum_{j=1}^m
+                a_{1i}b_{1j}\sigma(b_{2j})\sigma(a_{2i})\\
+            &= \sum_{i=1}^na_{1i}(\mu\circ(\id_A\otimes\sigma)\circ\Delta(b))\sigma(a_{2i})\\
+            &= \sum_{i=1}^na_{1i}(\iota_A\circ\varepsilon(b))\sigma(a_{2i})\\
+            &= (\iota_A\circ\varepsilon(a))
+                (\iota_A\circ\varepsilon(b))\\
+            &= \mu\circ(\iota_A\otimes\iota_A)
+                \circ(\varepsilon\otimes\varepsilon)\\
+            &= \mu\circ\iota_{A\otimes A}\circ\varepsilon_{A\otimes A},
+        \end{align*}
+        i.e., $\mu*\omega = \iota_{A\otimes A}\circ\varepsilon_{A\otimes A}$ because $\kappa\otimes\kappa=\kappa$. This shows that $\omega$ is a right inverse of $\mu$.
+
+        Now, using that $\Delta(a)\Delta(b)=\Delta(ab)$ and $\varepsilon(ab)=\varepsilon(a)\varepsilon(b)$, we obtain
+        \begin{align*}
+            \nu*\mu(a\otimes b) &= \sum_{i=1}^n\sum_{j=1}^m
+                    \nu(a_{1i}\otimes b_{1j})\mu(a_{2i}\otimes b_{2j})\\
+                &= \sum_{i=1}^n\sum_{j=1}^m\sigma(a_{1i}b_{1j})a_{2i}b_{2j}\\
+                &= \sum_{i=1}^n\sum_{j=1}^m
+                    \mu\circ(\sigma\otimes\id_A)
+                    (a_{1i}b_{1j}\otimes a_{2i}b_{2j})\\
+                &= \mu\circ(\sigma\otimes\id_A)\circ\Delta(ab)\\
+                &= \iota_A\circ\varepsilon(ab)\\
+                &= \mu\circ\iota_{A\otimes A}
+                    \circ\varepsilon_{A\otimes A}(a\otimes b).
+        \end{align*}
+        Therefore, $\nu$ is a left inverse of $\mu$. In consequence, $\omega$ and $\nu$ must be equal because
+        $$
+            \nu = \nu*(\iota_{A\otimes A}\circ\varepsilon_{A\otimes A})
+                = \nu * (\mu*\omega)
+                = (\nu*\mu)*\omega 
+                = (\iota_{A\otimes A}\circ\varepsilon_{A\otimes A}) * \omega
+                = \omega.
+        $$
+    \end{enumerate}
+\end{proof}
+
+\begin{thm}\label{thm:co-properties}
+    Let\/ $A$ be a $\kappa$-algebra together with additional\/ $\kappa$-linear maps
+    $$
+    \begin{aligned}
+        &\Delta\colon A\to A\otimes_\kappa A, \\
+        &\varepsilon\colon A\to\kappa,
+    \end{aligned}
+    $$
+    that satisfy the hypotheses of\/ \textrm{\rm Lemmas~\ref{lem:*-associativity} and \ref{lem:*-identity}}, namely
+    %\small
+    \begin{align*}
+        \text{\rm coassociativity:}\quad
+            &(\id_A\otimes_\kappa\Delta)\circ\Delta
+                = (\Delta\otimes_\kappa\id_A)\circ\Delta\\
+        \text{\rm coidentity:}\quad
+            &\mu_1\circ(\varepsilon\otimes_\kappa\id_A)
+                \circ\Delta
+                = \id_A
+                = \mu_2\circ(\id_A\otimes_\kappa\varepsilon)
+                \circ\Delta.
+    \end{align*}
+    \normalsize
+    Then, for every\/ $\kappa$-algebra\/ $K$, the set\/ $\yon_A(K)=\Hom_\kappa(A,K)$ is an (associative) monoid with unit for the convolution operation.
+
+    \needspace{2\baselineskip}
+    Moreover,
+    \begin{enumerate}[\rm a)]
+        \item If\/ $\Delta$ satisfies the hypothesis of\/~\textrm{\rm Lemma~\ref{lem:*-commutativity}}, namely\/ $\Delta=t\circ\Delta$, the monoid is commutative.
+    
+        \item If ---in addition--- $A$ is commuative and $\Delta$ and\/ $\varepsilon$ are morphisms of\/ $\kappa$-algebras and there exists a\/ $\kappa$-linear map
+        $$
+            \sigma\colon A\to A
+        $$
+        that satisfies the hypothesis of\/ \textrm{\rm Lemma~\ref{lem:*-inverse}}, namely
+        $$
+            \text{\rm inverse:}\quad
+                \mu\circ(\sigma\otimes_\kappa\id_A)\circ\Delta
+                = \iota_A\circ\varepsilon
+                = \mu\circ(\id_A\otimes_\kappa\sigma)\circ\Delta,
+        $$
+        then\/ $\yoneda_A(K)=\Hom_{\cat{CAlg}_\kappa}(A,K)$ is a group.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    Immediate from Lemmas~\ref{lem:*-associativity}, \ref{lem:*-identity}, \ref{lem:*-commutativity}, \ref{lem:*-inverse} and \ref{lem:*-coinverse-ok}.
+\end{proof}
+
+\begin{defn}
+    A $\kappa$-bialgebra $A$ for which $\Delta_A$ and $\varepsilon_A$ are morphisms of $\kappa$-algebras is a \textsl{$\kappa$-Hopf algebra}. The (antihomo)morphism $\sigma_A$ is the \textsl{coinverse}.
+\end{defn}
+
+\begin{thm}
+    If\/ $A$ and\/ $B$ are\/ $\kappa$-Hopf algebras with coinverses\/ $\sigma_A$ and\/ $\sigma_B$, then\/ $A\otimes_\kappa B$ is a\/ $\kappa$-Hopf algebra with coinverse\/ $\sigma=\sigma_A\otimes_\kappa\sigma_B$.
+\end{thm}
+
+\begin{proof}
+    This is a direct consequence of Theorem~\ref{thm:tensor-bialgebra}.
+\end{proof}
+
+\needspace{2\baselineskip}
+\begin{xmpls}${}$\label{xmpls:k-group-schemes}
+    \begin{description}
+        \item[\quad Trivial $\kappa$-group scheme.] This is the case when $A=\kappa$. Since $\kappa\otimes_\kappa\kappa = \kappa$, we can take $\Delta=\varepsilon=\sigma=\id_\kappa$.
+
+        The four conditions of the theorem hold trivially because all maps involved equal~$\id_\kappa$.
+
+        In this case, given a $\kappa$-algebra $K$, we have
+        $$
+            \yoneda_\kappa(K)
+                =\Hom_\kappa(\kappa, K)
+                =\Hom_{\cat{CAlg}_\kappa}(\kappa,K)
+                =\set{\iota_K},
+        $$
+        i.e., the trivial group.
+        
+        \item[\quad Additive $\kappa$-group scheme.] Here $A=\kappa[x]$ is the polynomial ring.
+        \begin{align*}
+            \text{comultiplication:}\quad
+                &\Delta(1)=1\otimes_\kappa1
+                \quad{\rm and}\quad
+                \Delta(x)=x\otimes_\kappa 1 + 1\otimes_\kappa x,\\
+            \text{counit:}\quad
+                &\varepsilon(f)=f(0),\\
+            \text{coinverse:}\quad
+                &\sigma((f(x))=f(-x).
+        \end{align*}
+        Clearly, $t\circ\Delta=\Delta$. Moreover,
+        \begin{align*}
+            (\id_A\otimes_\kappa\Delta)
+                (x\otimes_\kappa1+1\otimes_\kappa x)
+                &= x\otimes_\kappa1\otimes_\kappa
+                    1^{\textcolor{blue}{\checkmark}}\\
+                &\quad+1\otimes_\kappa x\otimes_\kappa
+                    1^{\textcolor{orange}{\checkmark}}
+                    +1\otimes_\kappa1\otimes_\kappa
+                    x^{\textcolor{green}{\checkmark}}\\
+            (\Delta\otimes_\kappa\id_A)
+                (x\otimes_\kappa1+1\otimes_\kappa x)
+                &= x\otimes_\kappa1\otimes_\kappa
+                    1^{\textcolor{blue}{\checkmark}}
+                    +1\otimes_\kappa x\otimes_\kappa
+                    1^{\textcolor{orange}{\checkmark}}\\
+                &+1\otimes_\kappa1\otimes_\kappa
+                    x^{\textcolor{green}{\checkmark}},
+        \end{align*}
+        showing that both expressions are equal.
+        Finally,
+        \begin{align*}
+            \mu\circ(\sigma\otimes_\kappa\id_A)
+                (x\otimes_\kappa1+1\otimes_\kappa x)
+                &= \mu(-x\otimes_\kappa1+1\otimes_\kappa x)\\
+                &= -x + x\\
+                &= 0\\
+                &= \iota_{\kappa[x]}\circ\varepsilon(x).
+        \end{align*}
+        Let's now compute the convolution. Take a $\kappa$-algebra $K$ and two morphisms $f,g\in\Hom_\kappa(\kappa[x],K)$. Put $a=f(x)$ and $b=g(x)$. Then $f=\ev_a$ and $g=\ev_b$ are the evaluations at~$a$ and~$b$. Therefore,
+        \begin{align*}
+            \ev_a*\ev_b(x) &= \ev_a(x)\ev_b(1)
+                + \ev_a(1)\ev_b(x)\\
+                &= a + b\\
+                &= \ev_{a+b}(x).
+        \end{align*}
+        Moreover, the identity of $\Hom_\kappa(\kappa[x],K)$ is $\op{ev_0}$ because $\varepsilon(f)=f(0)$ by definition.
+    
+        Finally, for the inverse, $\ev_a\circ\sigma(x)=\ev_a(-x)=-a=\ev_{-a}(x)$, which means that the inverse of $\ev_a$ is $\ev_{-a}$, as expected.
+
+        \item[\textbf{Multiplicative $\kappa$-group scheme.}]\label{xmpl:item-k[x,x^-1]} Consider $A=\kappa[x,x^{-1}]=\kappa[x,y]/\gen{xy-1}$, with
+        \begin{align*}
+            \text{comultiplication:}\quad
+                &\Delta(1)=1\otimes_\kappa1
+                \quad{\rm and}\quad
+                \Delta(x)=x\otimes_\kappa x,\\
+            \text{counit:}\quad
+                &\varepsilon(q)=q(1),\\
+            \text{coinverse:}\quad
+                &\sigma((q(x))=q(x^{-1}).
+        \end{align*}
+        The convolution in $\Hom_\kappa(\kappa[x,x^{-1}],K)$ is
+        $$
+            f*g(x) = f(x)g(x).
+        $$
+        Moreover,
+        \begin{enumerate}[-]
+            \item \textit{commutativity:} $t\circ(x\otimes_\kappa x)=x\otimes_\kappa x$.
+
+            \item\textit{associativity:}
+                $(\id\otimes_\kappa\Delta)\circ(x\otimes x)
+                = x\otimes x\otimes x
+                = (\Delta\otimes_\kappa\id)\circ(x\otimes x)$.
+
+            \item\textit{identity:}
+                $\mu\circ(\varepsilon\otimes_\kappa\id)(x\otimes_\kappa x) = \mu(1\otimes_\kappa x)= x$.
+
+            \item\textit{inverse:} $\mu\circ(\sigma\otimes_\kappa\id)
+                (x\otimes_\kappa x) = \mu(x^{-1}\otimes_\kappa x) = 1 = \varepsilon(x).$
+        \end{enumerate}
+        Of course, if $f\in\Hom_{\cat{CAlg}_\kappa}(\kappa[x,x^{-1}], K)$, there exists a unit $u\in K$ such that $f=\ev_u$. Therefore,
+        $$
+            \ev_u*\ev_v(x) = \ev_u(x)\ev_v(x)
+                = uv =\ev_{uv}(x),
+        $$
+        i.e., $\ev_u*\ev_v=\ev_{uv}$.
+
+        For the inverse we have
+        $$
+            \ev_u\circ\sigma(x)=\ev_u(x^{-1})= u^{-1}=\ev_{u^{-1}}(x),
+        $$
+        i.e., $(\ev_u)^{-1}=\ev_{u^{-1}}$.
+
+        The unit of the group is, by definition, $\ev_1$.
+
+        \item[\textbf{Multiplicative group of $n$th roots of unity.}] Take $A=\kappa[x]/\gen{x^n-1}$ and define
+        \begin{align*}
+            \text{comultiplication:}\quad
+                &\Delta(1)=1\otimes_\kappa1
+                \quad{\rm and}\quad
+                \Delta(x)=x\otimes_\kappa x,\\
+            \text{counit:}\quad
+                &\varepsilon(q)=q(1),\\
+            \text{coinverse:}\quad
+                &\sigma((q(x))=q(x^{n-1}).
+        \end{align*}
+        The convolution $\Hom_\kappa(\kappa[x]/\gen{x^n-1},K)$ is
+        $$
+            f*g(x)=f(x)g(x)
+        $$
+        as before, except that this time every $f\in\Hom_{\cat{CAlg}_\kappa}(\kappa[x]/\gen{x^n-1},K)$ is the evaluation at some $n$th root of unit $\theta\in K$, i.e., $f=\ev_\theta$, with $\theta^n=1$. Note that the inverse of $\ev_\theta$ satisfies
+        $$
+            \ev_\theta\circ\sigma(x)
+                = \ev_\theta(x^{n-1})
+                =\theta^{n-1}
+                =\ev_{\theta^{n-1}}(x),
+        $$
+        i.e., $\ev_\theta^{-1}=\ev_{\theta^{n-1}}$.
+
+        \item[\textbf{Special linear group scheme of order $2$.}] In this example
+        $$
+            A=\kappa[x_{11},x_{12},x_{21},x_{22}]/\gen{x_{11}x_{22}-x_{21}x_{12}-1}.
+        $$
+        Thus, every element $f\in\Hom_{\cat{CAlg}_\kappa}(A,K)$ is the evaluation $\ev_A$, where $A$ is a $2\times2$ matrix in $K$ with $\det A=1$.
+
+        The question we want to consider is how to define the comultiplication $\Delta$ so that $\ev_A*\ev_B=\ev_{AB}$. Let's consider
+        $$
+            \Delta(x_{ij}) = x_{i1}\otimes_\kappa x_{1j}
+                + x_{i2}\otimes_\kappa x_{2j}.
+        $$
+        Given two evaluations $\ev_A$ and $\ev_B$, we get
+        $$
+            \ev_A*\ev_B(x_{ij}) = a_{i1}b_{1j}+a_{i2}b_{2j}= (AB)_{ij}
+                = \ev_{AB}(x_{ij}).
+        $$
+        Thus, $\ev_A*\ev_B=\ev_{AB}$. Note that $\Hom_{\cat{CAlg}_\kappa}(A,K)$ is not abelian.
+
+        For the counit $\varepsilon\colon A\to\kappa$ let's define
+        $$
+            \varepsilon = \ev_I,
+        $$
+        where $I\in\kappa^{2\times2}$ is the identity.
+
+        Finally, for the coinverse $\sigma\colon A\to A$, we have
+        $$
+            \sigma(x_{11})=x_{22},\quad\sigma(x_{12})=-x_{12},
+                \quad\sigma(x_{21})=-x_{21}\quad{\rm and}\quad
+                \sigma(x_{22})=x_{11},
+        $$
+        which implies that $\ev_A\circ\sigma=\ev_{A^{-1}}$.
+    \end{description}
+\end{xmpls}
+
+\section{Homomorphisms}
+
+\begin{defn}\label{defn:k-group-scheme}
+    Let $A$ be a commutative $\kappa$-algebra. The representable functor $\yoneda_A=\Hom_{\cat{CAlg}_\kappa}(A,-)$ is an \textsl{affine $\kappa$-group scheme} when, for every $\kappa$-algebra $K$, the convolution operation defines a structure of group in~$\yoneda_A(K)$.
+\end{defn}
+
+\begin{defn}
+    Let $\yoneda_A$ and $\yoneda_B$ be two $\kappa$-group schemes. A natural transformation $\eta\colon\yoneda_A\to\yoneda_B$ is a \textsl{morphism of $\kappa$-group schemes} if, for every $\kappa$-algebra $K$, $\eta_K\colon\yoneda_A(K)\to\yoneda_B(K)$ is a morphism of groups.
+\end{defn}
+
+\begin{thm}\label{thm:k-group-scheme-equivalence}
+    Let $\yoneda_A$ and $\yoneda_B$ be two $\kappa$-group schemes and  $\eta\colon\yoneda_A\to\yoneda_B$ a natural transformation. Let $\phi\colon B\to A$ be the morphism associated by Yoneda's Lemma. Then $\eta$ is morphism of $\kappa$-group schemes if, and only if, the following diagrams commute
+    $$
+        \begin{tikzcd}
+            B
+                    \arrow[r,"\phi"]
+                    \arrow[d,"\Delta_B"']
+                &A
+                    \arrow[d,"\Delta_A"]
+                &B
+                    \arrow[r,"\phi"]
+                    \arrow[rd,"\varepsilon_B"']
+                &A
+                    \arrow[d,"\varepsilon_A"]
+                &B
+                    \arrow[r,"\phi"]
+                    \arrow[d,"\sigma_B"']
+                &A
+                    \arrow[d,"\sigma_A"]\\
+            B\otimes_\kappa B
+                    \arrow[r,"\phi\otimes_\kappa\phi"']
+                &A\otimes_\kappa A
+                &&\kappa
+                &B
+                    \arrow[r,"\phi"]
+                &A.
+        \end{tikzcd}
+    $$
+\end{thm}
+
+\begin{proof} Take a $\kappa$-algebra $K$. Recall from Yoneda's Lemma~\ref{thm:yoneda} that $\phi=\eta_A(\id_A)$ satisfies $\eta_K(\zeta)=\zeta\circ\phi$ for all $\zeta\in\Hom_\kappa(A,K)$.
+    \begin{description}
+        \item[\textit{if\/} part:] We have to show that $\eta_K\colon\yoneda_A(K)\to\yoneda_B(K)$ is a group morphism. Note that we will only use the commutativity of the first two diagrams.
+        \begin{enumerate}[-]
+            \item\textit{product:} For $f,g\colon A\to K$ and $y\in B$ with $\Delta_B(y)=\sum_{j=1}^my_{1j}\otimes_\kappa y_{2j}$, the hypothesis implies that
+            $$
+                \Delta_A(\phi(y))
+                    =\sum_{j=1}^m\phi(y_{1j})\otimes_\kappa \phi(y_{2j}).
+            $$
+            Then,
+                \begin{align*}
+                    \eta_K(f*g)(y) &= (f*g)\circ\phi(y)\\
+                        &= \sum_{j=1}^mf\circ\phi(y_{1j})g\circ\phi(y_{2j})\\
+                        &= (f\circ\phi) * (g\circ\phi)(y)\\
+                        &= \eta_K(f)*\eta_K(g)(y).
+                \end{align*}
+                
+            \item\textit{identity:}
+            \begin{align*}
+                \eta_K(1_{\yoneda_A(K)})
+                    &= \eta_K(\iota_K\circ\varepsilon_A)\\
+                    &= \iota_K\circ\varepsilon_A\circ\phi\\
+                    &= \iota_K\circ\varepsilon_B\\
+                    &= 1_{\yoneda_B(K)}.
+            \end{align*}
+        \end{enumerate}
+
+        \item[\textit{only if:}] By Yoneda's lemma, given a $\kappa$-algebra $K$, we have $\eta_K(\zeta)=\zeta\circ\phi$. In particular, for $K=A\otimes_\kappa A$ and $\zeta=\Delta_A$, we obtain $\eta_{A\otimes_\kappa A}(\Delta_A)=\Delta_A\circ\phi$.
+        
+        Now take $y\in B$ and write $\Delta_A(\phi(y))=\sum_{i=1}^nx_{1i}\otimes_\kappa x_{2i}$. By definition
+        \begin{align*}
+            \eta_{A\otimes_\kappa A}
+                    ((-\otimes_\kappa1) * (1\otimes_\kappa-))(y)
+                &= ((-\otimes_\kappa1) * (1\otimes_\kappa-))\circ\phi(y)\\
+                &= \sum_{i=1}^n
+                    (-\otimes_\kappa1)(x_{1i})(1\otimes_\kappa-)(x_{2i})\\
+                &= \sum_{i=1}^n
+                    (x_{1i}\otimes_\kappa1)(1\otimes_\kappa x_{2i})\\
+                &= \sum_{i=1}^nx_{1i}\otimes_\kappa x_{2i}\\
+                &= \Delta_A\circ\phi(y).
+        \end{align*}
+        But our hypothesis implies that $\eta_{A\otimes_\kappa A}$ is a morphism of groups. Therefore, for $\Delta_B(y)=\sum_{j=1}^my_{1j}\otimes_\kappa y_{2j}$, we get
+        \begin{align*}
+            \Delta_A\circ\phi(y) &= \eta_{A\otimes_\kappa A}
+                    ((-\otimes_\kappa1) * (1\otimes_\kappa-))(y)\\
+                &= (\eta_{A\otimes_\kappa A}(-\otimes_\kappa1)
+                    * \eta_{A\otimes_\kappa A}(1\otimes_\kappa-))(y)\\
+                &= ((-\otimes_\kappa1)\circ\phi
+                    * (1\otimes_\kappa-)\circ\phi)(y)\\
+                &= \sum_{j=1}^m
+                    (-\otimes_\kappa1)\circ\phi(y_{1j})
+                    (1\otimes_\kappa-)\circ\phi(y_{2j})\\
+                &= \sum_{j=1}^m
+                    (\phi(y_{1j})\otimes_\kappa1)
+                    (1\otimes_\kappa\phi(y_{2j}))\\
+                &= \sum_{j=1}^m\phi(y_{1j})\otimes_\kappa\phi(y_{2j})\\
+                &= \phi\otimes_\kappa\phi
+                    \Big(\sum_{j=1}^my_{1j}\otimes y_{2j}\Big)\\
+                &= \phi\otimes_\kappa\phi\circ\Delta_B(y),
+        \end{align*}
+        which proves the commutativity of the first diagram. 
+
+        To verify the commutativity of the second, observe that for every $\kappa$-algebra $K$, $\eta_K$ maps the identity of $\yoneda_A$ to the identity of $\yoneda_B$, i.e.,
+        $$
+            \iota_K\circ\varepsilon_A\circ\phi = \eta_K(1_{\yoneda_A(K)})
+                = 1_{\yoneda_B(K)} = \iota_K\circ\varepsilon_B.
+        $$
+        In particular, for $K=\kappa$, since $\iota_K=\id_\kappa$, we get the desired commutativity.
+
+        For the commutativity of the third take $K=A$ and $f=\id_A\in\yoneda_A(A)$. We know that $\sigma_A=f\circ\sigma_A$ is the inverse of $f$ in the group $\yoneda_A(A)$. Therefore, $\eta_A(\sigma_A)$ is the inverse of $\eta_A(f)=f\circ\phi = \phi$ in $\yoneda_B(A)$, i.e.,
+        $$
+            \sigma_A\circ\phi = \eta_A(\sigma_A) = \phi\circ\sigma_B.
+        $$\qedhere
+    \end{description}
+\end{proof}
+
+\begin{rem}\label{rem:two-diagrams-suffice}
+    As observed in the proof of the theorem, the commutativity of the third diagram is a consequence of the commutativity of the first two.
+\end{rem}
+
+
+\section{Kernel Representation}
+    In this section $A$ and $B$ will denote $\kappa$-algebras such that $\yoneda_A$ and $\yoneda_B$ are $\kappa$-group schemes and $\phi\colon B\to A$ will denote the $\kappa$-algebra morphism induced by the $\kappa$-group scheme morphism $\eta\colon\yoneda_A\to\yoneda_B$.
+    
+\begin{defn}
+    The \textsl{augmentation ideal} of $A$ is kernel of the couint map $\varepsilon_A\colon A\to\kappa$. In symbols
+    $$
+        A^+ = \ker\varepsilon_A.
+    $$
+\end{defn}
+
+\begin{rem}\label{rem:augmentation}
+    Since the couint map is a morphism of $\kappa$-algebras, the augmentation ideal is indeed an ideal of~$A$. Moreover, the s.e.s.
+    $$
+        0\to A^+\to A\to\kappa\to0
+    $$
+    shows that $A/A^+\cong\kappa$ as $\kappa$-algebras. Note also that $A/A^+$ is an $A$-algebra via $A\to A/A^+$, i.e., under the action $x\cdot\widebar a=\widebar{xa}$
+\end{rem}
+
+\begin{lem}\label{lem:A-tensor-B/B+-equivalence}
+    Consider\/ $A$ as a\/ $B$-algebra via\/ $\phi$. Then
+    \begin{align}\label{map:bar-phi}
+        A\otimes_BB/B^+&\to A/\phi(B^+)A\\
+        a\otimes_B\widebar b&\mapsto \widebar{a\phi(b)}\nonumber
+    \end{align}
+    is well-defined isomorphism of\/ $B$-algebras.
+\end{lem}
+
+\begin{proof}
+    According to the universal property of the tensor product, we have to show the existence of a $B$-bilinear map $g\colon A\times B/B^+\to A/\phi(B^+)A$ such that, for every $B$-bilinear map $f\colon A\times B/B^+\to K$, there exists a unique morphism of $B$-algebras $\theta\colon A/\phi(B^+)A\to K$ such that the following diagram commutes
+    $$
+        \begin{tikzcd}
+            A\times B/B^+
+                    \arrow[d,"g"']
+                    \arrow[r,"\forall\,f"]&
+                K\\
+            A/\phi(B^+)A
+                    \arrow[ru,"{\exists!\,\theta}"',dashed]
+        \end{tikzcd}
+    $$
+    The morphism $\phi\colon B\to A$ induces
+    \begin{align*}
+        \widebar\phi\colon B/B^+&\to A/\phi(B^+)A\\
+        \widebar b&\mapsto\widebar{\phi(b)}. 
+    \end{align*}
+    Therefore, the map
+    \begin{align*}
+        g\colon A\times B/B^+&\to A/\phi(B^+)A\\
+        (a,\widebar b)&\mapsto \widebar{a\phi(b)}
+    \end{align*}
+    is well-defined and $B$-bilinear. Indeed, given $c\in B$, we have
+    $$
+        g(c\cdot a,\widebar b) = g(\phi(c)a,\widebar b)
+            = \widebar{\phi(c)a\phi(b)}
+            = \widebar{a\phi(cb)}
+            = g(a,\widebar{cb})
+            = g(a,c\cdot\widebar b).
+    $$
+    Now consider
+    \begin{align*}
+        t\colon A&\to K\\
+        a&\mapsto f(a,\widebar1),
+    \end{align*}
+    which is a $B$-morphism because $f$ is $B$-bilinear. In particular, for $b\in B^+$,
+    $$
+        t(\phi(b)a)=t(b\cdot a)
+            = f(b\cdot a,\widebar1)
+            = f(a,b\cdot\widebar1)
+            = f(a,\widebar b) = f(a,0)=0,
+    $$
+    which implies that $t$ induces a morphism $\theta\colon A/\phi(B^+)A\to K$. Moreover,
+    \begin{align*}
+        \theta\circ g(a,\widebar b) &= \theta(\widebar{a\phi(b)})\\
+            &= t(a\phi(b))\\
+            &= f(b\cdot a,\widebar1)\\
+            &= f(a,\widebar b),
+    \end{align*}
+    i.e., $f=\theta\circ g$ and the triangle commutes.
+    
+    Regarding the uniqueness of $\theta$, suppose that $\theta'$ has the same property. Then, for every $a\in A$
+    $$
+        \theta'(\widebar a) = \theta'(g(a,\widebar1))=f(a,\widebar1)
+            =\theta(g(a,\widebar1))=\theta(\widebar a)
+    $$
+    and $\theta'=\theta$.
+\end{proof}
+
+\begin{prop}\label{prop:ker(eta_K)-1}
+    Let\/ $K$ be a\/ $\kappa$-algebra. Consider the structure of\/ $B$-algebras on\/ $K$ and\/ $\kappa$ given by the actions 
+    \begin{align*}
+        B\times K&\to K
+            &{\rm and}&&B\times\kappa&\to\kappa\\
+        (b,x)&\mapsto\iota_K(\varepsilon_B(b))x
+            &&&(b,k)&\mapsto\varepsilon_B(b)k.
+    \end{align*}
+    Then\/ $\ker(\eta_K)=\Hom_{\cat{CAlg}_B}(A,K)\cong\Hom_{\cat{CAlg}_B}(A\otimes_B\kappa,K)$.
+\end{prop}
+
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+
+\begin{proof}
+    Firstly note the isomorphism
+    \begin{align*}
+        \Hom_B(A\otimes_B\kappa,K)&\cong\Hom_B(A,K)\times\Hom_B(\kappa,K)\\
+        f&\mapsto(f\circ-\otimes_B1,f\circ1\otimes_B-)\\
+        fg &\mapsfrom (f,g),
+    \end{align*}
+    which can be restricted to
+    \begin{align*}
+        \Hom_{\cat{CAlg}_B}(A\otimes_B\kappa,K)
+            &\cong\Hom_{\cat{CAlg}_B}(A,K)
+                \times\Hom_{\cat{CAlg}_B}(\kappa,K).
+    \end{align*}
+    Secondly, by definition, the structure morphism $B\to K$ is $\iota_B\circ\varepsilon_B$. Thus if $g\in\Hom_{\cat{CAlg}_B}(\kappa,K)$ the triangle
+    $$
+        \begin{tikzcd}
+            \kappa
+                    \arrow[r,"g"]
+                &K\\
+            B
+                    \arrow[ru,"\iota_K\circ\varepsilon_B"']
+                    \arrow[u,"\varepsilon_B"]
+        \end{tikzcd}
+    $$
+    commutes. Hence, for $k\in\kappa$ we have
+    $$
+        g(k) = g(\varepsilon_B(\iota_B(k)))
+            = \iota_K\circ\varepsilon_B(\iota_B(k))
+            = \iota_K(k),
+    $$
+    which implies that $\Hom_{\cat{CAlg}_B}(\kappa,K)=\set{\iota_K}$.
+
+    Therefore we can identify $\Hom_{\cat{CAlg}_B}(A\otimes_B\kappa,K)$ with $\Hom_{\cat{CAlg}_B}(A,K)$ via the isomorphism $f\mapsto f\circ-\otimes_B1$.
+
+    Take $f\in\Hom_{\cat{CAlg}_B}(A,K)$. Then $\eta_K(f)\in\yoneda_B(K)$ and for $b\in B$ we have
+    \begin{align*}
+        \eta_K(f)(b) &= f\circ\phi(b)\\
+            &= f(\phi(b))\\
+            &= f(b\cdot1_A)\\
+            &= b\cdot f(1_A)\\
+            &= (\iota_K\circ\varepsilon_B(b))1_K\\
+            &= \iota_K\circ\varepsilon_B(b),
+    \end{align*}
+    i.e., $\eta_K(f)=\iota_K\circ\varepsilon_B$, the identity of $\yoneda_B(K)$. Hence, $\Hom_{\cat{CAlg}_B}(A,K)\subseteq\ker(\eta_K)$.
+
+    Conversely, suppose that $f\in\ker(\eta_K)$. Then $f\circ\phi=\iota_K\circ\varepsilon_B$. Take $b\in B$ and $a\in A$. We have to show that $f(b\cdot a)=b\cdot f(a)$. But
+    \begin{align*}
+        f(b\cdot a) &= f(\phi(b)a)\\
+            &= f(\phi(b))f(a)\\
+            &= (\iota_K\circ\varepsilon_B(b))f(a)\\
+            &= b\cdot f(a),
+    \end{align*}
+    as wanted.
+\end{proof}
+
+\begin{prop}\label{prop:ker(eta_K)-2}
+    Given a\/ $\kappa$-algebra\/ $K$ the underlying\/ $\kappa$-module structure of\/ $\Hom_{\cat{CAlg}_B}(A,K)$ is isomorphic to\/ $\Hom_{\cat{CAlg}_\kappa}(A/\phi(B^+)A,K)$.
+\end{prop}
+
+\begin{proof}
+    Consider the map
+    \begin{align*}
+        \psi\colon\Hom_{\cat{CAlg}_B}(A,K)&\to\Hom_{\cat{CAlg}_\kappa}(A/\phi(B^+)A,K)\\
+        f&\mapsto \bar f,
+    \end{align*}
+    where $\bar f(\bar a)=f(a)$ for $a\in A$. To verify that this map is well-defined first observe that, for $b\in B^+$, Proposition~\ref{prop:ker(eta_K)-1} implies
+    $$
+        f(\phi(b)) = \eta_K(f)(b) = \iota_K\circ\varepsilon_B(b) = 0.
+    $$
+    Secondly, if $k\in\kappa$ then
+    \begin{align*}
+        \bar f(k\cdot\bar a) &= f(\iota_A(k)a)\\
+            &= f(\phi(\iota_B(k))a)\\
+            &= f(\iota_B(k)\cdot a)\\
+            &= \iota_B\cdot f(a)\\
+            &= \iota_K(\varepsilon_B(\iota_B(k)))f(a)\\
+            &= \iota_K(k)f(a)\\
+            &= k\cdot f(a),
+    \end{align*}
+    which shows that $\bar f$ is $\kappa$-linear.
+
+    For the inverse, take the projection $\varphi\colon A\to A/\phi(B^+)A$, and let's show that
+    \begin{align*}
+        \Hom_{\cat{CAlg}_\kappa}(A/\phi(B^+)A,K)
+            &\to\Hom_{\cat{CAlg}_B}(A,K)\\
+        g&\mapsto g\circ\varphi
+    \end{align*}
+    is well-defined. For $b\in B$ and $a\in A$ we have
+    \begin{align*}
+        g\circ\varphi(b\cdot a) &= g\circ\varphi(\phi(b)a)\\
+            &= g\circ\varphi(\phi(b-\iota_B(\varepsilon_B(b)))a)\\
+            &\quad+ g\circ\varphi(\phi(\iota_B\circ\varepsilon_B(b))a)\\
+            &= g\circ\varphi(\phi(\iota_B\circ\varepsilon_B(b))a)
+                &&;\ b-\iota_B(\varepsilon_B(b))\in B^+\\
+            &= g\circ\varphi(\iota_A(\varepsilon_B(b))a)\\
+            &= g\circ\varphi(\varepsilon_B(b)\cdot a)\\
+            &= \varepsilon_B(b)\cdot(g\circ\varphi(a))\\
+            &= \iota_K(\varepsilon_B(b))(g\circ\varphi(a))\\
+            &= b\cdot(g\circ\varphi(a)).
+    \end{align*}
+\end{proof}
+
+\begin{lem}\label{lem:ker-eta-1}
+    Let\/ $B$ be a\/ $\kappa$-algebra and let\/ $J$ be an ideal of\/ $B$. Then there is an isomorphism of\/ $\kappa$-algebras
+    $$
+        B/J\otimes_\kappa B/J \cong
+            (B\otimes_\kappa B) /(J\otimes_\kappa B+B \otimes_\kappa J).
+    $$
+\end{lem}
+
+\begin{proof}
+    By the universal property of the quotient we have commutative triangle
+    $$
+        \begin{tikzcd}[row sep=huge, column sep=tiny]
+            B\otimes_\kappa B
+                    \arrow[d]
+                    \arrow[r]
+                &B/J\otimes_\kappa B/J\\
+            B\otimes_\kappa B/(J\otimes_\kappa B+B\otimes_kJ)
+                \arrow[ru,dashed,"\psi"']
+        \end{tikzcd}
+    $$
+    where $\psi(\widebar{b\otimes_\kappa c})=\widebar b\otimes_\kappa\widebar c$.
+    
+    On the other hand, there is a well-defined bilinear map
+    \begin{align*}
+        B/J\times B/J&\to B\otimes_\kappa B/(J\otimes_\kappa B+B\otimes_kJ)\\
+        (\widebar b,\widebar c)&\mapsto \widebar{b\otimes_\kappa c}
+    \end{align*}
+    which produces the inverse of $\psi$.
+\end{proof}
+
+\begin{lem}\label{lem:ker-eta-2}
+    $\Delta_B(B^+)\subseteq\ker(\varepsilon_B\otimes_\kappa\varepsilon_B)=B \otimes_\kappa B^++B^+\otimes_\kappa B$.
+\end{lem}
+
+\begin{proof}
+    Take a $\kappa$-algebra $K$. Then $\varepsilon_B\colon B\to\kappa$ induces the map
+    \begin{align*}
+        \Hom_{\cat{CAlg}_\kappa}(\varepsilon_B,K)
+            \colon\Hom_{\cat{CAlg}_\kappa}(\kappa,K)
+            &\to\Hom_{\cat{CAlg}_\kappa}(B,K)\\
+            f&\mapsto f\circ\varepsilon_B.
+    \end{align*}
+    \textbf{Claim.} \textit{$\Hom_{\cat{CAlg}_\kappa}(\varepsilon_B,K)$ is a group morphism.}
+    
+    To verify this first recall from \ref{xmpls:k-group-schemes} that $\yoneda_\kappa$ is the trivial $\kappa$-group scheme and
+    $$
+        \Hom_{\cat{CAlg}_\kappa}(\kappa,K)=\yoneda_\kappa(K)=\set{\iota_K}.
+    $$
+    Moreover, $f\circ\varepsilon_B=\iota_K\circ\varepsilon_B$ because $f(\varepsilon_B(b))=\varepsilon_B(b)\cdot f(1)=\iota_K(\varepsilon_B(b))$. And given that $\iota_K\circ\varepsilon_B$ is the identity of the group $\Hom_{\cat{CAlg}_\kappa}(B,K)$, we see that $\Hom_{\cat{CAlg}_\kappa}(\varepsilon_B,K)$ is the trivial morphism of groups.
+
+    A consequence of the claim that follows from Theorem~\ref{thm:k-group-scheme-equivalence} is
+    $$
+        \varepsilon_B\otimes_\kappa\varepsilon_B\circ\Delta_B = \Delta_\kappa\circ\varepsilon_B.
+    $$
+    In particular, $\Delta_B(B^+)\subseteq\ker(\varepsilon_B\otimes_\kappa\varepsilon_B)$.
+    
+    Moreover, $B/B^+\cong\kappa$ via the morphism induced $\varepsilon_B$ [cf.~Remark~\ref{rem:augmentation}]. Thus, by Lemma~\ref{lem:ker-eta-1} applied to $J=B^+$ we obtain
+    \small
+    $$
+        \begin{tikzcd}
+            0
+                    \arrow[r]
+                &\ker(\varepsilon_B\otimes_\kappa\varepsilon_B)
+                    \arrow[r]
+                &[-1.6cm]B\otimes_\kappa B
+                    \arrow[r]
+                        \arrow[d]
+                &[-1.6cm]\kappa\otimes_\kappa\kappa\arrow[r]
+                &0\\
+                &&B\otimes_\kappa B/(B^+\otimes_\kappa B+B\otimes_\kappa B^+)
+                    \arrow[ru,"\cong"']
+        \end{tikzcd}
+    $$
+    \normalsize
+    which shows that $\ker(\varepsilon_B\otimes_\kappa\varepsilon_B)\subseteq B^+\otimes_\kappa B + B\otimes_\kappa B^+$. Since the other inclusion is clear, we deduced that
+    $$
+        \ker(\varepsilon_B\otimes_\kappa\varepsilon_B)
+            = B^+\otimes_\kappa B+B\otimes_\kappa B^+.
+    $$
+\end{proof}
+
+\begin{lem}\label{lem:ker-eta-3}
+    The following statements hold true:
+    \begin{enumerate}[\rm a)]
+        \item $\Delta_A(\phi(B^+)A)
+            \subseteq A\otimes_\kappa\phi(B^+)A + \phi(B^+)A\otimes_\kappa A$
+        \item $\varepsilon_A(\phi(B^+)A)=0$
+        \item $\sigma_A(\phi(B^+)A)\subseteq\phi(B^+)A$.
+    \end{enumerate}
+\end{lem}
+
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item By Theorem~\ref{thm:k-group-scheme-equivalence}, $\Delta_A\circ\phi=\phi\otimes_\kappa\phi\circ\Delta_B$. Therefore, 
+        \begin{align*}
+            \Delta_A(\phi(B^+)A)&\subseteq
+                (\phi\otimes_\kappa\phi(\Delta_B(B^+)))(A\otimes_\kappa A)\\
+                &\subseteq\phi\otimes_\kappa\phi
+                    (B \otimes_\kappa B^++B^+\otimes_\kappa B)
+                    (A\otimes_\kappa A)
+                    &&\text{; Lem.~\ref{lem:ker-eta-2}}\\
+                &\subseteq
+                    (A\otimes_\kappa\phi(B^+)+\phi(B^+)\otimes_\kappa B)
+                    (A\otimes_\kappa A)\\
+                &= A\otimes_\kappa\phi(B^+)A + \phi(B^+)A\otimes_\kappa A.
+        \end{align*}
+
+        \item This is a direct consequence of Theorem~\ref{thm:k-group-scheme-equivalence} because $\varepsilon_A\circ\phi=\varepsilon_B$.
+
+        \item By Theorem~\ref{thm:k-group-scheme-equivalence}, $\sigma_A\circ\phi=\phi\circ\sigma_B$. Therefore, to complete the prove it is enough to see that $\sigma_B(B^+)\subseteq B^+$. But this is equivalent to showing that $\varepsilon_B\circ\sigma_B(B^+)=0$, or $B^+\subseteq\ker(\varepsilon_B\circ\sigma_B)$. However, $\varepsilon_B\circ\sigma_B$ is the inverse of $\varepsilon_B$ in the group $\Hom_{\cat{CAlg}_\kappa}(B,\kappa)$. And since $\iota_\kappa=\id_\kappa$, we have that $\varepsilon_B=\id_\kappa\circ\varepsilon_B$ is the identity of said group, hence its own inverse, i.e., $\varepsilon_B\circ\sigma_B=\varepsilon_B$. The conclusion follows.
+    \end{enumerate}
+\end{proof}
+
+\begin{thm}
+    Let $\bar A=A/\phi(B^+)A$. Then the functor\/ $\yoneda_{\bar A}=\Hom_{\cat{Alg}_\kappa}(\bar A,-)$ is a\/ $\kappa$-group scheme.
+\end{thm}
+
+\begin{proof}
+    Let $\varphi_A\colon A\to\bar A$ be the quotient map. By Theorem~\ref{thm:co-properties} it suffices to show that there exist $\kappa$-algebra morphisms $\Delta\colon\bar A\to \bar A\otimes_\kappa\bar A$, $\varepsilon\colon\bar A\to\kappa$ and $\sigma\colon\bar A\to\bar A$ that satisfy the conditions expressed in the theorem.
+
+    Introduce $I=\phi(B^+)A\otimes_\kappa A + A\otimes_\kappa\phi(B^+)A$ and let $\varphi\colon A\otimes_\kappa A\to A\otimes_\kappa A/I$ denote the projection onto the quotient. By Lemma~\ref{lem:ker-eta-3}~a), we have a commutative diagram
+    $$
+        \begin{tikzcd}
+            A
+                    \arrow[r,"\Delta_A"]
+                    \arrow[d,"\varphi_A"']
+                &A\otimes_\kappa A\arrow[d,"\varphi"]\\
+            \bar A
+                    \arrow[r,dashed,"\bar\Delta_A"']
+                &A\otimes_\kappa A/I.
+        \end{tikzcd}
+    $$
+    By Lemma~\ref{lem:ker-eta-1} applied to $A$ and $\phi(B^+)A$, we have a commutative diagram
+    $$
+        \begin{tikzcd}[column sep=large, row sep=large]
+            A\otimes_\kappa A
+                    \arrow[d,"\varphi"']
+                    \arrow[r,"\varphi_A\otimes_\kappa\varphi_A"]
+                &\bar A\otimes_\kappa \bar A\\
+            A\otimes_\kappa A/I
+                \arrow[ru,"\cong"']
+        \end{tikzcd}
+    $$
+    So, by composition, we obtain
+    $$
+        \begin{tikzcd}
+            A
+                    \arrow[r,"\Delta_A"]
+                    \arrow[d,"\varphi_A"']
+                &A\otimes_\kappa A\arrow[d,"\varphi"]
+                    \arrow[rd,"\varphi_A\otimes_\kappa\varphi_A"]\\
+            \bar A\arrow[r,"\bar\Delta_A"]
+                    \arrow[rr,"\Delta"',bend right]
+                &A\otimes_\kappa A/I
+                    \arrow[r,"\cong"]
+                &\bar A\otimes_\kappa\bar A
+        \end{tikzcd}
+    $$
+    Therefore,
+    \begin{align*}
+        (\Delta\otimes_\kappa\id_{\bar A})&\circ\Delta\circ\varphi_A\\
+            &= (\Delta\otimes_\kappa\id_{\bar A})
+                \circ(\varphi_A\otimes_\kappa\varphi_A)\circ\Delta_A\\
+        &= (\Delta\circ\varphi_A\otimes_\kappa\varphi_A)\circ\Delta_A\\
+        &= ((\varphi_A\otimes_\kappa\varphi_A)
+            \circ\Delta_A\otimes_\kappa\varphi_A)\circ\Delta_A\\
+        &= ((\varphi_A\otimes_\kappa\varphi_A)\otimes_\kappa\varphi_A)
+            \circ(\Delta_A\otimes_\kappa\id_A)\circ\Delta_A\\
+        &= (\varphi_A\otimes_\kappa(\varphi_A\otimes_\kappa\varphi_A))
+            \circ(\id_A\otimes_\kappa\Delta_A)\circ\Delta_A
+                &&\text{; Theor.~\ref{thm:co-properties}}\\
+        &= (\varphi_A\otimes_\kappa(\varphi_A\otimes\varphi_A)
+            \circ\Delta_A)\circ\Delta_A\\
+        &= (\varphi_A\otimes_\kappa(\Delta\circ\varphi_A))
+            \circ\Delta_A\\
+        &= (\id_{\bar A}\otimes_\kappa\Delta)
+            \circ(\varphi_A\otimes_\kappa\varphi_A)\circ\Delta_A\\
+        &= (\id_{\bar A}\otimes_\kappa\Delta)
+            \circ\Delta\circ\varphi_A,
+    \end{align*}
+    which implies the associativity condition on $\Delta$ because $\varphi_A$ is an epimorphism.
+
+    Regarding the counit for $\bar A$, note that by Lemma~\ref{lem:ker-eta-3}~b), we have a commutative diagram
+    $$
+        \begin{tikzcd}
+            A
+                    \arrow[r,"\varepsilon_A"]
+                    \arrow[d,"\varphi_A"']
+                &\kappa\\
+            \bar A
+                    \arrow[ru,"\varepsilon"',dashed]
+        \end{tikzcd}
+    $$
+    Thus,
+    \begin{align*}
+        \mu\circ(\varepsilon\otimes_\kappa\id_{\bar A})
+                \circ\Delta\circ\varphi_A
+            &= \mu\circ(\varepsilon\otimes_\kappa\id_{\bar A})
+                \circ(\varphi_A\otimes_\kappa\varphi_A)\circ\Delta_A\\
+            &= \mu\circ(\varepsilon
+                \circ\varphi_A\otimes_\kappa\varphi_A)\circ\Delta_A\\
+            &= \mu\circ(\varepsilon_A\otimes_\kappa\varphi_A)
+                \circ\Delta_A\\
+            &= \mu\circ(\id_\kappa\otimes_\kappa\varphi_A)
+                \circ (\varepsilon_A\otimes_\kappa\id_A)
+                \circ\Delta_A\\
+            &= \varphi_A\circ\mu_A
+                \circ(\varepsilon_A\otimes_\kappa\id_A)
+                \circ\Delta_A\\
+            &= \varphi_A\circ\id_A\\
+            &= \varphi_A
+    \end{align*}
+    and similarly for the equation $\mu\circ(\id_{\bar A}\otimes_\kappa\varepsilon)
+                \circ\Delta\circ\varphi_A = \varphi_A$.
+
+    For the coinverse, let's observe that Lemma~\ref{lem:ker-eta-3}~c) implies the existence of a commutative diagram
+    $$
+        \begin{tikzcd}
+            A
+                    \arrow[r,"\sigma_A"]
+                    \arrow[d,"\varphi_A"']
+                &A
+                    \arrow[d,"\varphi_A"]\\
+            \bar A
+                    \arrow[r,"\sigma"',dashed]
+                &\bar A.
+        \end{tikzcd}
+    $$
+    Moreover,
+    \begin{align*}
+        \mu\circ(\sigma\otimes_\kappa\id_{\bar A})
+                \circ\Delta\circ\varphi_A
+            &= \mu\circ(\sigma\otimes_\kappa\id_{\bar A})
+                \circ(\varphi_A\otimes_\kappa\varphi_A)\circ\Delta_A\\
+            &= \mu\circ(\sigma\circ\varphi_A\otimes_\kappa\varphi_A)
+                \circ\Delta_A\\
+            &= \mu\circ(\varphi_A\circ\sigma_A\otimes_\kappa\varphi_A)
+                \circ\Delta_A\\
+            &= \mu\circ(\varphi_A\otimes\varphi_A)
+                \circ(\sigma_A\otimes_\kappa\id_A)\circ\Delta_A\\
+            &= \varphi_A\circ\mu_A
+                \circ(\sigma_A\otimes_\kappa\id_A)\circ\Delta_A\\
+            &= \varphi_A\circ\id_A\\
+            &= \varphi_A
+    \end{align*}
+    and similarly for the equation $\mu
+        \circ(\id_{\bar A}\otimes_\kappa\sigma)
+        \circ\Delta\circ\varphi_A=\varphi_A$.
+\end{proof}
+
+\begin{defn}\label{defn:ker-eta}
+    Let $\eta\colon\yoneda_A\to\yoneda_B$ be a morphism of $\kappa$-group schemes, and $\phi\colon B \to A$ the corresponding morphism of $\kappa$-algebras. Then the \textsl{kernel} of~$\eta$ is the $\kappa$-group scheme defined as
+    $$
+        \ker\eta =\Hom_{\cat{Calg}_\kappa}(A / \phi(B^+)A,-).
+    $$
+\end{defn}
+
+\begin{thm}\label{thm:ker-eta}
+    If\/ $\eta\colon\yoneda_A\to\yoneda_B$ is a morphism of\/ $\kappa$-group schemes, then
+    $$
+        (\ker\eta)_K=\ker\eta_K
+    $$
+    for every\/ $\kappa$-algebra\/ $K$.
+\end{thm}
+
+\begin{proof}
+    This is a direct consequence of the definition and Propositions~\ref{prop:ker(eta_K)-1} and \ref{prop:ker(eta_K)-2}.
+\end{proof}
+
+\section{Flatness}
+
+\begin{ntns} Let\/ $K$ be a ring. Then
+    \begin{enumerate}[-]
+        \item $\cat{Mod}_K$ denotes the category of\/ $K$-modules.
+        \item $\Max(K)$ denotes the set of maximal ideals of $K$.
+    \end{enumerate}
+\end{ntns}
+
+\begin{prop}\label{prop:tensor-and-sum-commute}
+    Let $A$ be a ring, $M$ an $A$-module and $(N_i)_{i\in I}$ a family of $A$-modules. Then
+    $$
+        \bigg(\bigoplus_{i\in I} N_i\bigg)\otimes_A M
+            \cong\bigoplus_{i\in I}(N_i\otimes_A M).
+    $$
+\end{prop}
+
+\begin{proof}
+    Consider
+    \begin{align*}
+        \bigg(\bigoplus_{i\in I} N_i\bigg)\times M
+            &\to \bigoplus_{i\in I}(N_i\otimes_AM)\\
+        ((y_i)_{i\in I},x)&\mapsto (y_i\otimes_Ax)_{i\in I},
+    \end{align*}
+    which is clearly $A$-bilinear. Since $M\otimes_AN_i\in\im(\sigma)$ for all $i\in I$, we see that it is surjective. From this map we get an epimorphism of $A$-modules
+    \begin{align*}
+        \sigma\colon\bigg(\bigoplus_{i\in I}N_i\bigg)\otimes_AM 
+            &\to \bigoplus_{i\in I}(N_i\otimes_AM)\\
+        (y_i)_{i\in I}\otimes_A x&\mapsto(y_i\otimes_Ax)_{i\in I}.
+    \end{align*}
+    For every $j\in I$ the injection $\iota_j\colon N_j\to\bigoplus_{i\in I}N_i$ produces a morphism
+    \begin{align*}
+        \iota_j\otimes_A\id_M\colon N_j\otimes_AM
+            &\to\bigg(\bigoplus_{i\in I}N_i\bigg)\otimes_AM.
+    \end{align*}
+    From these we obtain
+    \begin{align*}
+        \psi\colon\bigoplus_{i\in I}(N_i\otimes_AM)
+            &\to\bigg(\bigoplus_{i\in I}N_i\bigg)\otimes_AM\\
+        (y_j\otimes_Ax_j)_{j\in I}
+            &\mapsto \sum_{j\in I}\iota_j(y_j)\otimes_Ax_j.
+    \end{align*}
+    Since $\sigma$ is an epimorphism, to verify that $\psi$ is the inverse of $\sigma$ it suffices to show that $\psi\circ\sigma=\id$. But
+    \begin{align*}
+        \psi\circ\sigma((y_i)_{i\in I}\otimes_Ax)
+            &= \psi((y_j\otimes_Ax)_{j\in I})\\
+            &= \sum_{j\in I}(\iota_j(y_j)\otimes_Ax)\\
+            &= \Big(\sum_{j\in I}\iota(y_j)\Big)\otimes_Ax\\
+            &= (y_j)_{j\in J}\otimes_Ax,
+    \end{align*}
+    as desired.
+\end{proof}
+
+\begin{prop}\label{prop:tensor-right-exact}
+    The functor $-\otimes_BM$ is right-exact, i.e., if 
+    $$
+        N'\stackrel{\psi}\to N\stackrel{\varphi}\to N''\to0
+    $$
+    is exact, then
+    $$
+        N'\otimes_BM\to N\otimes_BM\to N''\otimes_BM\to0
+    $$
+    is exact too.
+\end{prop}
+
+\begin{proof}
+    Given that $-\otimes_BM$ clearly preserves epimorphisms, it enough to show that $\im(\psi\otimes_B\id_M)=\ker(\varphi\otimes_B\id_M)$. Let $Q$ denote the quotient $(N\otimes_BM)/(\im(\psi\otimes_B\id_M)$ and
+    $$
+        \pi\colon N\otimes_BM\to Q
+    $$
+    be the projection. We have a commutative diagram
+    $$
+        \begin{tikzcd}[column sep=large]
+            N\otimes_BM
+                    \arrow[r,"\varphi\otimes_B\id_M"]
+                    \arrow[d,"\pi"']
+                &N''\otimes_BM\\
+            Q
+                    \arrow[ru,"h"']
+        \end{tikzcd}
+    $$
+    Consider the map
+    \begin{align*}
+        N''\times M&\to Q\\
+        (\varphi(y),x)&\mapsto \pi(y\otimes_Bx),
+    \end{align*}
+    which is well-defined because
+    $$
+        \varphi(y)=0 \iff y=\psi(z)
+            \iff y\otimes_Bx = \psi(z)\otimes_Bx
+                \in\im(\psi\otimes_B\id_M).
+    $$
+    The biliniarity of this map implies the existence of a morphism
+    \begin{align*}
+        \jmath\colon N''\otimes_BM&\to Q\\
+        \varphi(y)\otimes_Bx&\mapsto \pi(y\otimes_Bx).
+    \end{align*}
+    Moreover
+    $$
+        \jmath\circ(\varphi\otimes_B\id_M)(y\otimes_Bx)
+            = \jmath(\varphi(y)\otimes_Bx)
+            = \pi(y\otimes_Bx)
+    $$
+    and so
+    $$
+        h\circ\jmath\circ(\varphi\otimes_B\id_M)
+            = h\circ\pi
+            = \varphi\otimes_B\id_M
+            = \id_{N''\otimes_BM}\circ(\varphi\otimes_B\id_M),
+    $$
+    which implies $h\circ\jmath=\id_{N''\otimes_BM}$. Conversely,
+    $$
+        \jmath\circ h\circ\pi = \jmath\circ(\varphi\otimes_B\id_M)
+            = \pi = \id_Q\circ\pi
+    $$
+    hence, $\jmath\circ h=\id_Q$. In consequence, $h$ is an isomorphism and the kernel of $\varphi\otimes_B\id_M$ is $\im(\psi\otimes_B\id_M)$.
+\end{proof}
+
+\begin{cor}
+    Let $\psi\colon N'\to N$ be a morphism of $B$-modules. Then
+    $$
+        \im(\psi\otimes_B\id_M)=\im(\psi)\otimes_B\id_M.
+    $$
+\end{cor}
+
+\begin{proof}
+    Apply the functor $-\otimes_BM$ to the exact sequence 
+    $$
+        N'\xto{\psi}N\xto{\varphi}N/\im(\psi)\to0
+    $$
+    and get the exact sequence
+    $$
+        N'\otimes_BM\xto{\psi\otimes_B\id_M}
+        N\otimes_BM\xto{\varphi\otimes_B\id_M} N/\im(\psi)\otimes_BM\to0.
+    $$
+    According to the proposition, we have
+    \begin{align*}
+        \im(\psi\otimes_B\id_M) &= \ker(\varphi\otimes_B\id_M)\\
+            &= \im(\psi)\otimes_B\id_M
+    \end{align*}
+\end{proof}
+
+\begin{defn}
+    A $B$-module $M$ is \textsl{flat} if the functor
+    $$
+        -\otimes_BM\colon\cat{Mod}_B\to\cat{Mod}_B
+    $$
+    is left-exact.
+    
+    A ring morphism $\phi\colon B\to A$ is \textsl{flat} if the $B$-module structure of $A$ endowed by~$\phi$ is flat.
+\end{defn}
+
+\begin{rem}
+    Note that a ring morphism $\phi\colon B\to A$ is \textsl{flat} if the functor
+    $$
+        -\otimes_BA\colon\cat{Mod}_B\to\cat{Mod}_A
+    $$
+    is left-exact. Indeed, given an injection of $B$-modules $M\to N$, the induced map $M\otimes_BA\to N\otimes_BA$ is an injection of $B$-modules if, and only if, it is an injection of $A$-modules.
+\end{rem}
+
+\begin{rem}
+    Since the functor $-\otimes_BA$ preserves direct sums [cf.~Proposition~\ref{prop:tensor-and-sum-commute}], the morphism of rings $\phi\colon B\to A$ is flat if, and only if, $-\otimes_BA$ preserves monomorphisms, i.e., $f\otimes_B\id_A\colon M\otimes_BA\to N\otimes_BA$ is a monomorphism of $A$-modules whenever $f\colon M\to N$ is a monomorphism of $B$-modules. Note that this is equivalent to saying that $-\otimes_BA$ preserves kernels, i.e., $\ker(f\otimes_B\id_A)=\ker f\otimes_BA$.
+
+    Since $-\otimes_BA$ preserves epimorphisms, we deduce that $\phi\colon B\to A$ is flat, if and only if, it is an exact functor (i.e., $\text{s.e.s.}\otimes_BA=\text{s.e.s}$).
+\end{rem}
+
+\begin{rem}\label{rem:flat-composition}
+    The composition $C\stackrel{\psi}{\to}B\stackrel{\phi}{\to}A$ of two flat maps is flat. Indeed, given a monomorphism of $C$-modules $M\to N$, the flatness of $\psi$ ensure that
+    $$
+        0\to M\otimes_CB\to N\otimes_CA
+    $$
+    is exact. Therefore, since $\phi$ is flat, we have the commutative diagram
+    $$
+        \begin{tikzcd}
+            0
+                    \arrow[r]
+                &(M\otimes_CB)\otimes_BA
+                    \arrow[r]\arrow[d,"\cong"]
+                &(N\otimes_CB)\otimes_BA
+                    \arrow[d,"\cong"']\\
+                &M\otimes_CA
+                    \arrow[r]
+                &N\otimes_CA
+        \end{tikzcd}
+    $$
+    where top row is exact. In consequence, $M\otimes_CA\to N\otimes_CA$ is a monomorphism.
+\end{rem}
+
+\begin{rem}\label{rem:canonical-map-into-Mn}
+    Let $B^n$ denote the $B$-module of $n$-tuples. If $L\subseteq B^n$ and $M$ is a $B$-module, then there is a canonical map
+    \begin{align*}
+        \rho\colon L\otimes_BM&\to M^n\\
+        (b_1,\dots,b_n)\otimes_Bx&\mapsto(b_1x,\dots,b_nx).
+    \end{align*}
+\end{rem}
+
+\begin{thm}
+    Let\/ $M$ be an\/ $B$-module. The following are equivalent:
+    \begin{enumerate}[\rm a)]
+        \item $M$ is flat over\/ $B$.
+        \item For every injection of\/ $B$-modules\/ $N\to N'$ the map\/ $N\otimes_BM\to N'\otimes_BM$ is injective.
+        \item For every ideal\/ $I\subseteq B$ the map\/ $I\otimes_B M\to B\otimes_BM=M$ is injective.
+        \item For every finitely generated ideal\/ $I\subseteq B$ the map\/ $I\otimes_BM\to B\otimes_BM=M$ is injective.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    Since a) $\Rightarrow$ b) $\Rightarrow$ c) $\Rightarrow$ d) are trivial, we only need to show that d) $\Rightarrow$ a).
+
+    Take an injection of $B$-modules $\iota\colon N'\to N$. Suppose that $\zeta\in\ker(\iota\otimes_B\id_M)$. Since $\zeta$ is the sum of finitely many elementary tensors, to prove that $\zeta=0$ we can reduce ourselves to the case where $N'$ is finitely generated. Similarly, since the image of $N'\otimes_B M$ in $N\otimes_BM$ is finitely generated, we can further assume that $N$ is finitely generated. Moreover, after replacing $N'$ with its image in $N$, we may assume that $N'\subseteq N$. Consider a s.e.s.
+    $$
+        0\to L\to B^n\stackrel\lambda\to N\to0,
+    $$
+    where the canonical vectors of $B^n$ map onto a set of generators of $N$. 
+    
+    \textbf{Claim.} \textit{The map $\rho\colon L\otimes_BM\to M^n$ of\/ {\rm Remark~\ref{rem:canonical-map-into-Mn}} is an injection.}
+
+    To proof the claim we proceed by induction on $n$.
+    \begin{description}
+        \item[$n=1)$] Here $L\subseteq B$ is an ideal. Take $\zeta\in L\otimes_BM$ with $\rho(\zeta)=0$. Write
+        $$
+            \zeta = \sum_{i=1}^my_i\otimes_Bx_i
+        $$
+        where $y_i\in L$ and $x_i\in M$ for $i=1,\dots,m$. After replacing $L$ with $\gen{y_1,\dots,y_m}$ we reduce ourselves to the case where $L$ is finitely generated. But in this case $\rho$ is exactly $L\otimes_BM\to B\otimes_BM=M$, which is injective by hypothesis. Therefore, $\zeta=0$ as required.
+
+        \item[$n>1$)] Let $e_n$ denote the $n$th canonical vector of $B^n$. Define $L_1=L\cap\gen{e_n}$ and let $\varphi\colon L\to L/L_1$ be the projection onto the quotient. We have a commutative diagram
+        $$
+            \begin{tikzcd}
+                0
+                        \arrow[r]
+                    &L_1
+                        \arrow[r]
+                        \arrow[d,"\iota"]
+                    &L
+                        \arrow[d,hook]
+                        \arrow[r,"\varphi"]
+                    &L/L_1
+                        \arrow[d,"\bar\pi"]
+                        \arrow[r]
+                    &0\\
+                0
+                        \arrow[r]
+                    &B
+                        \arrow[r]
+                    &B^n
+                        \arrow[r,"\pi"]
+                    &B^{n-1}
+                        \arrow[r]
+                    &0
+            \end{tikzcd}
+        $$
+        where $\iota(ye_n)=y$, $\pi$ is the projection $(b_1,\dots,b_n)\mapsto(b_1,\dots,b_{n-1})$ and
+        $$
+            \bar\pi(\varphi(y_1,\dots,y_n))=(y_1,\dots,y_{n-1}),
+        $$
+        which is well-defined because $\iota(L_1)\subseteq\ker\pi$. Since both rows are exact, we see that $\bar\pi$ is a monomorphism.
+
+        Applying the functor $-\otimes_BM$ to this diagram, we get
+            $$
+            \begin{tikzcd}
+                    &L_1\otimes_BM
+                        \arrow[r]
+                        \arrow[d]
+                    &L\otimes_BM
+                        \arrow[d,"\rho"]
+                        \arrow[r]
+                    &L/L_1\otimes_BM
+                        \arrow[d]
+                        \arrow[r]
+                    &0\\
+                0
+                        \arrow[r]
+                    &M
+                        \arrow[r]
+                    &M^n
+                        \arrow[r]
+                    &M^{n-1}
+                        \arrow[r]
+                    &0
+            \end{tikzcd}
+        $$
+    \end{description}
+    where the bottom row is a s.e.s., the first and third vertical arrows are injections, the first by the case $n=1$ and the third by the induction hypothesis. By Proposition~\ref{prop:tensor-right-exact}, we also know that the top row is exact. Therefore, $\rho$ is injective, and the inductive step is proven and with this the claim.
+
+\medskip
+
+    Since the claim holds for any $n$ and any $\lambda$, we can further assume that the first $m$ generators of $N$ are generators of $N'$. Thus, we can map the first $m$ canonical vectors of $B^n$ onto a set of generators of $N'$ and the remaining $n-m$ onto the rest of generators of $N$. Let $L'\subseteq B^n$ be the submodule generated by the first $m$ canonical vectors of $B^n$. Then, $L'\cong B^m$ and we obtain an epimorphism $\lambda'\colon L'\to N'$ that makes commutative the diagram
+    $$
+        \begin{tikzcd}
+            B^n
+                    \arrow[r,"\lambda\hphantom{{}'}"]
+                &N
+                    \arrow[r]
+                &0\\
+            L'
+                    \arrow[u,hook']
+                    \arrow[r,"\lambda'"]
+                &N'
+                    \arrow[r]
+                    \arrow[u,hook']
+                &0
+        \end{tikzcd}
+    $$
+    Let $L=\ker(\lambda)$. Then $L\cap L'=\ker(\lambda')$ and we can extend the diagram to
+    $$
+        \begin{tikzcd}
+            0
+                    \arrow[r]
+                &L
+                    \arrow[r]
+                &B^n
+                    \arrow[r,"\lambda"]
+                &N
+                    \arrow[r]
+                &0\\
+            0
+                    \arrow[r]
+                &L\cap L'
+                    \arrow[r]
+                    \arrow[u,hook']
+                &L'
+                    \arrow[u,hook']
+                    \arrow[r,"\lambda'"]
+                &N'
+                    \arrow[u,hook']
+                    \arrow[r]
+                &0
+        \end{tikzcd}
+    $$
+    After replacing $L'$ with $L'+L$ and extending $\lambda'$ by mapping $L'$ to zero, we may assume that $L\subseteq L'$.
+    $$
+        \begin{tikzcd}
+            0
+                    \arrow[r]
+                &L
+                    \arrow[r]
+                &B^n
+                    \arrow[r,"\lambda"]
+                &N
+                    \arrow[r]
+                &0\\
+            0
+                    \arrow[r]
+                &L
+                    \arrow[r]
+                    \arrow[u,equal]
+                &L'
+                    \arrow[u,hook']
+                    \arrow[r,"\lambda'"]
+                &N'
+                    \arrow[u,hook']
+                    \arrow[r]
+                &0
+        \end{tikzcd}
+    $$
+    Let's now tensor with $M$. We get
+    $$
+        \begin{tikzcd}
+            0
+                    \arrow[r]
+                &L\otimes_BM
+                    \arrow[r]
+                &M^n
+                    \arrow[r,"\lambda\otimes_B\id_M"]
+                &N\otimes_BM
+                    \arrow[r]
+                &0\\
+            0
+                    \arrow[r]
+                &L\otimes_BM
+                    \arrow[r]
+                    \arrow[u,equal]
+                &L'\otimes_BM
+                    \arrow[u,hook']
+                    \arrow[r,"\vphantom{\big(}\lambda'\otimes_B\id_M"']
+                &N'\otimes_BM
+                    \arrow[u,"\iota\otimes_B\id_M"']
+                    \arrow[r]
+                &0
+        \end{tikzcd}
+    $$
+    The top row is exact by the previous claim. The vertical arrow in the middle is an injection by the same claim applied to $L'$. In consequence, the bottom row is also exact. It is now easy to check that the vertical arrow on the right is a monomorphism, as desired.
+\end{proof}
+
+\begin{cor}\label{cor:vect-spaces-are-flat}
+    Every vector space is flat.
+\end{cor}
+
+\begin{proof}
+    This is a direct consequence of any of the last two conditions of the theorem for the case where $B$ is a field.
+\end{proof}
+
+\begin{cor}\label{cor:B^n-is-flat}
+    $B^n$ is a flat\/ $B$-module.
+\end{cor}
+
+\begin{proof}
+    Let $I\subseteq B$ be an ideal. Given that the functor $I\otimes_B-$ preserves direct sums [cf.~Proposition~\ref{prop:tensor-and-sum-commute}], we know that $I\otimes_BB^n=(I\otimes_BB)^n=I^n$. Therefore, $I\otimes_BB^n\to I^n\hookrightarrow B^n$ is injective. The conclusion follows from any of the last two conditions of the theorem.
+\end{proof}
+
+\begin{defn}
+    Let $\kappa$ be a ring and $M$ a $\kappa$-module. Let $\sum_i\lambda_i x_i=0$ be a \textsl{linear relation} in $M$. We say the linear relation is \textsl{trivial} if there exist $y_1,\dots,y_m\in M$, and $A\in\kappa^{n\times m}$ such that
+    $$
+        (x_1,\dots,x_n) = A(y_1,\dots,y_m)
+            \quad\text{ and }\quad 
+            (\lambda_1,\dots,\lambda_m)^TA=0,
+    $$
+    where tuples of elements in $M$ denote column vectors.
+\end{defn}
+
+\begin{cor}\label{prop:relation-flatness} {\rm[Equational criterion of flatness]}.
+    A module\/ $M$ over\/ $\kappa$ is flat if, and only if, every relation in\/ $M$ is trivial.
+\end{cor}
+
+\begin{proof}${}$
+    \begin{description} 
+        \item[\rm\textit{only if\/}:] Take a linear relation $\lambda_1x_1+\cdots+\lambda_nx_n=0$ and let $I=\gen{\lambda_1,\dots,\lambda_n}$ denote the ideal of $\kappa$ generated by the coefficients $\lambda_i$. Consider the map
+        \begin{align*}
+            \ell\colon\kappa^n&\to I\\
+            (c_1,\dots,c_n)&\mapsto \lambda_1c_1+\cdots+\lambda_nc_n.
+        \end{align*}
+        Tensor the s.e.s.
+        $$
+            0\to\ker\ell\to\kappa^n\to I\to0
+        $$
+        with $M$ to get the s.e.s.
+        $$
+            0\to\ker\ell\otimes_\kappa M\to M^n\to I\otimes_\kappa M\to0.
+        $$
+        Since $I\otimes_\kappa M\to M$ is injective, we deduce from the linear relation that
+        $$
+            (x_1,\dots,x_n)\in\ker\ell\otimes_\kappa M.
+        $$
+        But this membership, when seen in $M^n$, does exactly match the definition of trivial linear relation, where the matrix $A$ and the elements $y_1,\dots, y_n$ in $M$ are obtained from the elementary tensors in $\ker\ell\otimes_\kappa M$ occurring in $(x_1,\dots,x_n)$.
+    
+        \item[\rm\textit{if\/} part:] By the theorem it is enough to show that, given an ideal $I\subseteq\kappa$, the canonical map $I\otimes_\kappa M\to M$ is injective. Take $\lambda_1\otimes_\kappa x_1+\cdots+\lambda_n\otimes_\kappa x_n$ in the kernel. It produces the linear relation $\lambda_1x_1+\cdots+\lambda_nx_n=0$, which must be trivial by hypothesis. Hence, there exist $A\in\kappa^{n\times m}$ and $y_1,\dots, y_m\in M$ such that, for every $i$ and every $j$, we have
+        \begin{align*}
+            x_i &= \sum_ka_{ik}y_k
+                \quad\text{ and }\quad \sum_h\lambda_ha_{hj}=0.
+        \end{align*}
+        Therefore,
+        \begin{align*}
+            \sum_{i=1}^n\lambda_i\otimes_\kappa x_i
+                &= \sum_i\sum_k\lambda_i\otimes_\kappa a_{ik}y_k\\
+                &= \sum_k\sum_i\lambda_ia_{ik}\otimes_\kappa y_k\\
+                &= \sum_k0\otimes_\kappa y_k\\
+                &= 0.
+        \end{align*}
+    \end{description}
+\end{proof}
+
+
+\begin{lem}
+    Let $A$ be a ring and $M$ an $A$-module. If $f\in A\setminus\Nil(A)$ then
+    $$
+        M\otimes_AA_f=\set{(x,f^i)\mid x\in M, i\in\N_0}/{\sim},
+    $$
+    where
+    $$
+        (x,f^i)\sim(y,f^j)\iff f^{j+h}x=f^{i+h}y,
+    $$
+    for some $h\in\N_0$, and
+    $$
+        (x,f^i)+(y,f^j)=(f^jx+f^iy,f^{i+j})
+        \quad\text{\rm and}\quad \frac{a}{f^h}(x,f^i)=(ax,f^{i+h}).
+    $$
+\end{lem}
+
+\begin{proof}
+    Let $M_f$ denote the quotient $\set{(x,f^i)\mid x\in M, i\in\N_0}/{\sim}$.
+    
+    Let $\alpha\colon M\times A_f\to N$ be a bilinear map of $A_f$-modules. Define
+    \begin{align*}
+        \bar\alpha\colon M_f&\to N\\
+        (x,f^i)&\mapsto\alpha(x,1/f^i).
+    \end{align*}
+    This map is well-defined because $(x,f^i)\sim(y,f^j)\iff f^{j+h}x=f^{i+h}y$ and so
+    \begin{align*}
+        \alpha(x,1/f^i) &= \frac1{f^j}\frac1{f^h}\alpha(f^{i+h}y,1/f^i)
+            = \frac1{f^{j}}\alpha(f^iy,1/f^i)
+            = \alpha(y,1/f^j).
+    \end{align*}
+    The proof concludes by observing that $\bar\alpha$ is a morphism of $A_f$-modules and satisfies the universal property of the tensor product.
+\end{proof}
+
+\begin{rem}\label{rem:f-localization-tensor}
+    The lemma implies that every element of $M\otimes_AA_f$ is an elementary tensor, i.e., a tensor of the form $x\otimes_A1/f^i$. Moreover,
+    $$
+        x\otimes_A1/f^i=0\iff f^hx=0
+    $$
+    for some $h\in\N_0$.
+\end{rem}
+
+\begin{prop}\label{prop:flat-localization}
+    Let\/ $f$ be a non-nilpotent element of the ring\/ $A$. Then the localization map\/ $A\to A_f$ is flat.
+\end{prop}
+
+\begin{proof}
+    Take a monomorphism of $A$-modules $\alpha\colon M\to N$. If $x\otimes_A1/f^i$ is an element of $\ker(\alpha\otimes_AA_f)$, we have
+    $$
+        0 = \alpha(x)\otimes_A1/f^i.
+    $$
+    Then $0=f^h\alpha(x)=\alpha(f^hx)$, i.e., $f^hx=0$ implying that $x\otimes_A1/f^i=0$.
+\end{proof}
+
+\begin{lem}\label{lem:non-zero-tensor}
+    Let\/ $\phi\colon B\to A$ be flat. Assume that\/ $\mathfrak m \cdot A\ne A$ for every\/ $\mathfrak m\in\Max(B)$. If\/ $M$ is a non-zero\/ $B$-module, then\/ $M \otimes_B A$ is non-zero.
+\end{lem}
+
+\begin{proof}
+    Pick $x\in M\setminus\set0$ and let $\Ann_B(x)=\set{b\in B\mid bx=0}$ be the annihilator of~$x$. Since $1\notin\Ann(x)$, there exists $\mathfrak m\in\Max(B)$ such that $\Ann_B(x)\subseteq\mathfrak m$. By definition, we have an exact sequence
+    $$
+        0\to\Ann_B(x)\to B\stackrel{\vphantom{\big|}\varepsilon_x}\to M,
+    $$
+    with $\varepsilon_x(a)=ax$. It follows that
+    $$
+        0\to\Ann(x)\otimes_BA\to B\otimes_BA\to M\otimes_BA
+    $$
+    is exact too. But this sequence can be rewritten as
+    $$
+        0\to\Ann_B(x)\cdot A\to A\to M\otimes_BA
+    $$
+    where $\Ann_B(x)\cdot A\subseteq\mathfrak m\cdot A\ne A$, which implies that $M\otimes_BA\ne0$.
+\end{proof}
+
+\begin{lem}\label{lem:flat-converse}
+    Let\/ $\phi\colon B\to A$ be flat and assume that\/ $\mathfrak m\cdot A\ne A$ for every\/ $\mathfrak m\in\Max(B)$. Let\/ $\alpha\colon M \to N$ be a morphism of\/ $B$-modules. Then, if\/ $\alpha\otimes_B\id_A$ is an injection, so is\/ $\alpha$.
+\end{lem}
+
+\begin{proof}
+    Suppose for the sake of contradiction that $\ker\alpha\ne0$. The exact sequence
+    $$
+        0\to\ker\alpha\to M\stackrel{\alpha}\to N
+    $$
+    produces
+    $$
+        0\to\ker\alpha\otimes_BA\to M\otimes_BA\to N\otimes_BA,
+    $$
+    which is also exact. But this means that $\ker\alpha\otimes_BA = \ker(\alpha\otimes_B\id_A) = 0$. The conclusion is now a direct consequence of Lemma~\ref{lem:non-zero-tensor}.
+\end{proof}
+
+\begin{defn}\label{defn:faithfully-flat}
+    A flat map $B \to A$ is \textsl{faithfully flat} if the induced map $\varphi\colon M \to M \otimes_B A$, defined as $\varphi(x)=x \otimes_B1$, is injective for all $B$-modules~$M$.
+\end{defn}
+
+\begin{prop}\label{prop:phi-psi-ff-implies-psi-ff}
+    If the composition\/ $C\stackrel\psi\to B\stackrel\phi\to A$ is faithfully flat, and\/~$\psi$ is flat, then\/ it is faithfully flat too.
+\end{prop}
+
+\begin{proof}
+    By hypothesis, the composition
+    $$
+        M\to M\otimes_CB\to M\otimes_CB\otimes_BA
+                    \stackrel\cong\to M\otimes_CA
+    $$
+    is injective. Therefore, the first arrow, namely $M\otimes_CB$ is an injection too.
+\end{proof}
+
+\begin{thm}\label{thm:ff-equivalences}
+    Let $\phi\colon B\to A$ be a ring morphism. The following conditions are equivalent
+    \begin{enumerate}[\rm a)]
+        \item $\phi$ is faithfully flat.
+        \item $\phi$ is flat and $M\otimes_BA=0\iff M=0$, for every $B$-module $M$.
+        \item $N'\to N\to N''$ is exact $\iff$ $N'\otimes_BA\to N\otimes_BA\to N''\otimes_BA$ is exact.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}${}$
+    \begin{enumerate}[\rm a)]
+        \item $\Rightarrow$ b) Suppose that $M\otimes_BA=0.$ Since $M\to M\otimes_BA$ is a monomorphism, $M=0$.
+
+        \item $\Rightarrow$ c) Suppose that $N'\otimes_BA\to N\otimes_BA\to N''\otimes_BA$ is exact. Take $x\in N$. Define the expansion
+        \begin{align*}
+            \epsilon_x\colon B&\to N/\im(N')\\
+            b&\mapsto\widebar{bx}.
+        \end{align*}
+        Since $\phi$ is flat, we see that
+        \begin{align*}
+            \epsilon_x\otimes_B\id_A\colon B
+                &\to(N\otimes_BA)/\im(N\otimes_BA)\\
+            b&\mapsto\widebar{b(x\otimes_B1)}.
+        \end{align*}
+        Since $\im(\epsilon_x\otimes_B\id_A) = \im(\epsilon_x)\otimes_BA$, we have
+        \begin{align*}
+            x\in\ker(N\to N'') &\iff \epsilon_x\otimes_B\id_A=0\\
+                &\iff \im(\epsilon_x)\otimes_BA=0\\
+                &\iff \im(\epsilon_x)=0\\
+                &\iff x\in\im(N'\to N).
+        \end{align*}
+        
+        \item $\Rightarrow$ a) Clearly $\phi$ is flat. Suppose that $x\in M$ satisfies $x\otimes_B1=0$ in $M\otimes_BA$. Then, $Bx\otimes_BA$=0. Therefore $Bx\hookrightarrow M\to M$ satisfies that $Bx\otimes_BA\to M\otimes_BA\to M\otimes_BA$ is exact. Hence, the first sequence is exact and so $x=0$.\qedhere
+    \end{enumerate}
+\end{proof}
+
+\begin{lem}\label{lem:localization-product}
+    Let\/ $A$ be a ring and\/ $f_1,\dots,f_n$ elements of\/ $A$. Then, given an\/ $A$-module\/ $M$ we have
+    $$
+        M\otimes_A\prod_{i=1}^nA_{f_i}
+            = \prod_{i=1}^nM\otimes_AA_{f_i}.
+    $$
+\end{lem}
+
+\begin{proof}
+    This is a consequence of Proposition~\ref{prop:tensor-and-sum-commute} because the product of finitely many rings equals their direct sum, and the morphism $\sigma$ of $A$-modules is also a morphism of $\prod_{i=1}^nA_{f_i}$-modules:
+    \begin{align*}
+        \sigma\big((x\otimes_A(a_i/f_i^{n_i})_{i\in I})(b_i/f_i^{m_i})_{i\in I}\big)
+            &= \sigma\big(
+                x\otimes_A(a_ib_i/f_i^{n_i+m_i})_{i\in I}
+                \big)\\
+            &= (x\otimes_A a_ib_i/f_i^{n_i+m_i})_{i\in I}\\
+            &= (x\otimes_A a_i/f_i^{n_i})_{i\in I}
+                (b_i/f_i^{m_i})_{i\in I}\\
+            &= \sigma\big(x\otimes_A(a_i/f_i^{n_i})_{i\in I}\big)
+                (b_i/f_i^{m_i})_{i\in I}.
+    \end{align*}
+\end{proof}
+
+\begin{prop}\label{prop:ff-prod}
+    Given\/ $f_1,\dots,f_n\in A$, define
+    \begin{align*}
+        \lambda\colon A&\to\prod_{i=1}^nA_{f_i}\\
+        a&\mapsto(a/1)_{1\le i\le n}.
+    \end{align*}
+    If\/ $\gen{f_1,\dots, f_n}=A$ then\/ $\lambda$ is faithfully flat.
+\end{prop}
+
+\begin{proof}
+    Let $C$ denote the product ring. Take a monomorphism of $A$-modules $\alpha\colon M\to N$. To prove that $\lambda$ is flat we have to show that
+    \begin{align*}
+        M\otimes_AC&\to N\otimes_AC\\
+        x\otimes_Ac
+            &\mapsto\alpha(x)\otimes_Ac
+    \end{align*}
+    is injective. By Lemma~\ref{lem:localization-product}, this is equivalent to the injectivity of
+    \begin{align*}
+        (M\otimes_AA_{f_i})_{i\in I}&\to(N\otimes_AA_{f_i})_{i\in I}\\
+        (x\otimes_Aa_i/f_i^{n_i})_{i\in I}
+            &\mapsto(\alpha(x)\otimes_Aa_i/f_i^{n_i})_{i\in I},
+    \end{align*}
+    which follows from Proposition~\ref{prop:flat-localization} applied to each coordinate.
+
+    For the second part of the definition, take an $A$-module $M$ and consider the morphism
+    \begin{align*}
+        \lambda_M\colon M&\to M\otimes_AC\\
+        x&\mapsto x\otimes_A1.
+    \end{align*}
+    We have to show that $\lambda_M$ is injective. Take $x\in\ker\lambda_M$. By Lemma~\ref{lem:localization-product}, $x\otimes_A1=0$ in $M\otimes_AA_{f_i}$ for $i=1,\dots,n$. According to Remark~\ref{rem:f-localization-tensor}, for every $1\le i\le n$ there exists $e_i\in\N$ such that $f_i^{e_i}x=0$. Since $1\in\gen{f_1^{e_1},\dots,f_n^{e_n}}$, we conclude that~$x=0$.
+\end{proof}
+
+\begin{lem}
+    If\/ $\phi\colon B\to A$ is faithfully flat, then\/ $\phi$ is an injection.
+\end{lem}
+
+\begin{proof}
+    Take $M=B$ in Definition~\ref{defn:faithfully-flat} of faithfully flat. Since $\varphi\colon B\to B\otimes_BA$ equals $\phi\colon B\to A$, the conclusion is trivial.
+\end{proof}
+
+\newcommand{\ff}{{}_\bullet}
+\begin{prop}\label{prop:ff-extension}
+    Let\/ $\psi\colon B\to C$ be a ring morphism. As usual, consider\/ $C$ a\/ $B$-module with\/ $b\cdot c=\psi(b)c$. If\/ $B\to A$ is faithfully flat morphism of rings, then
+    \begin{align*}
+        \theta\colon C&\to C\otimes_B A\\
+        c&\mapsto c \otimes_B1,    
+    \end{align*}
+    is faithfully flat. In a diagram,
+    $$
+        \begin{tikzcd}[row sep=large]
+            C
+                    \arrow[r,"\ff", pos=0.75]
+                    \arrow[rd,
+                        "\Uparrow" description,
+                        pos=0.51,
+                        draw=none,
+                        ]
+                &C\otimes_BA\\
+            B
+                    \arrow[u,"\psi"]
+                    \arrow[r,"\ff",
+                        pos=0.82]
+                &A
+                    \arrow[u],
+        \end{tikzcd}
+    $$
+    where the dots indicate faithful flatness.
+\end{prop}
+
+\begin{proof}
+    To see that $\theta$ is flat, take a morphism of $C$-modules $\alpha\colon M\to N$. We have a commutative diagram
+    \small
+    $$
+        \begin{tikzcd}[column sep=large, row sep=huge]
+            M\otimes_BA
+                    \arrow[rr,"\alpha\otimes_B\id_A"]
+                    \arrow[d,"\cong"']
+                &&N\otimes_BA\arrow[d,"\cong"]\\
+            M\otimes_C(C\otimes_BA)
+                    \arrow[rr,
+                        "\alpha\otimes_C(\id_C\otimes_B\id_A)"',
+                        dashed]
+                &&N\otimes_C(C\otimes_BA),
+        \end{tikzcd}
+    $$
+    where the vertical arrows are valid identifications (i.e., natural isomorphisms) given by $z\otimes_C(c\otimes_Ba)\cong cz\otimes_Ba$. Thus, if $\alpha$ is a monomorphism, then the horizontal upper arrow is a monomorphism because $B\to A$ is flat, which implies that the horizontal lower arrow is a monomorphism too.
+
+    For the second part of the definition of faithfully flat, we have to show that, for every $C$-module $M$, the map $M\to M\otimes_C(C\otimes_BA)$ is a monomorphism. But $M\otimes_C(C\otimes_BA)$ is isomorphic to $M\otimes_BA$ and the map $M\to M\otimes_BA$ is a monomorphism because $B\to A$ is faithfully flat.
+\end{proof}
+
+\begin{thm}\label{thm:ff-equals-onto}
+    Let\/ $\phi\colon B\to A$ be a flat ring morphism. Then\/ $\phi$ is faithfully flat if, and only if, the associated map\/ $\phi^\sharp\colon\Spec A\to\Spec B$ is surjective.
+\end{thm}
+
+\needspace{2\baselineskip}
+\begin{proof}${}$
+    \begin{description}
+        \item[\rm\textit{only if}:] Take $\mathfrak q\in\Spec B$. By hypothesis the morphism $B_{\mathfrak q}\to B_{\mathfrak q}\otimes_BA$ is an injection. Suppose that $\mathfrak qB_{\mathfrak q}\otimes_BA$ is not a proper ideal. Then, we would have a equation
+        \begin{equation}\label{eq:sum-1-tensor-1}
+            \sum_{i=1}^n(b_i/s_i)\otimes_Ba_i=1\otimes_B1,
+        \end{equation}
+        with $b_i\in\mathfrak q$ and $s_i\in B\setminus\mathfrak q$, for $i=1,\dots,n$. Now consider the diagram
+        \small
+        $$
+            \begin{tikzcd}
+                    &0
+                        \arrow[d]
+                    &0
+                        \arrow[d]
+                    &0
+                        \arrow[d]&\\
+                0
+                        \arrow[r]
+                    &\mathfrak qB_{\mathfrak q}
+                        \arrow[r]
+                        \arrow[d]
+                    &B_{\mathfrak q}
+                        \arrow[d]
+                        \arrow[r,"\varphi_{\mathfrak q}"]
+                    &B_{\mathfrak q}/\mathfrak qB_{\mathfrak q}
+                        \arrow[d]
+                        \arrow[r]
+                    &0\\
+                0
+                        \arrow[r]
+                    &\mathfrak qB_{\mathfrak q}\otimes_BA
+                        \arrow[r]
+                    &B_{\mathfrak q}\otimes_BA
+                        \arrow[r,"\varphi_{\mathfrak q}
+                            \otimes_B\id\vphantom{\big|}"']
+                    &B_{\mathfrak q}/\mathfrak qB_{\mathfrak q}
+                        \otimes_BA
+                        \arrow[r]
+                    &0
+            \end{tikzcd}
+        $$
+        \normalsize
+        The first row is clearly a s.e.s. Moreover, since $B\to A$ is faithfully flat, the three vertical sequences are also exact. According to equation~\eqref{eq:sum-1-tensor-1}, the unit $1\otimes_B1$ maps to $0$ under $\varphi_{\mathfrak q}\otimes_B\id$. But this implies that $\varphi_{\mathfrak q}$ maps $1$ into the kernel of the last vertical arrow. Therefore, $\varphi_{\mathfrak q}(1)= 0$ because such arrow is an injection. This is impossible because it implies $1\in\mathfrak qB_{\mathfrak q}$.
+
+        It follows that $\mathfrak qB_{\mathfrak q}\otimes_BA$ is proper and must be contained in some maximal ideal $\mathfrak m\in\Spec(B_{\mathfrak q}\otimes_BA)$. Since $B_{\mathfrak q}$ is local, we must have $\mathfrak m\cap B_{\mathfrak q} = \mathfrak qB_{\mathfrak q}$. The conclusion is now a direct consequence of the following commutative diagram
+        $$
+        \begin{tikzcd}
+            B_{\mathfrak q}
+                    \arrow[r]
+                &B_{\mathfrak q}\otimes_BA
+                &\mathfrak qB_{\mathfrak q}
+                    \arrow[d,mapsto]
+                &\mathfrak m
+                    \arrow[l,mapsto]
+                    \arrow[d,mapsto]\\
+            B\arrow[u]
+                    \arrow[r]
+                &A
+                    \arrow[u]
+                &\mathfrak q
+                &\mathfrak p
+                    \arrow[l,dashed,mapsto]
+        \end{tikzcd}
+        $$
+        
+        \item[\rm\textit{if\/}part:] Take $\mathfrak m\in\Max(B)$. By hypothesis there exists $\mathfrak p\in\Spec A$ such that $\mathfrak m=\phi^{-1}(\mathfrak p)$. In particular, $\mathfrak m\cdot A= \phi(\mathfrak m)A\subseteq\mathfrak pA=\mathfrak p\varsubsetneq A$. Therefore, we are free to use Lemma~\ref{lem:flat-converse}.
+        
+        Take a $B$-module $M$. We have to show that $\varphi\colon M\to M\otimes_BA$ is injective. By the lemma, it suffices to show that
+        \begin{align*}
+            \varphi\otimes_B\id_A\colon M\otimes_BA
+                &\to (M\otimes_BA)\otimes_BA\\
+                x\otimes_Ba&\mapsto(x\otimes_Ba)\otimes_B1
+        \end{align*}
+        is an injection. But it is an injection because
+        \begin{align*}
+            \rho\colon(M\otimes_BA)\otimes_BA&\to M\otimes_BA\\
+            (x\otimes_Ba_1)\otimes_Ba_2&\mapsto x\otimes_Ba_1a_2
+        \end{align*}
+        satisfies $\rho\circ\varphi=\id_M$.
+    \end{description}
+\end{proof}
+
+\begin{rem}
+    Suppose that $A = \gen{f_1,\dots,f_n}$. Then, by the lemma of Exercise~\ref{exr:spec-prod-lemma}, we have
+    $$
+        \Spec\Big(\prod_{i-1}^nA_{f_i}\Big) = \bigsqcup_{i=1}^n\Spec A_{f_i}.
+    $$
+    Therefore, by Proposition~\ref{prop:ff-prod} and Theorem~\ref{thm:ff-equals-onto}, combined with Theorem~\ref{thm:Spec(Af)-is-D(f)}, there is a surjection
+    $$
+        \bigsqcup_{i=1}^nD(f_i)\to\Spec A,
+    $$
+    which corresponds to the open cover $(D(f_i))_{1\le i\le n}$ of $\Spec A$.
+\end{rem}
+
+\section{Short Exact Sequences}
+
+\begin{defn}
+    A morphism of $\kappa$-group schemes $\eta\colon\yoneda_A\to\yoneda_B$ is an \textsl{epimorphism} if for each $\kappa$-algebra $K$ and each $g\in\yoneda_B(K)$ there is a $\kappa$-algebra $K'$ and a faithfully flat $\kappa$-algebra map $\gamma\colon K\to K'$ such that $g'=\yoneda_B(\gamma)(g)$ and $g'\in\eta_{K'}(\yoneda_A(K'))$. In a commutative diagram,
+    \begin{equation}\label{tik:k-group-alg-epi}
+        \begin{tikzcd}
+            K
+                    \arrow[r,"{\exists\gamma}\;\ff",dashed,
+                                pos=0.5]
+                &{\textcolor{gray}{K'}}\\
+            B
+                    \arrow[r,"\phi"']
+                    \arrow[u,"{\forall g}"]
+                    \arrow[ru,"g'",dashed]
+                &A
+                    \arrow[u,"f"',dashed]
+        \end{tikzcd}
+    \end{equation}
+    where the dot represents faithful flatness.
+\end{defn}
+
+\begin{thm}\label{thm:ff-implies-epi}
+    Let\/ $\eta\colon\yoneda_A\to\yoneda_B$ be a morphism of\/ $\kappa$-group schemes. Suppose that the corresponding map\/ $\phi\colon B\to A$ is faithfully flat; that is, suppose that\/ $\Spec A\to\Spec B$ is surjective. Then\/ $\eta$ is an epimorphism of group schemes.
+\end{thm}
+
+\begin{proof}
+    Take $g\in\yoneda_B(K)$. Consider the square
+    \begin{equation}\label{eq:ff-implies-epi}
+        \begin{tikzcd}
+            &&&&K
+                    \arrow[r,"\vphantom{\big|}\id_K\otimes_B1",dashed]
+                &K\otimes_BA
+                &g(b)
+                    \arrow[r,mapsto]
+                &\substack{g(b)\otimes_B1\\=\\1\otimes_B\phi(b)}\\
+            &&&&B
+                    \arrow[r,"\phi"']
+                    \arrow[u,"g"]
+                    \arrow[ru,"g'",dashed]
+                &A
+                    \arrow[u,"1\otimes_B\id_A"',dashed]
+                &b
+                    \arrow[u,mapsto]
+                    \arrow[r,mapsto]
+                &\phi(b)
+                    \arrow[u,mapsto]
+        \end{tikzcd}
+    \end{equation}
+    which commutes because the structure of $B$-modules of $K$ and $A$ implies
+    \begin{align*}
+        g(b)\otimes_B1 = b\cdot1_K\otimes_B1
+            = 1_K\otimes_Bb\cdot1_A
+            = 1\otimes_B\phi(b).
+    \end{align*}
+    Moreover, since $\phi$ is faithfully flat, $\id_K\otimes_B1$ is faithfully flat as shown by Proposition~\ref{prop:ff-extension}.
+\end{proof}
+
+\begin{rem}
+    Let $\eta\colon\yoneda_A\to\yoneda_B$ be a morphism of $\kappa$-group schemes with corresponding map $\phi\colon B\to A$. Given a $\kappa$-algebra $K$ and a morphism $f\colon A\to K$, the composition $f\circ\phi$ equals $\eta_K(f)$, i.e. is an element of $\im(\eta_K)$. In particular, we can take $K'=K$ and $\gamma=\id_K$ in \eqref{tik:k-group-alg-epi} to fulfill the conditions for $g=f\circ\phi$. This shows that, even if not every $\eta_K$ is onto, the morphism $\eta$ could still be an epimorphism of $\kappa$-group schemes.
+\end{rem}
+
+\subsection{The Power Map}\label{ss:power-map}
+
+In this section we will assume that $\kappa$ is a field and $x$ and $y$ two indeterminates over $\kappa$. Let $A=\kappa[x,x^{-1}]$ and $B=\kappa[y,y^{-1}]$ denote the localizations $\kappa[x]_x$ and $\kappa[y]_y$. Finally, let $\mathcal G$ and $\mathcal G'$ denote the $\kappa$-group schemes $\yoneda_A$ and $\yoneda_{B}$.
+
+Recall from Example~\ref{xmpl:item-k[x,x^-1]}, Multiplicative $\kappa$-group scheme, that $\Delta(x)=x\otimes_\kappa x$, $\varepsilon(x)=1$ and $\sigma(x)=x^{-1}$. In particular, $f*g(x)=f(x)g(x)$.
+
+Given an integer $p\ge2$, introduce
+\begin{align*}
+    \mu^{(p-1)} &=
+        \mu(\id\otimes_\kappa\mu)
+            \circ(\id\otimes_\kappa\id\otimes_\kappa\mu) \circ\cdots\circ
+            (\underbrace{
+                \id\otimes_\kappa\id\otimes_\kappa
+                \cdots\otimes_\kappa\id}_{p-2}
+            \otimes_\kappa\mu); \\
+    \Delta^{(p-1)} &=
+        (\underbrace{\id\otimes_\kappa\id\otimes_\kappa
+            \cdots\otimes_\kappa\id}_{p-2}\otimes_\kappa\Delta)
+            \circ\cdots\circ(\id\otimes_\kappa\id\otimes_\kappa\Delta)
+            \circ(\id\otimes_\kappa\Delta)
+            \circ\Delta.
+\end{align*}
+Inductively,
+\begin{align*}
+    \mu^{(1)} &= \mu,
+        &\mu^{(p-1)} &= \mu^{(p-2)}\circ(\id^{\otimes_\kappa^{p-2}}
+            \otimes_\kappa\mu);\\
+    \Delta^{(1)} &= \Delta,
+        &\Delta^{(p-1)} &= (\id^{\otimes_\kappa^{p-2}}\otimes_\kappa\Delta)
+            \circ\Delta^{(p-2)}.
+\end{align*}
+Given a $\kappa$-algebra $K$, define
+\begin{align*}
+    p_K\colon\Hom_{\cat{CAlg}_\kappa}(A,K)
+        &\to\Hom_{\cat{CAlg}_\kappa}(B,K)\\
+    f
+        &\mapsto\big(y\mapsto
+            \mu_K^{(p-1)}
+                \circ f^{\otimes_\kappa^p}
+                \circ\Delta_A^{(p-1)}(x)\big).
+\end{align*}
+Note that
+\begin{align*}
+    2_K(f)(y) &= \mu\circ f\otimes_\kappa f(x\otimes_\kappa x)\\
+        &= f(x)f(x)\\
+        &= f(x^2).
+\end{align*}
+For $p=3$, we have
+\begin{align*}
+    \Delta^{(2)}(x) &= (\id\otimes_\kappa\Delta_A)\circ\Delta_A(x)\\
+        &= \id\otimes_\kappa\Delta_A(x\otimes_\kappa x)\\
+        &= x\otimes_\kappa x\otimes_\kappa x.\\
+    \mu^{(2)} &= \mu_K\circ(\id\otimes_\kappa\mu_K).\\
+    3_K(f)(y) &= \mu_K^{(2)}
+        \circ f\otimes_\kappa f\otimes_\kappa f
+            (x\otimes_\kappa x\otimes_\kappa x)\\
+        &= \mu_K^{(2)}(f(x)\otimes_\kappa f(x)\otimes_\kappa f(x))\\
+        &= \mu_K(f(x)\otimes_\kappa f(x)^2)\\
+        &= f(x^3).
+\end{align*}
+With this evidence we are in a position to
+
+\textbf{Claim:} \textit{For\/ $p\ge2$, we have}
+    \begin{align*}
+        \mu^{(p-1)}(c_1\otimes_\kappa\cdots\otimes_\kappa c_p)
+            &= c_1\cdots c_p,\\
+        \Delta^{(p-1)}(x) &=x^{\otimes_\kappa^p}.
+    \end{align*}
+\small
+Indeed. By induction on $p$, it suffices to show that the equations for $p-2$ imply the equations for $p-1$.
+\begin{align*}
+    \mu^{(p-1)}(c_1\otimes_\kappa\cdots\otimes_\kappa c_p)
+        &= \mu^{(p-2)}
+            \circ(\id^{\otimes_\kappa^{p-2}}\otimes_\kappa\mu)
+            (c_1\otimes_\kappa\cdots\otimes_\kappa c_p)\\
+        &= \mu^{(p-2)}
+            (c_1\otimes_\kappa\cdots\otimes_\kappa c_{p-2}
+                \otimes c_{p-1}c_p)\\
+        &= (c_1\cdots c_{p-2})c_{p-1}c_p,\\
+    \Delta^{(p-1)}(x)
+        &= (\id^{\otimes_\kappa^{p-2}}\otimes_\kappa\Delta_A)
+            \circ\Delta^{(p-2)}(x)\\
+        &= (\id^{\otimes_\kappa^{p-2}}\otimes_\kappa\Delta_A)
+            (x^{\otimes_\kappa^{p-1}})\\
+        &= x^{\otimes_\kappa^{p-2}}\otimes_\kappa x\otimes_\kappa x,
+\end{align*}
+as claimed.
+\normalsize
+
+The claim allows us to compute
+\begin{align*}
+    p_K(f)(y)
+        &= \mu^{(p-1)}
+            \circ f^{\otimes_\kappa^p}
+            \circ\Delta^{(p-1)}(x)\\
+        &= \mu^{(p-1)}
+            \circ f^{\otimes_\kappa^p}
+            (x^{\otimes_\kappa^p})\\
+        &= \mu_K^{(p-1)}(f(x)^{\otimes_\kappa^p})\\
+        &= f(x)^p\\
+        &= f(x^p).
+\end{align*}
+
+It follows that $p_K$ is a morphism of $\kappa$-group schemes because
+\begin{align*}
+    p_K(f*g)(y) &= (f*g)(x^p)\\
+        &= f(x^p)g(x^p)\\
+        &= p_K(f)(y)p_K(g)(y)\\
+        &= (p_K(f)*p_K(g))(y).
+\end{align*}
+Note that the associated morphism of $\kappa$-algebras $\phi\colon B\to A$ is
+\begin{align*}
+    \phi\colon\kappa[y,y^{-1}]&\to\kappa[x,x^{-1}]\\
+        y &\mapsto x^p.
+\end{align*}
+Indeed, $p_K(f)(y) = f(x^p) = f\circ\phi(y)$.
+
+The natural transformation $K\mapsto p_K$ is called the \textsl{$p$th power map}.
+
+The augmentation ideal $B^+$ of $B=\kappa[y,y^{-1}]$ is, by definition, the kernel of $\varepsilon_B\colon B\to\kappa$, where $\varepsilon_B(q(y))=q(1)$. Therefore, $B^+=\gen{y-1}$. According to Definition~\ref{defn:ker-eta},
+$$
+    \ker p = \Hom_{\cat{CAlg}_\kappa}\big(\kappa[x,x^{-1}]/\gen{x^p-1},-\big).
+$$
+
+\begin{prop}
+    The\/ $p$th power map\/ $p\colon\mathcal G\to\mathcal G'$ is an epimorphism of\/ $\kappa$-group schemes.
+\end{prop}
+
+\begin{proof}
+    By Theorem~\ref{thm:ff-implies-epi}, it is enough to show that $\phi^\sharp\colon\Spec A\to\Spec B$ is onto. Take $\mathfrak q\in\Spec B$. We may restrict ourselves to the case $\mathfrak q\ne\gen 0$. Since $\kappa$ is a field, we can pick $g\in\kappa[y]$ such that $\mathfrak q=\gen{g}$. Note that $g(0)\ne0$. Pick a prime factor $h$ of $g(x^p)$ in $\kappa[x]$. Since $h(0)\ne0$, $\gen h\in\Spec\kappa[x,x^{-1}]$. Moreover, $\phi(g)=g(x^p)\in\gen h$, i.e., $\phi(\mathfrak q)\subseteq\gen h$. Thus, $\mathfrak q\subseteq\phi^{-1}\gen h$, and equality is attained because both ideals are maximal, i.e., $\mathfrak q=\phi^\sharp\gen h$.
+\end{proof}
+
+The proof of Theorem~\ref{thm:ff-implies-epi} is constructive and allows us to compute, given a $\kappa$-algebra $K$ and $g\in\mathbf G'(K)$, a morphism $g'$ such that \eqref{eq:ff-implies-epi} commutes. Indeed, $g'\colon K\to K\otimes_BA$ is given by
+\begin{align*}
+    g'(y) &= 1\otimes_B\id_A\circ\phi(y)\\
+        &= 1\otimes_B\id_A(x^p)\\
+        &= 1\otimes_Bx^p.
+\end{align*}
+Moreover, the commutativity of the square means that, for $c=g(y)$, we have
+\begin{align*}
+    c\otimes_B1 = g(y)\otimes_B1 = 1\otimes\phi(y) = 1\otimes_Bx^p = (1\otimes_Bx)^p.
+\end{align*}
+Consider the morphism of $\kappa$-algebras
+\begin{align*}
+    \ev_x\colon K[t]&\to K\otimes_BA\\
+    \sum_i\zeta_it^i&\mapsto\sum_i\zeta_i\otimes_Bx^i.
+\end{align*}
+Since $c=g(y)$ and $y$ is a unit in $k[y,y^{-1}]$, we know that~$c$ is a unit in $K$. Therefore $\ev_x$ is an epimorphism because $\ev_x(t^p)=1\otimes_Bx^p=c\otimes_B1$. Clearly, $\gen{t^p-c}\subseteq\ker(\ev_x)$. Hence, we get an epimorphism $K[t]/\gen{t^p-c}\to K\otimes_BA$. Moreover, we have the following commutative diagram
+$$
+    \begin{tikzcd}
+        K
+                \arrow[r,"\iota_K",pos=0.6]
+                \arrow[rr,bend left,"\id_K\otimes_B1"]
+            &{K[t]/\gen{t^p-c}}
+                \arrow[r,"\bar t\mapsto x"]
+            &K\otimes_BA\\
+        B
+                \arrow[u,"g"]
+                \arrow[r,"\phi"']
+            &A
+                \arrow[ru,"1\otimes_B\id_A"']
+                \arrow[u,"x\mapsto\bar t"]
+    \end{tikzcd}
+$$
+Given that
+\begin{align*}
+     K^p&\to K[t]/\gen{t^p-1}\\
+     (a_0,\dots,a_{p-1})
+        &\mapsto a_0+a_1\bar t+\cdots+a_{p-1}\bar t^{\;p-1}
+\end{align*}
+is an isomorphism of $K$-modules, the map $\iota_K$ is flat [cf.~Corollary~\ref{cor:B^n-is-flat}]. Since $\id_K\otimes_B1$ is faithfully flat, we can invoke Proposition~\ref{prop:phi-psi-ff-implies-psi-ff} to deduce that $\iota_K$ is faithfully flat. Hence, we can use the map $g\mapsto\iota_K$ to fulfill the definition of $\kappa$-group scheme epimorphism for the $p$th power map.
+
+
+\section{Exercises}
+
+\begin{exr}\label{exr:ring-group-hopf-algebra}
+    Let\/ $G$ be an abelian finite group and let\/ $\kappa[G]$ denote the group ring with coefficients in\/ $\kappa$. Define the comultiplication, counit and coinverse maps for\/ $\kappa[G]$.
+\end{exr}
+
+\begin{solution}
+    \begin{align*}
+        \text{comultiplication:}
+            &\quad\Delta\Big(\sum_{\gamma\in G}a_\gamma\gamma\Big)
+            = \sum_{\gamma\in G}a_\gamma(\gamma\otimes_\kappa\gamma)\\
+        \text{counit:}
+            &\quad\varepsilon\Big(\sum_{\gamma\in G}a_\gamma\gamma\Big)
+            = \sum_{\gamma\in G}a_\gamma\\
+        \text{coinverse:}
+            &\quad\sigma\Big(\sum_{\gamma\in G}a_\gamma\gamma\Big)
+            = \sum_{\gamma\in G}a_\gamma\gamma^{-1}
+    \end{align*}
+    Note that $t\circ\Delta=\Delta$. Moreover,
+    \begin{enumerate}[-]
+        \item \textit{associativity:} $(\id\otimes_\kappa\Delta)
+        (\gamma\otimes_\kappa\gamma)
+            = \gamma\otimes_\kappa\gamma\otimes_\kappa\gamma$.
+
+        \item \textit{identity:}
+            $\mu\circ(\varepsilon\otimes_\kappa\id)
+            \circ(\gamma\otimes_\kappa\gamma)
+            = \mu(1\otimes_\kappa\gamma)=\gamma$.
+
+        \item \textit{inverse:} $\mu\circ(\sigma\otimes_\kappa\id)
+            (\lambda\otimes_\kappa\lambda)
+            = \mu(\lambda^{-1}\otimes_\kappa\lambda)
+            = 1 = \varepsilon(\lambda)$.
+    \end{enumerate}
+    Finally, if $K$ is a $\kappa$-algebra and $f,g\in\Hom_{\cat{CAlg}_\kappa}(\kappa[G],K)$, then
+    $$
+        f*g\Big(\sum_{\gamma\in G}a_\gamma\gamma\Big)
+            = \sum_{\gamma\in G}a_\gamma f(\gamma)g(\gamma).
+    $$
+\end{solution}
+
+\begin{exr}
+    Prove that the comultiplication\/ $\Delta\colon\Z[G]\to\Z[G]\otimes_{\Z}\Z[G]$ is a morphism of\/ $\Z$-algebras.
+\end{exr}
+
+\begin{solution}
+    \begin{align*}
+        \Delta\bigg(
+        \Big(\sum_{x\in G}n_xx\Big)
+        \Big(\sum_{y\in G}m_yy\Big)\bigg)
+        &= \Delta\Big(\sum_{x, y\in G}n_xm_yxy\Big)\\
+        &= \sum_{x,y\in G}n_xm_y(xy\otimes_\kappa xy)\\
+        &= \sum_{x,y\in G}
+            (n_xx\otimes_\kappa x)(m_yy\otimes_\kappa y)\\
+        &= \Delta\Big(\sum_{x\in G}n_xx\Big)
+            \Delta\Big(\sum_{y\in G}m_yy\Big).
+    \end{align*}
+\end{solution}
+
+\begin{exr}
+    Let\/ $\kappa$ be a ring of characteristic\/ $2$. Let\/ $\yoneda_A$ be an\/ $\kappa$-group scheme and let\/ $K$ be a\/ $\kappa$-algebra. Suppose that\/ $f\in\yoneda_A(K)$ has order\/ $2$ in\/ $\yoneda_A(K)$, and assume that\/ $a\in A$ satisfies\/ $\Delta(a)=a\otimes_\kappa1+1\otimes_\kappa a$. Prove that\/ $\iota_\kappa\circ\varepsilon(a)=0$.
+\end{exr}
+
+\begin{solution}
+    By hypothesis, $f*f=\iota_K\circ\varepsilon$, the identity of $\yoneda_A(K)$. It follows that
+    $$
+        \iota_K\circ\varepsilon(a)=f*f(a)= f(a)f(1)+f(1)f(a) = f(a)+f(a) = 2f(a)=0.
+    $$
+\end{solution}
+
+\begin{exr}
+    Let\/ $\yoneda_A$ be an\/ $\kappa$-group scheme. Suppose that for all\/ $a\in A$, $\Delta(a)=\sum_ia_{1i}\otimes_\kappa a_{2i}$ and\/ $f,g,h\in\yoneda_A(K)$,
+    $$
+        \sum_if(a_{1i})g(a_{2i}) = \sum_if(a_{1i})h(a_{2i}).
+    $$
+    Show that\/ $g=h$.
+\end{exr}
+
+\begin{solution}
+    The hypothesis means that $f*g=f*h$. Multiplying by the inverse of $f$ we get $g=h$.
+\end{solution}
+
+\begin{exr}
+    Determine the augmentation ideal for the additive $\kappa$-group scheme.
+\end{exr}
+
+\begin{solution}
+    According to Example~\ref{xmpls:k-group-schemes}, the additive $\kappa$-group scheme $\yoneda_A$ refers to $A=\kappa[x]$. The counit map is given by $\varepsilon(f)=f(0)$, for $f\in\kappa[x]$. Therefore, the augmentation ideal is
+    $$
+        \ker\varepsilon = \gen x,
+    $$
+    the ideal generated by $x$ in $A$.
+\end{solution}
+
+\begin{exr}
+    Determine the augmentation ideal for the multiplicative $\kappa$-group scheme.
+\end{exr}
+
+\begin{solution}
+    In the case of the multiplicative $\kappa$-group scheme, the counit is defined as $\varepsilon(f)=f(1)$. Therefore, $\ker\varepsilon = \gen{x-1}$.
+\end{solution}
+
+\begin{exr}
+    Let\/ $\mathcal{G}_m$ and\/ $\mathcal{G}_a$ respectively denote the multiplicative and additive\/ $\Z$-group schemes. Prove that\/ $\zeta\colon\mathcal{G}_m\to\mathcal{G}_a$ defined as\/ $\zeta_K(f)=0$ for all\/ $f\in\mathcal{G}_m(K)$ is the only morphism of\/ $\mathcal{G}_m$ into\/ $\mathcal{G}_a$.
+\end{exr}
+
+\begin{solution}
+    Take a $\Z$-group scheme morphism $\eta\colon\mathcal G_m\to\mathcal G_a$. Let $\phi\colon\Z[x]\to\Z[x]$ be the $\Z$-algebra morphism associated to $\eta$. According to Theorem~\ref{thm:k-group-scheme-equivalence}, we must have
+    \begin{align*}
+        (\phi\otimes_\Z\phi)\circ\Delta_a &= \Delta_m\circ\phi\\
+        \varepsilon_m\circ\phi &= \varepsilon_a\\
+        \phi\circ\sigma_a &= \sigma_m\circ\phi
+    \end{align*}
+    i.e.,
+    \begin{align*}
+        1\otimes_\Z\phi(x)+\phi(x)\otimes_\Z1
+            &=\phi(x)\otimes_\Z\phi(x).
+    \end{align*}
+    Multiplying,
+    $$
+        2\phi(x)=\phi(x)^2,
+    $$
+    which implies $\phi(x)=0$ or $\phi(x)=2$, i.e., $\phi=\ev_0$ or $\phi=\ev_2$. The latter, however, doesn't honor the second equality above:
+    $$
+        \varepsilon_m\circ\ev_2(x) = \varepsilon_m(2) = 2
+            \ne 0=\varepsilon_a(x).
+    $$
+    Hence, $\phi=\ev_0$. Therefore, given $\zeta\in\Hom_{\cat{CAlg}_\Z}(\Z[x],K)$, there exists $c\in K$ such that $\zeta=\ev_c$ and
+    $$
+        \eta_K(\zeta) = \eta_K(\ev_c) = \ev_c\circ\ev_0 = \ev_0,
+    $$
+    i.e., $\eta_K$ is the constant $\ev_0$.
+\end{solution}
+
+\begin{exr}
+    Let\/ $A$ and\/ $B$ be commutative rings, and suppose that\/ $B\to A$ is faithfully flat. Show that\/ $\mathfrak m\cdot A\ne A$ for every maximal ideal\/ $\mathfrak m$ of\/ $B$.
+\end{exr}
+
+\begin{solution}
+    By Theorem~\ref{thm:ff-implies-epi}, the induced map $\Spec A\to\Spec B$ is onto. In particular, if $\mathfrak m\in\Max(B)$, there must exist $\mathfrak p\in\Spec A$ with $\phi^{-1}(\mathfrak p)=\mathfrak m$. It follows that, $\phi(\mathfrak m)\subseteq\mathfrak p$, which implies that $\mathfrak m\cdot A=\phi(\mathfrak m)A\subseteq\mathfrak p\ne A$.
+\end{solution}
+
+\begin{exr}
+    Show that the inclusion $\Q\to\Q(\sqrt2)$ is faithfully flat.
+\end{exr}
+
+\begin{solution}
+    First note that $\Q(\sqrt2)=\Q[\sqrt2]$. Therefore $\Q(\sqrt2)\cong\Q\oplus\Q$, which is flat (of course, we can only derive the flatness of this inclusion from Corollary~\ref{cor:vect-spaces-are-flat}).
+
+    By Theorem~\ref{thm:ff-equals-onto}, to see that the inclusion is faithfully flat, it suffices to show that $\Spec\Q(\sqrt2)\to\Spec\Q$ is onto. But this is trivial because both rings are fields.
+\end{solution}
+
+\begin{exr}
+    Consider the s.e.s.~of\/ $\Q$-group schemes
+    $$
+        1\to\mu_p\to\mathcal G_m\xrightarrow{p_K}
+            \mathcal G_m'\to 1,
+    $$
+    where $\mathcal G_m$ and $\mathcal G_m'$ denote the $\Q$-group schemes of\/ {\rm\S\>\ref{ss:power-map}~\nameref{ss:power-map}}.
+    \begin{enumerate}[\rm a)]
+        \item Find a\/ $\Q$-algebra\/ $K$ for which the sequence
+        $$
+            1\to\mu_p(K)\to\mathcal G_m(K)\xrightarrow{p_K}
+                \mathcal G_m'(K)\to1
+        $$
+        is a short exact sequence of abstract groups.
+        
+        \item Find a\/ $\Q$-algebra\/ $K$ for which the sequence
+        $$
+            1\to\mu_p(K)\to\mathcal G_m(K) \xrightarrow{p_K}
+                \mathcal G_m'(K)\to1
+        $$
+        fails to be short exact.
+    \end{enumerate}
+\end{exr}
+
+\begin{solution}
+    Recall from $\ref{ss:power-map}$ that the group morphism $p_K\colon\mathcal G_m\to\mathcal G'_m$ corresponds to the ring morphism
+    \begin{align*}
+        \phi\colon\Q[y,y^{-1}]&\to\Q[x,x^{-1}]\\
+        y&\mapsto x^p,
+    \end{align*}
+    which means that $p_K(f)(y)=f(x^p)$.
+    
+    Since every morphism in $\mathcal G_m(K)$ is the evaluation $\ev_c\colon\Q[x,x^{-1}]\to K$, for some unit $c\in K$, we see that $p_K(e_c)$ equals $\ev_{c^p}\colon\Q[y,y^{-1}]\to K$.
+    \begin{enumerate}[\rm a)]
+        \item Take $K=\C$, the field of complex numbers. Here every element has a $p$th root. So, $p_\C$ is an epimorphism of groups.
+
+        \item Take $K=\Q$. Since not every element has a $p$th root, $p_\Q$ is not onto. However, given $q\in\Q$, we can extend $\Q$ to $\Q[t]/\gen{t^p-q}$, where $q$ does have a $p$th root. 
+    \end{enumerate}
+\end{solution}

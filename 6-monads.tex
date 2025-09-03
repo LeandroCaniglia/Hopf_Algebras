@@ -1,0 +1,108 @@
+\chapter{Monads}
+
+\section{Monads and Comonads}
+
+Let $\cat C$, $\cat D$ and $\cat E$ be categories. Let $G\colon\cat E\to\cat C$ and $F_1,F_2\colon \cat C\to\cat D$ be functors and $\eta\colon F_1\to F_2$ a natural transformation. By composition we get
+\begin{align*}
+    \eta G\colon F_1\circ G&\to F_2\circ G\\
+        (\eta G)_Z = \eta_{G(Z)}\colon F_1\circ G(Z)&\to F_2\circ G(Z)
+            %&&(Z\in\op{Obj}(\cat E))
+\end{align*}
+which is a natural transformation from $F_1\circ G$ to $F_2\circ G$. Indeed, the diagram
+$$
+    \begin{tikzcd}
+        F_1\circ G(Z)
+            \arrow[r,"\eta_{G(Z)}"]
+            \arrow[d,"F_1\circ G(\psi)"']
+        &F_2\circ G(Z)
+            \arrow[d,"F_2\circ G(\psi)"]\\
+        F_1\circ G(Z')
+            \arrow[r,"\eta_{G(Z')}"']
+        &F_2\circ G(Z')
+    \end{tikzcd}
+$$
+commutes for every $\psi\colon Z\to Z'$ because it expresses the naturality of $\eta$ at the morphism $G(\psi)\colon G(Z)\to G(Z')$.
+
+Similarly, in the case where $G\colon\cat D\to\cat E$, the composition
+\begin{align*}
+    G\eta\colon G\circ F_1&\to G\circ F_2\\
+    (G\eta)_X=G(\eta_X)\colon G\circ F_1(X)&\to G\circ F_2(X)
+        %&&(X\in\op{Obj}(\cat C))
+\end{align*}
+defines a natural transformation because, for every $\phi\colon X\to X'$, the diagram
+$$
+    \begin{tikzcd}
+        G\circ F_1(X)
+                \arrow[r,"G(\eta_X)"]
+                \arrow[d,"G\circ F_1(\phi)"']
+            &G\circ F_2(X)
+                \arrow[d,"G\circ F_2(\phi)"]\\
+        G\circ F_1(X')
+            \arrow[r,"G(\eta_{X'})"']
+        &G\circ F_2(X')
+    \end{tikzcd}
+$$
+results from applying $G$ to the diagram that expresses the naturality of~$\eta$ at~$\phi$.
+
+\begin{defn}
+    Let $\cat C$ be a category and let $I_{\cat C}\colon\cat C\to\cat C$ denote the identity functor. A function $T\colon\cat C\to\cat C$ is a \textsl{monad} when it is equipped with two natural transformations: a \textsl{unit} $\eta\colon I_{\cat C}\to T$ and a \textsl{multiplication} $\mu\colon T^2\to T$, where $T^2=T\circ T$, that make commutative the following diagrams
+    $$
+        \begin{tikzcd}
+            T
+                    \arrow[r,"\eta T"]
+                    \arrow[d,"T\eta"']
+                    \arrow[rd,equal]
+                &T^2
+                    \arrow[d,"\mu"]
+                &T^3
+                    \arrow[d,"\mu T"']
+                    \arrow[r,"T\mu"]
+                &T^2
+                    \arrow[d,"\mu"]\\
+            T^2
+                    \arrow[r,"\mu"']
+                &T
+                &T^2
+                    \arrow[r,"\mu"']
+                &\hphantom.T.
+        \end{tikzcd}
+    $$
+\end{defn}
+
+\begin{xmpl}
+    Let $\mbf2$ be the $\cat{Set}$ endofunctor defined by
+    \begin{align*}
+        X&\mapsto 2^X\\
+        X\xto\phi Y&\mapsto2^X\xto{2^\phi}2^Y\\
+        \hphantom{X\xto\phi Y}&\hphantom{\mapsto\;\;\;}A\;\mapsto\phi(A).
+    \end{align*}
+    Put $\eta\colon I\to\mbf2$ as the inclusion $\eta_X\colon X\hookrightarrow 2^X$ that maps $x$ to $\set x$, and $\mu\colon\mbf2^{\mbf 2}\to\mbf2$ as the union $\mu_X\colon 2^{2^X}\to2^X$ that maps $\mathcal C$ to $\bigcup\mathcal C=\bigcup_{A\in\mathcal C}A$. For $A\in 2^X$ we have
+    \begin{align*}
+        (\mu\circ\eta\mbf2)_X(A) & = \mu_X\circ\eta_{2^X}(A)\\
+            &= \mu_X(\set A)\\
+            &= \bigcup\set A\\
+            &= A.
+        \intertext{Similarly,}
+        (\mu\circ\mbf2\eta)_X(A) &= \mu_X\circ2^{\eta_X}(A)\\
+            &= \mu_X(\eta_X(A))\\
+            &= \mu_X(\set{\eta_X(a)\mid a\in A}\\
+            &= \bigcup\set{\set a\mid a\in A}\\
+            &= A,
+    \end{align*}
+    which shows that the first diagram commutes.
+    
+    For the commutativity of the second diagram take $\mathcal A\in2^{2^{2^X}}$. Then
+    \begin{align*}
+        (\mu\circ\mbf2\mu)_X(\mathcal A)
+            &= \mu_X\circ 2^{\mu_X}(\mathcal A)\\
+            &= \mu_X(\set{\mu_X(A)\mid A\in\mathcal A})\\
+            &= \bigcup\Big\{\bigcup_{B\in A}B\mid A\in\mathcal A\Big\}\\
+            &= \bigcup_{A\in\mathcal A}\bigcup_{B\in A}B.
+        \intertext{and}
+        (\mu\circ\mu\mbf2)_X(\mathcal A)
+            &= \mu_X\circ\mu_{2^X}(\mathcal A)\\
+            &= \mu_X\Big(\bigcup_{A\in\mathcal A}A\Big)\\
+            &= \bigcup\Big\{B\mid B\in\bigcup_{A\in\mathcal A}A\Big\}
+    \end{align*}
+    The equality is now easy to verify by double inclusion.
+\end{xmpl}

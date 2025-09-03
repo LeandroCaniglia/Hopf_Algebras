@@ -1,0 +1,242 @@
+\usepackage{amsthm}
+%\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+%\usepackage{supertabular}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+\usepackage{chngcntr}
+%\usepackage{caption}
+\usepackage{tikz}
+\usetikzlibrary{intersections}
+\usetikzlibrary{patterns}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing}
+\usetikzlibrary{positioning,decorations.markings,quotes}
+%\usepackage{subdepth}
+%\usepackage[mathletters]{ucs}
+%\usepackage[utf8x]{inputenc}
+%\usepackage{newunicodechar}
+\usepackage{cancel}
+\usepackage{enumitem}
+\tikzset{close/.style={outer sep=-2pt}}
+\usetikzlibrary{positioning, quotes}
+%\usetikzlibrary[fit]
+\usepackage{needspace}
+%\usepackage{mathrsfs}
+\usepackage[outline]{contour}
+\usepackage[T1]{fontenc}
+\contourlength{0.1pt}
+\contournumber{10}
+%\usepackage [cal=dutchcal]{mathalfa}
+\usepackage{blindtext}
+\usepackage[square,sort,comma]{natbib}
+%\usepackage{pgfplots}
+%\usepackage{mathrsfs}
+%\usepackage[bb=libus]{mathalpha}
+
+
+\hypersetup{
+    colorlinks=true,
+    citecolor=black,  % Set citation color to black
+    linkcolor=darkgray,
+    urlcolor=darkgray
+    }
+%\usepackage[utf8]{inputenc}
+ 
+%{\fontfamily{cmss}\selectfont
+%This text uses a different font typeface
+%}
+
+%NEW COMMANDS
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\op}[1]{\operatorname{#1}}
+\newcommand{\Rn}{\R^n}
+\newcommand{\Rm}{\R^m}
+\newcommand{\Rk}{\R^k}
+\newcommand{\Rd}{\R^d}
+\newcommand{\Rnxn}{\R^{n\times n}}
+\newcommand{\Rmxn}{\R^{m\times n}}
+\newcommand{\Rkxn}{\R^{k\times n}}
+\newcommand{\Rnxm}{\R^{n\times m}}
+\newcommand{\im}[1]{\text{\rm im}#1}
+\newcommand{\id}{\text{\rm id}}
+\newcommand{\dom}{\text{\rm dom}}
+\newcommand{\overbar}[1]{\,\overline{\!{#1}}}
+\newcommand{\seq}[2][n]{(#2)_{#1\in\N}}
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\blank}{\vbox{\medskip\medskip}}
+\newtheorem{thm}{\blank Theorem}[section]
+\newtheorem{ntn}[thm]{\blank Notation}
+\newtheorem{ntns}[thm]{\blank Notations}
+\newtheorem{lem}[thm]{\blank Lemma}
+\newtheorem{cor}[thm]{\blank Corollary}
+\newtheorem{prop}[thm]{\blank Proposition}
+\newtheorem{probl}[thm]{\blank Problem}
+\newtheorem{exr}[thm]{\blank Exercise}
+\newtheorem{ill}[thm]{Illustration}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{defns}[thm]{Definitions}
+
+\theoremstyle{definition}
+    \newtheorem{rem}[thm]{\blank Remark}
+    \newtheorem{rems}[thm]{\blank Remarks}
+    \newenvironment{solution}[1][]
+      {\begin{proof}[Solution#1]${}$}
+      {\end{proof}}
+    \newtheorem{xmpl}[thm]{Example}
+    \newtheorem{xmpls}[thm]{Examples}
+\theoremstyle{plain}
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+\newcommand\Ccancel[2][black]{\renewcommand\CancelColor{\color{#1}}\cancel{#2}}
+\newcommand{\mbf}[1]{\textrm{\boldmath$#1$}}
+
+% widebar (https://tex.stackexchange.com/a/60253/102342)
+    \makeatletter
+    \let\save@mathaccent\mathaccent
+    \newcommand*\if@single[3]{%
+      \setbox0\hbox{${\mathaccent"0362{#1}}^H$}%
+      \setbox2\hbox{${\mathaccent"0362{\kern0pt#1}}^H$}%
+      \ifdim\ht0=\ht2 #3\else #2\fi
+      }
+    %The bar will be moved to the right by a half of \macc@kerna, which is computed by amsmath:
+    \newcommand*\rel@kern[1]{\kern#1\dimexpr\macc@kerna}
+    %If there's a superscript following the bar, then no negative kern may follow the bar;
+    %an additional {} makes sure that the superscript is high enough in this case:
+    \newcommand*\widebar[1]{\@ifnextchar^{{\wide@bar{#1}{0}}}{\wide@bar{#1}{1}}}
+    %Use a separate algorithm for single symbols:
+    \newcommand*\wide@bar[2]{\if@single{#1}{\wide@bar@{#1}{#2}{1}}{\wide@bar@{#1}{#2}{2}}}
+    \newcommand*\wide@bar@[3]{%
+      \begingroup
+      \def\mathaccent##1##2{%
+    %Enable nesting of accents:
+        \let\mathaccent\save@mathaccent
+    %If there's more than a single symbol, use the first character instead (see below):
+        \if#32 \let\macc@nucleus\first@char \fi
+    %Determine the italic correction:
+        \setbox\z@\hbox{$\macc@style{\macc@nucleus}_{}$}%
+        \setbox\tw@\hbox{$\macc@style{\macc@nucleus}{}_{}$}%
+        \dimen@\wd\tw@
+        \advance\dimen@-\wd\z@
+    %Now \dimen@ is the italic correction of the symbol.
+        \divide\dimen@ 3
+        \@tempdima\wd\tw@
+        \advance\@tempdima-\scriptspace
+    %Now \@tempdima is the width of the symbol.
+        \divide\@tempdima 10
+        \advance\dimen@-\@tempdima
+    %Now \dimen@ = (italic correction / 3) - (Breite / 10)
+        \ifdim\dimen@>\z@ \dimen@0pt\fi
+    %The bar will be shortened in the case \dimen@<0 !
+        \rel@kern{0.6}\kern-\dimen@
+        \if#31
+          \overline{\rel@kern{-0.6}\kern\dimen@\macc@nucleus\rel@kern{0.4}\kern\dimen@}%
+          \advance\dimen@0.4\dimexpr\macc@kerna
+    %Place the combined final kern (-\dimen@) if it is >0 or if a superscript follows:
+          \let\final@kern#2%
+          \ifdim\dimen@<\z@ \let\final@kern1\fi
+          \if\final@kern1 \kern-\dimen@\fi
+        \else
+          \overline{\rel@kern{-0.6}\kern\dimen@#1}%
+        \fi
+      }%
+      \macc@depth\@ne
+      \let\math@bgroup\@empty \let\math@egroup\macc@set@skewchar
+      \mathsurround\z@ \frozen@everymath{\mathgroup\macc@group\relax}%
+      \macc@set@skewchar\relax
+      \let\mathaccentV\macc@nested@a
+    %The following initialises \macc@kerna and calls \mathaccent:
+      \if#31
+        \macc@nested@a\relax111{#1}%
+      \else
+    %If the argument consists of more than one symbol, and if the first token is
+    %a letter, use that letter for the computations:
+        \def\gobble@till@marker##1\endmarker{}%
+        \futurelet\first@char\gobble@till@marker#1\endmarker
+        \ifcat\noexpand\first@char A\else
+          \def\first@char{}%
+        \fi
+        \macc@nested@a\relax111{\first@char}%
+      \fi
+      \endgroup
+    }
+
+%groups
+\newcommand{\gen}[1]{\mbf{(}#1\mbf{)}}
+\newcommand{\ord}[1]{{\rm ord}#1}
+\newcommand{\Sym}[1]{{\rm Sym}#1}
+\newcommand{\Alt}[1]{{\rm Alt}#1}
+\newcommand{\Aut}[1]{{\rm Aut}#1}
+\newcommand{\Hom}{{\rm Hom}}
+\newcommand{\End}[1]{{\rm End}#1}
+\newcommand{\Inn}[1]{{\rm Inn}#1}
+\newcommand{\Syl}[1]{{\rm Syl}#1}
+\newcommand{\Hall}[1]{{\rm Hall}#1}
+\newcommand{\Core}{{\rm Core}}
+\newcommand{\normal}{\lhd}
+\newcommand{\snormal}{\mathrel{\triangleleft\triangleleft}}
+\newcommand{\comm}{\mathrel\leftrightarrow}
+\newcommand{\cnjcls}[1]{\left[#1\right]}
+\newcommand{\spec}[1]{\text{\rm spec}#1}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\ct}{ct}
+\newcommand{\subgroup}{\leqslant}
+\DeclareMathOperator{\CD}{{\cal CD}}
+\DeclareMathOperator{\Nm}{{\cal N}_m}
+\newcommand{\Soc}[1]{{\rm Soc}#1}
+\newcommand{\sd}{{\rm sd}}
+\newcommand{\ch}{\mathrel{\textcolor{black!65}\blacktriangleleft}}
+\newcommand{\Fp}[1][n]{\mathbb{F}_{p^{#1}}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\nnormal}{\mathrel{\ooalign{\hss$/$\hss\cr$\normal$}}}
+\DeclareMathOperator{\Hol}{Hol}
+
+\DeclareMathSymbol{\skw}{\mathbin}{letters}{"3F}
+
+\newcommand{\cat}[1]{\mathsf{#1}}
+
+% Algebras
+
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Max}{Max}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Nil}{Nil}
+\DeclareMathOperator{\Frac}{Frac}
+\newcommand{\foraall}{\forall{\vphantom{|}}^*} %for almost all
+\makeatletter
+\newcommand{\aew}[1][\@empty]{%
+  \ifx#1\@empty
+    {\text{a.e.}}%
+  \else
+    ,{\ \text{a.e.\ in } #1}%
+  \fi
+}
+\makeatother
+\DeclareMathOperator{\cl}{cl}
+\newcommand{\sheaf}[1]{\mathcal{#1}}
+\newcommand{\qsheaf}[1]{\mathcal Q_{\!#1}}
+\newcommand{\osheaf}[1]{\mathcal O_{#1}}
+
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
+
+\newcommand{\ev}{\text{\rm ev}}
+\newcommand{\xto}[1]{\xrightarrow{#1}}
+
+\newcommand{\curly}{\mathrel{\leadsto}}
+
+\newcommand{\yoneda}{\mbf{\mathit h}}
+\newcommand{\yon}{\mathtt h}
+\newcommand{\units}{\mathbf U}
+\newcommand{\rharpoon}{\rightharpoonup}
+\newcommand{\lharpoon}{\leftharpoonup}
+
